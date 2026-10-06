@@ -1,0 +1,16 @@
+# Telar — local state, not for sharing
+telar.yaml
+.telar/
+.telar-worktrees/
+
+# Datos del CAETEC: viven fuera del repo, nunca se suben a GitHub
+data/
+
+# LaTeX: auxiliares de compilación
+src/reports/**/*.aux
+src/reports/**/*.log
+src/reports/**/*.out
+src/reports/**/*.toc
+src/reports/**/*.fls
+src/reports/**/*.fdb_latexmk
+src/reports/**/*.synctex.gz

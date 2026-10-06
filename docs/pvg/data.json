@@ -1,0 +1,561 @@
+{
+  "repo": "AIPorDefinir/ai-model-tutsipink",
+  "proyecto": "Proyecto CRISP-DM",
+  "corte": "2026-10-05",
+  "tareas": [
+    {
+      "codigo": "1.1.1",
+      "nombre": "Antecedentes / Historia",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.1 Determinar objetivos del negocio",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-09-28",
+      "fin": "2026-09-29",
+      "depende": [],
+      "issue": 7,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/7",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.1.2",
+      "nombre": "Objetivos de negocio",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.1 Determinar objetivos del negocio",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-09-30",
+      "fin": "2026-10-01",
+      "depende": [
+        "1.1.1"
+      ],
+      "issue": 8,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/8",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.1.3",
+      "nombre": "Criterios de éxito",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.1 Determinar objetivos del negocio",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-02",
+      "fin": "2026-10-02",
+      "depende": [
+        "1.1.2"
+      ],
+      "issue": 9,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/9",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.2.1",
+      "nombre": "Nuestros recursos",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.2 Evaluar la situación",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-02",
+      "fin": "2026-10-03",
+      "depende": [
+        "1.1.2"
+      ],
+      "issue": 10,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/10",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.2.2",
+      "nombre": "Requerimientos, supuestos y restricciones",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.2 Evaluar la situación",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-10-05",
+      "fin": "2026-10-06",
+      "depende": [
+        "1.2.1"
+      ],
+      "issue": 11,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/11",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.2.3",
+      "nombre": "Riesgos y contingencias",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.2 Evaluar la situación",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-10-07",
+      "fin": "2026-10-08",
+      "depende": [
+        "1.2.2"
+      ],
+      "issue": 12,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/12",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.2.4",
+      "nombre": "Glosario de terminología",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.2 Evaluar la situación",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-09-30",
+      "fin": "2026-10-02",
+      "depende": [
+        "1.1.1"
+      ],
+      "issue": 13,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/13",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.2.5",
+      "nombre": "Análisis de costos y beneficios",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.2 Evaluar la situación",
+      "definido": true,
+      "horas": 5,
+      "inicio": "2026-10-09",
+      "fin": "2026-10-10",
+      "depende": [
+        "1.2.1",
+        "1.2.3"
+      ],
+      "issue": 14,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/14",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.3.1",
+      "nombre": "Objetivos de minería de datos",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.3 Determinar objetivos de minería de datos",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-02",
+      "fin": "2026-10-03",
+      "depende": [
+        "1.1.2"
+      ],
+      "issue": 15,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/15",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.3.2",
+      "nombre": "Criterios de éxito de minería de datos",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.3 Determinar objetivos de minería de datos",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-05",
+      "fin": "2026-10-06",
+      "depende": [
+        "1.1.3",
+        "1.3.1"
+      ],
+      "issue": 16,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/16",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.4.1",
+      "nombre": "Plan del proyecto",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.4 Elaborar el plan del proyecto",
+      "definido": true,
+      "horas": 6,
+      "inicio": "2026-10-12",
+      "fin": "2026-10-14",
+      "depende": [
+        "1.2.2",
+        "1.2.3",
+        "1.3.2",
+        "1.4.2"
+      ],
+      "issue": 18,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/18",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.4.2",
+      "nombre": "Herramientas iniciales a usar",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.4 Elaborar el plan del proyecto",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-05",
+      "fin": "2026-10-06",
+      "depende": [
+        "1.2.1",
+        "1.3.1"
+      ],
+      "issue": 17,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/17",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "2.1.1",
+      "nombre": "Reporte inicial de recolección de datos",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.1 Recolectar datos iniciales",
+      "definido": true,
+      "horas": 6,
+      "inicio": "2026-10-05",
+      "fin": "2026-10-08",
+      "depende": [
+        "1.2.1"
+      ],
+      "issue": 3,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/3",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "2.2.1",
+      "nombre": "Reporte de descripción de los datos",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.2 Describir los datos",
+      "definido": true,
+      "horas": 8,
+      "inicio": "2026-10-09",
+      "fin": "2026-10-14",
+      "depende": [
+        "2.1.1"
+      ],
+      "issue": 4,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/4",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "2.3.1",
+      "nombre": "Reporte de exploración de los datos",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.3 Explorar los datos",
+      "definido": true,
+      "horas": 12,
+      "inicio": "2026-10-15",
+      "fin": "2026-10-20",
+      "depende": [
+        "2.2.1",
+        "1.3.1"
+      ],
+      "issue": 5,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/5",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "2.4.1",
+      "nombre": "Reporte de calidad de los datos",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.4 Verificar la calidad de los datos",
+      "definido": true,
+      "horas": 8,
+      "inicio": "2026-10-15",
+      "fin": "2026-10-20",
+      "depende": [
+        "2.2.1"
+      ],
+      "issue": 6,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/6",
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "3.1.1",
+      "nombre": "Seleccionar los datos",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.1 Seleccionar los datos",
+      "definido": false,
+      "horas": 4,
+      "inicio": "2026-10-21",
+      "fin": "2026-10-22",
+      "depende": [
+        "2.3.1",
+        "2.4.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "3.2.1",
+      "nombre": "Limpiar los datos",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.2 Limpiar los datos",
+      "definido": false,
+      "horas": 8,
+      "inicio": "2026-10-23",
+      "fin": "2026-10-28",
+      "depende": [
+        "3.1.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "3.3.1",
+      "nombre": "Construir datos",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.3 Construir datos",
+      "definido": false,
+      "horas": 6,
+      "inicio": "2026-10-29",
+      "fin": "2026-11-02",
+      "depende": [
+        "3.2.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "3.4.1",
+      "nombre": "Integrar los datos",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.4 Integrar los datos",
+      "definido": false,
+      "horas": 4,
+      "inicio": "2026-11-03",
+      "fin": "2026-11-04",
+      "depende": [
+        "3.3.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "3.5.1",
+      "nombre": "Formatear los datos",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.5 Formatear los datos",
+      "definido": false,
+      "horas": 3,
+      "inicio": "2026-11-05",
+      "fin": "2026-11-06",
+      "depende": [
+        "3.4.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.1.1",
+      "nombre": "Seleccionar la técnica de modelado",
+      "fase": "4. Modelado",
+      "actividad": "4.1 Seleccionar la técnica de modelado",
+      "definido": false,
+      "horas": 4,
+      "inicio": "2026-11-09",
+      "fin": "2026-11-10",
+      "depende": [
+        "3.5.1",
+        "1.4.2"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.2.1",
+      "nombre": "Diseñar las pruebas",
+      "fase": "4. Modelado",
+      "actividad": "4.2 Diseñar las pruebas",
+      "definido": false,
+      "horas": 4,
+      "inicio": "2026-11-11",
+      "fin": "2026-11-12",
+      "depende": [
+        "4.1.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.3.1",
+      "nombre": "Construir el modelo",
+      "fase": "4. Modelado",
+      "actividad": "4.3 Construir el modelo",
+      "definido": false,
+      "horas": 16,
+      "inicio": "2026-11-13",
+      "fin": "2026-11-24",
+      "depende": [
+        "4.2.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.4.1",
+      "nombre": "Evaluar el modelo",
+      "fase": "4. Modelado",
+      "actividad": "4.4 Evaluar el modelo",
+      "definido": false,
+      "horas": 6,
+      "inicio": "2026-11-25",
+      "fin": "2026-11-27",
+      "depende": [
+        "4.3.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.1.1",
+      "nombre": "Evaluar los resultados",
+      "fase": "5. Evaluación",
+      "actividad": "5.1 Evaluar los resultados",
+      "definido": false,
+      "horas": 4,
+      "inicio": "2026-11-30",
+      "fin": "2026-12-01",
+      "depende": [
+        "4.4.1",
+        "1.1.3",
+        "1.3.2"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.2.1",
+      "nombre": "Revisar el proceso",
+      "fase": "5. Evaluación",
+      "actividad": "5.2 Revisar el proceso",
+      "definido": false,
+      "horas": 3,
+      "inicio": "2026-12-02",
+      "fin": "2026-12-02",
+      "depende": [
+        "5.1.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.3.1",
+      "nombre": "Determinar los próximos pasos",
+      "fase": "5. Evaluación",
+      "actividad": "5.3 Determinar los próximos pasos",
+      "definido": false,
+      "horas": 2,
+      "inicio": "2026-12-03",
+      "fin": "2026-12-04",
+      "depende": [
+        "5.2.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "6.1.1",
+      "nombre": "Planificar el despliegue",
+      "fase": "6. Despliegue",
+      "actividad": "6.1 Planificar el despliegue",
+      "definido": false,
+      "horas": 3,
+      "inicio": "2026-12-07",
+      "fin": "2026-12-08",
+      "depende": [
+        "5.3.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "6.2.1",
+      "nombre": "Planificar monitoreo y mantenimiento",
+      "fase": "6. Despliegue",
+      "actividad": "6.2 Planificar monitoreo y mantenimiento",
+      "definido": false,
+      "horas": 3,
+      "inicio": "2026-12-07",
+      "fin": "2026-12-08",
+      "depende": [
+        "5.3.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "6.3.1",
+      "nombre": "Elaborar el informe final",
+      "fase": "6. Despliegue",
+      "actividad": "6.3 Elaborar el informe final",
+      "definido": false,
+      "horas": 8,
+      "inicio": "2026-12-09",
+      "fin": "2026-12-14",
+      "depende": [
+        "6.1.1",
+        "6.2.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "6.4.1",
+      "nombre": "Revisar el proyecto",
+      "fase": "6. Despliegue",
+      "actividad": "6.4 Revisar el proyecto",
+      "definido": false,
+      "horas": 2,
+      "inicio": "2026-12-15",
+      "fin": "2026-12-15",
+      "depende": [
+        "6.3.1"
+      ],
+      "issue": null,
+      "url": null,
+      "avance": 0.0,
+      "horas_reales": 0.0
+    }
+  ]
+}
