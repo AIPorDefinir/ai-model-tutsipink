@@ -4,7 +4,7 @@ import subprocess
 from datetime import date
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+HERE = Path(__file__).resolve().parent  # docs/pvg: fuentes y salida de la página
 OWNER = "AIPorDefinir"
 REPO = f"{OWNER}/ai-model-tutsipink"
 PROJECT = "1"
@@ -65,8 +65,8 @@ def fetch_actual_hours():
 
 
 def main():
-    project, wbs = parse_wbs((ROOT / "crisp-dm-wbs.puml").read_text())
-    plan = json.loads((ROOT / "plan.json").read_text())
+    project, wbs = parse_wbs((HERE / "crisp-dm-wbs.puml").read_text())
+    plan = json.loads((HERE / "plan.json").read_text())
     issues = fetch_issues()
     hours = fetch_actual_hours()
     tasks = []
@@ -84,8 +84,7 @@ def main():
             "horas_reales": hours.get(issue["number"], 0.0) if issue else 0.0,
         })
     data = {"repo": REPO, "proyecto": project, "corte": date.today().isoformat(), "tareas": tasks}
-    out = ROOT / "docs" / "data.json"
-    out.parent.mkdir(exist_ok=True)
+    out = HERE / "data.json"
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2))
     linked = sum(t["issue"] is not None for t in tasks)
     print(f"{len(tasks)} entregables ({linked} con issue) -> {out}")
