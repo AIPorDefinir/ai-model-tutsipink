@@ -1,0 +1,35 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+\setcounter{secnumdepth}{0}
+
+\begin{document}
+
+\input{title}
+
+\section{Eje A. Salud, bienestar y condición corporal}
+
+\begin{itemize}
+  \item \textbf{DM-3. Estimación de la condición corporal.} Estimar el BCS de cada vaca en escala continua de 1.00 a 5.00 con una arquitectura RGB + LiDAR a partir de imágenes capturadas con iPhone. Siguiendo la literatura (Paper 4), el canal RGB captura textura y musculatura, y el canal de profundidad aísla la geometría tridimensional. Tipo de problema: regresión supervisada sobre imágenes.
+  \item \textbf{DM-4. Detección de vacas en riesgo por BCS.} Con el BCS estimado por DM-3 y su seguimiento por vaca (al menos una estimación cada dos semanas), señalar a las vacas que:
+  \begin{itemize}
+    \item entran al periodo seco con BCS $\geq$ 4.00;
+    \item presentan BCS $\leq$ 2.25;
+    \item en posparto caen o tienden a caer por debajo de 2.75.
+  \end{itemize}
+  Tipo de problema: clasificación por umbrales y detección de tendencia sobre series por vaca.
+\end{itemize}
+
+\section{Eje B. Eficiencia operativa y teoría de colas en el VMS}
+
+\begin{itemize}
+  \item \textbf{DM-1. Pronóstico de saturación.} Pronosticar con una ventana de 2 horas cuándo cualquiera de los 3 robots DeLaval VMS superará el umbral del 90\% de utilización, a partir de los registros de ordeño. Tipo de problema: pronóstico de series de tiempo con salida de clasificación binaria (supera o no el umbral).
+  \item \textbf{DM-2. Estimación de la congestión de la cola.} Deducir la congestión de la fila, que el VMS no registra, a partir del tiempo ocioso entre ordeños consecutivos (teoría de colas), para caracterizar el flujo circadiano de vacas hacia los robots.
+  \item \textbf{DM-5. Detección de monopolización y desplazamiento.} Con la frecuencia de visitas y el orden de entrada por vaca, identificar a las vacas dominantes que concentran el uso del VMS y a las primíparas o de menor jerarquía cuya frecuencia de ordeño en horas pico queda por debajo de la definida por el establo. Tipo de problema: análisis descriptivo y detección de desviaciones.
+  \item \textbf{DM-6. Detección de flujo bimodal.} Clasificar las sesiones con flujo bimodal a partir del perfil de flujo por ordeño del VMS y relacionar su incidencia con la espera estimada en DM-2, para dimensionar la leche recuperable (referencia: 1.2 kg por sesión, Paper 8). Tipo de problema: clasificación supervisada.
+\end{itemize}
+
+\printbibliography
+
+\end{document}
