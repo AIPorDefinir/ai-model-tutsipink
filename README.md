@@ -6,18 +6,33 @@ Este proyecto usa la metodología CRISP-DM.
 
 <sub>Diagrama: Kenneth Jensen, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/), vía [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:CRISP-DM_Process_Diagram.png).</sub>
 
+Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
+
 ## CRISP-DM
 
-| Fase | Reporte | Código |
-|---|---|---|
-| 1. Business Understanding | [PDF](reports/business-understanding/Business%20Understanding.pdf) | – |
-| 2. Data Understanding | – | – |
-| 3. Data Preparation | – | – |
-| 4. Modeling | – | – |
-| 5. Evaluation | – | – |
-| 6. Deployment | – | – |
+### 1. Business Understanding
 
-Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
+- [Reporte](reports/business-understanding/Business%20Understanding.pdf)
+
+### 2. Data Understanding
+
+Pendiente.
+
+### 3. Data Preparation
+
+Pendiente.
+
+### 4. Modeling
+
+Pendiente.
+
+### 5. Evaluation
+
+Pendiente.
+
+### 6. Deployment
+
+Pendiente.
 
 ## Contributors
 
