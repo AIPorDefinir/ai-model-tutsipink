@@ -9,6 +9,15 @@ OWNER = "AIPorDefinir"
 REPO = f"{OWNER}/ai-model-tutsipink"
 PROJECT = "1"
 PLACEHOLDER = "Tu actividad aquí"
+# Usuario de GitHub -> nombre del integrante (README)
+TEAM = {
+    "Facundo-Barbera": "Facundo Bautista Barbera",
+    "taqueritospro": "Oswaldo Isaias Hernandez Santes",
+    "AlejandroSH1": "Alfredo Alejandro Soto Herrera",
+    "Emiliano1410": "Emiliano Camacho Ponce",
+    "ikerMJHDZ09": "Iker Mejia Hernandez",
+    "JorgeManuelOyoqui": "Jorge Manuel Oyoqui Aguilera",
+}
 
 
 def parse_wbs(text):
@@ -39,7 +48,7 @@ def parse_wbs(text):
 def fetch_issues():
     out = subprocess.run(
         ["gh", "issue", "list", "-R", REPO, "--state", "all", "--limit", "500",
-         "--json", "number,title,state,body,url"],
+         "--json", "number,title,state,body,url,assignees"],
         capture_output=True, text=True, check=True,
     ).stdout
     return {i["title"].split(" ", 1)[-1].strip(): i for i in json.loads(out)}
@@ -80,6 +89,7 @@ def main():
             **plan[item["codigo"]],
             "issue": issue["number"] if issue else None,
             "url": issue["url"] if issue else None,
+            "responsables": [TEAM.get(a["login"], a["login"]) for a in issue["assignees"]] if issue else [],
             "avance": round(progress(issue), 3) if issue else 0.0,
             "horas_reales": hours.get(issue["number"], 0.0) if issue else 0.0,
         })

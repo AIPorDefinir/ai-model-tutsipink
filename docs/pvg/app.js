@@ -75,7 +75,7 @@ const summary = ts => {
 const leaf = t => {
   const tag = t.url ? "a" : "div"
   const href = t.url ? ` href="${t.url}" target="_blank"` : ""
-  return `<li><${tag}${href} class="caja hoja ${status(t)}" data-codigo="${t.codigo}" title="${t.inicio} → ${t.fin}&#10;Depende de: ${t.depende.join(", ") || "–"}">
+  return `<li><${tag}${href} class="caja hoja ${status(t)}" data-codigo="${t.codigo}" title="${t.inicio} → ${t.fin}&#10;Responsables: ${t.responsables.join(", ") || "–"}&#10;Depende de: ${t.depende.join(", ") || "–"}">
     ${t.codigo} ${t.nombre}
     <small>${t.horas} h · ${Math.round(t.avance * 100)}%</small>
     <span class="barra" style="width:${t.avance * 100}%"></span>
@@ -109,11 +109,12 @@ for (const box of boxes) {
   box.addEventListener("mouseleave", () => boxes.forEach(o => o.classList.remove("previa", "sigue")))
 }
 
-const cols = ["WBS", "Entregable", "Issue", "Inicio", "Fin", "Horas", "Avance", "EV", "Reales", "Depende de"]
+const cols = ["WBS", "Entregable", "Issue", "Responsables", "Inicio", "Fin", "Horas", "Avance", "EV", "Reales", "Depende de"]
 const rows = tasks.map(t => [
   t.codigo,
   t.definido ? t.nombre : `<em>${t.nombre} (por definir)</em>`,
   t.url ? `<a href="${t.url}" target="_blank">#${t.issue}</a>` : "–",
+  t.responsables.join("<br>") || "–",
   t.inicio,
   t.fin,
   t.horas,
@@ -122,7 +123,7 @@ const rows = tasks.map(t => [
   t.horas_reales,
   t.depende.join(", "),
 ])
-const isNum = i => i >= 5 && i <= 8
+const isNum = i => i >= 6 && i <= 9
 const header = `<tr>${cols.map((c, i) => `<th class="${isNum(i) ? "num" : ""}">${c}</th>`).join("")}</tr>`
 const body = Object.entries(Object.groupBy(rows, (_, i) => tasks[i].fase))
   .map(([fase, rs]) => `<tr class="fase"><td colspan="${cols.length}">${fase}</td></tr>` +

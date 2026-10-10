@@ -207,8 +207,12 @@ th, td {
   white-space: nowrap;
 }
 
-td:nth-child(2) {
+td:nth-child(2), td:nth-child(4), td:nth-child(11) {
   white-space: normal;
+}
+
+section:has(> table) {
+  overflow-x: auto;
 }
 
 tr.fase td {
