@@ -66,10 +66,13 @@ const status = t => (!t.issue ? "sinissue" : t.avance >= 1 ? "hecha" : t.avance 
 const phases = Object.groupBy(tasks, t => t.fase)
 const byCode = Object.fromEntries(tasks.map(t => [t.codigo, t]))
 
+const hours = (plan, real, pct) => `${plan} h plan · ${+real.toFixed(1)} h real · ${pct}%`
+
 const summary = ts => {
   const h = ts.reduce((a, t) => a + t.horas, 0)
   const e = ts.reduce((a, t) => a + t.horas * t.avance, 0)
-  return `${h} h · ${Math.round(100 * e / h)}%`
+  const r = ts.reduce((a, t) => a + t.horas_reales, 0)
+  return hours(h, r, Math.round(100 * e / h))
 }
 
 const leaf = t => {
@@ -77,7 +80,7 @@ const leaf = t => {
   const href = t.url ? ` href="${t.url}" target="_blank"` : ""
   return `<li><${tag}${href} class="caja hoja ${status(t)}" data-codigo="${t.codigo}" title="${t.inicio} → ${t.fin}&#10;Responsables: ${t.responsables.join(", ") || "–"}&#10;Depende de: ${t.depende.join(", ") || "–"}">
     ${t.codigo} ${t.nombre}
-    <small>${t.horas} h · ${Math.round(t.avance * 100)}%</small>
+    <small>${hours(t.horas, t.horas_reales, Math.round(t.avance * 100))}</small>
     <span class="barra" style="width:${t.avance * 100}%"></span>
   </${tag}></li>`
 }
