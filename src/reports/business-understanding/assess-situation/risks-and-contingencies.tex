@@ -1,0 +1,24 @@
+\subsection{Riesgos y contingencias}
+
+Dentro del proyecto pueden llegar a suscitarse situaciones en las que podamos tener retrasos o algunos fallos, a esto lo conocemos como riesgos del proyecto, para evitar que sucedan estas situaciones es necesario conocerlas y tenerlas presentes para tener cuidado con ello.
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Riesgo & Nivel de riesgo (0--100) & Plan de mitigación & Plan de contingencia \\
+  \midrule
+  Dataset chico o desbalanceado & 85 & Definir un mínimo de vacas a las que tomarles foto, además de decidir cuántas fotos tomar por vaca. & Utilizar algún modelo preentrenado con capas congeladas si es posible. \\
+  \addlinespace
+  Calidad irregular en las fotos & 80 & Definir una misma vista, distancia, altura, etc. para las diferentes vacas. Además de descartar fotos borrosas. & Usar data augmentation y volver a eliminar fotos irregulares. \\
+  \addlinespace
+  Data leakage por no separar por vacas & 80 & Separar train, validation y test por vaca y no solo al azar. & Rehacer la separación por vaca y reentrenar. \\
+  \addlinespace
+  El modelo aprende cosas que no son de la vaca en sí & 75 & Se puede recortar o segmentar a la vaca, además de poder implementar un bounding box a la imagen. & Segmentar y enmascarar el fondo de la imagen. \\
+  \addlinespace
+  Falta de tiempo al intentar resolver las 2 problemáticas & 70 & Acordar fechas de trabajo concretas, enfocándose primero en la determinación del BCS e ir midiendo el tiempo. & Entregar solamente BCS y dejar el concepto del problema de colas. \\
+  \addlinespace
+  Restricciones técnicas & 60 & Utilizar un iPhone de al menos un integrante del equipo, además de conseguir una GPU para el entrenamiento. & Si no se puede conseguir una cámara con 3D, usar RGB. \\
+  \addlinespace
+  Datos de producción de leche incompletos & 55 & En el proceso de ``Data Understanding'' investigar a fondo los datos en busca de algún problema mayor. & Imputar o excluir los días sin datos. \\
+  \bottomrule
+\end{tabularx}

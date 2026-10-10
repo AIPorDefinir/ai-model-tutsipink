@@ -1,0 +1,106 @@
+\subsection{Evaluación inicial de herramientas y técnicas}
+
+\subsubsection{Introducción}
+
+En esta sección se evalúan las herramientas y técnicas candidatas para cada objetivo de minería de datos (DM-1 a DM-6). Para cada una se indica por qué se eligió y qué alternativa existe en caso de que no funcione. La selección considera los recursos disponibles (Inventario de recursos) y los riesgos identificados (Riesgos y contingencias).
+
+\subsubsection{Lenguaje y entorno}
+
+Todo el desarrollo se hará en Python, por ser el lenguaje con mayor soporte para ciencia de datos y aprendizaje profundo, y el que el equipo ya domina.
+
+\begin{itemize}
+  \item \textbf{Jupyter Notebooks:} entorno para visualizar y manipular datos usando código; se usará en la exploración y la experimentación.
+  \item \textbf{VS Code:} edición del código que se reutiliza entre notebooks.
+  \item \textbf{Git/GitHub:} control de versiones y seguimiento de tareas. Los datos del CAETEC no se suben al repositorio; se guardan fuera de él.
+\end{itemize}
+
+\subsubsection{Captura y preparación de imágenes (DM-3)}
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Herramienta / técnica & Uso & Alternativa \\
+  \midrule
+  Record3D o Stray Scanner (iPhone) & Capturar RGB y profundidad del LiDAR por cuadro & Solo RGB con la cámara estándar \\
+  \addlinespace
+  Label Studio o CVAT & Registrar el BCS asignado por el experto y marcar a cada vaca & Hoja de cálculo con el ID de la imagen y su BCS \\
+  \addlinespace
+  Segment Anything (SAM) o YOLOv8-seg & Recortar la vaca y quitar el fondo, para que el modelo no aprenda del entorno & Recorte manual con bounding box \\
+  \addlinespace
+  Albumentations & Data augmentation para compensar un dataset chico & Transformaciones propias de Keras \\
+  \bottomrule
+\end{tabularx}
+
+\medskip
+
+\textbf{Nota:} el LiDAR solo está en los iPhone Pro. Si no se consigue uno, la contingencia es trabajar solo con RGB.
+
+\subsubsection{Estimación del BCS y detección de vacas en riesgo (DM-3 y DM-4)}
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Herramienta / técnica & Uso & Alternativa \\
+  \midrule
+  TensorFlow / Keras & Diseño y entrenamiento de las CNN & PyTorch \\
+  \addlinespace
+  ResNet18 preentrenada (ImageNet) & Base de cada rama del modelo; reduce la cantidad de datos necesaria & EfficientNet o MobileNet \\
+  \addlinespace
+  Arquitectura two-stream con late fusion & Una rama aprende de RGB (textura) y otra de profundidad (geometría); la literatura reporta mejores resultados con late fusion & Una sola rama RGB \\
+  \addlinespace
+  GroupKFold (scikit-learn) & Separar entrenamiento y prueba por vaca para evitar data leakage & División manual por ID de vaca \\
+  \addlinespace
+  MAE y RMSE & Medir el error del BCS estimado (criterio: MAE $\leq$ 0.25) & --- \\
+  \addlinespace
+  Umbrales y media móvil por vaca & DM-4: marcar vacas con BCS $\geq$ 4.00, $\leq$ 2.25 o con tendencia a caer debajo de 2.75 & Regresión lineal sobre la serie de cada vaca \\
+  \bottomrule
+\end{tabularx}
+
+\subsubsection{Saturación de los robots y colas (DM-1 y DM-2)}
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Herramienta / técnica & Uso & Alternativa \\
+  \midrule
+  pandas & Agrupar los registros del VMS por robot y por hora & PySpark si el volumen lo requiere \\
+  \addlinespace
+  LightGBM o XGBoost con variables de rezago & DM-1: pronosticar a 2 horas si un robot superará el 90\% de utilización & SARIMA (statsmodels) o Prophet \\
+  \addlinespace
+  Modelo base estacional & Comparar el pronóstico contra ``lo mismo que a esta hora la semana pasada'' & --- \\
+  \addlinespace
+  Teoría de colas (M/M/c) & DM-2: estimar la espera a partir del tiempo ocioso entre ordeños & Simulación con SimPy \\
+  \bottomrule
+\end{tabularx}
+
+\subsubsection{Monopolización y flujo bimodal (DM-5 y DM-6)}
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Herramienta / técnica & Uso & Alternativa \\
+  \midrule
+  Análisis descriptivo (pandas, Matplotlib, Seaborn) & DM-5: frecuencia y orden de entrada por vaca en horas pico & --- \\
+  \addlinespace
+  Detección de picos (scipy.signal.find\_peaks) & DM-6: identificar sesiones con dos picos en el perfil de flujo & Reglas sobre el tiempo hasta el flujo máximo \\
+  \addlinespace
+  Random Forest (scikit-learn) & DM-6: clasificar sesiones bimodales & Regresión logística \\
+  \bottomrule
+\end{tabularx}
+
+\medskip
+
+\textbf{Nota:} DM-6 depende de que el VMS exporte el perfil de flujo por ordeño; se confirmará en Data Understanding.
+
+\subsubsection{Herramientas transversales}
+
+\begin{itemize}
+  \item \textbf{NumPy, pandas, Matplotlib, Seaborn:} exploración, métricas y visualización.
+  \item \textbf{scikit-learn:} preprocesamiento, validación, clustering y reducción de dimensiones.
+  \item \textbf{MLflow o Weights \& Biases:} registrar los experimentos y sus métricas para comparar modelos.
+  \item \textbf{Cómputo:} computadora con RTX 4070 Ti para el entrenamiento; Google Colab como respaldo.
+\end{itemize}
+
+\subsubsection{Conclusión}
+
+Las herramientas elegidas son de código abierto y funcionan con el equipo disponible, por lo que no agregan costos. Las técnicas se apoyan en la literatura revisada en Antecedentes y cada una tiene una alternativa más simple en caso de falta de datos o de tiempo, en línea con el plan de contingencia.
