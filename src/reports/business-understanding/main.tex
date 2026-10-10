@@ -1,0 +1,45 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+% Numeración igual a la del WBS: 1.1 tarea, 1.1.1 entregable
+\renewcommand{\thesection}{1.\arabic{section}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\RedeclareSectionCommand[tocnumwidth=2.3em]{section}
+\RedeclareSectionCommand[afterskip=1ex]{paragraph}
+
+\begin{document}
+
+\input{title}
+
+\tableofcontents
+\clearpage
+
+\section{Determinar los objetivos del negocio}
+
+\input{determine-business-objectives/background}
+\input{determine-business-objectives/business-objectives}
+\input{determine-business-objectives/business-success-criteria}
+
+\section{Evaluar la situación}
+
+\input{assess-situation/inventory-of-resources}
+\input{assess-situation/requirements-assumptions-and-constraints}
+\input{assess-situation/risks-and-contingencies}
+\input{assess-situation/terminology}
+\input{assess-situation/costs-and-benefits}
+
+\section{Determinar los objetivos de minería de datos}
+
+\input{determine-data-mining-goals/data-mining-goals}
+\input{determine-data-mining-goals/data-mining-success-criteria}
+
+\section{Elaborar el plan del proyecto}
+
+\input{produce-project-plan/project-plan}
+\input{produce-project-plan/initial-assessment-of-tools-and-techniques}
+
+\printbibliography
+
+\end{document}

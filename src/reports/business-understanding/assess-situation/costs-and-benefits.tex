@@ -1,0 +1,114 @@
+\subsection{Costos y beneficios}
+
+A continuación se presentan los costos y beneficios que se tienen planeados se puedan generar por la implementación del proyecto. Todas las cantidades monetarias se presentan en pesos mexicanos (MXN).
+
+\subsubsection{Costos}
+
+Desarrollo del proyecto:
+
+\medskip
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Concepto & Costo \\
+  \midrule
+  Horas del equipo y de los expertos/colaboradores & \$0 (sin remuneración) \\
+  PC de entrenamiento e iPhones & \$0 (propios) \\
+  Software (Python, TensorFlow, Jupyter, Git\dots) & \$0 (código abierto) \\
+  Acceso al CAETEC & \$0 \\
+  Gasolina de la visita extra & \$150 \\
+  \midrule
+  Total & \$150 \\
+  \bottomrule
+\end{tabularx}
+
+\medskip
+
+Riesgos que pueden generar costos extra:
+
+\medskip
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Riesgo & Nivel de riesgo & Costo si ocurre \\
+  \midrule
+  Dataset chico/desbalanceado & 85\% & \$300 (2 visitas) \\
+  Calidad irregular de fotos & 80\% & \$150 (1 visita) \\
+  \midrule
+  Total & \multicolumn{2}{r}{\$450} \\
+  \bottomrule
+\end{tabularx}
+
+\medskip
+
+Teniendo en cuenta el análisis anterior, se estima que el costo total del proyecto esté en un rango de \$600 - \$700 pesos mexicanos.
+
+Costos de despliegue formal en campo:
+
+Estos costos son los que se tienen previstos que habría si se decidiera implementar este proyecto a mayor escala ya en el CAETEC. Cabe mencionar que estos costos no forman parte del proyecto a realizar y solo funcionan como un mero escenario hipotético para tener un panorama de lo que cuesta aproximadamente implementar un proyecto de este tipo ya de manera formal.
+
+\medskip
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Concepto & Costo \\
+  \midrule
+  Cámara 3D & \$10,000 \\
+  Instalación y red & \$12,000 \\
+  Equipo de cómputo Edge Inference & \$8,000 \\
+  Mantenimiento del hardware (cada año) & \$3,000 \\
+  \midrule
+  Total & \$33,000 \\
+  \bottomrule
+\end{tabularx}
+
+\subsubsection{Beneficios anuales si el proyecto es exitoso (establo de 160 vacas)}
+
+Para el cálculo de los beneficios, partimos de los siguientes supuestos:
+
+Cabe recalcar que todos estos porcentajes y montos son meras estimaciones del equipo.
+
+\medskip
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Beneficio & Supuesto \\
+  \midrule
+  Mano de obra & Calificar el BCS a mano toma 3 min por vaca, una vez al mes, a \$120/h \\
+  \addlinespace
+  Salud y reproducción & 5 \% del establo tiene un problema ligado al BCS (como cetosis por ejemplo), la detección temprana evita el 30 \% y cada caso cuesta \$8,000 \\
+  \addlinespace
+  Concentrado & 8 kg por vaca al día a \$7/kg, con un ahorro de 1 \% \\
+  \addlinespace
+  Colas & Cada vaca produce 0.2 L más al día y la leche se vende a \$8.50/L \\
+  \bottomrule
+\end{tabularx}
+
+\bigskip
+
+\noindent
+\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \toprule
+  Beneficio & Cómo se calcula & Por año \\
+  \midrule
+  Ahorro de mano de obra & Calificar el BCS a mano toma 3 min por vaca al mes: 160 $\times$ 3 min $\times$ 12 = 96 h/año, a \$120/h & \$11,500 \\
+  \addlinespace
+  Menos problemas de salud y reproducción & 5 \% del establo tiene un problema ligado al BCS; detectarlo a tiempo evita el 30 \% ($\approx$ 2.4 casos) a \textasciitilde\$8,000 cada uno & \$19,200 \\
+  \addlinespace
+  Ajuste del concentrado & El campo gasta \textasciitilde\$3.27 M/año en concentrado (160 vacas $\times$ 8 kg $\times$ \$7 $\times$ 365); dar la ración según el BCS ahorra 1 \% & \$32,700 \\
+  \midrule
+  Subtotal BCS & \multicolumn{2}{r}{\$63,400} \\
+  \midrule
+  Solución de las colas & Si bajan las esperas, el robot se aprovecha mejor y cada vaca da \textasciitilde 0.2 L más al día: 160 $\times$ 0.2 $\times$ 365 = 11,680 L $\times$ \$8.50 & \$99,300 \\
+  \bottomrule
+\end{tabularx}
+
+\medskip
+
+El análisis costo-beneficio indica que el proyecto es económicamente viable y de muy bajo riesgo financiero. Nuestro costo real de desarrollo es mínimo, solo existen gastos de transporte y gasolina si los riesgos del dataset obligaran a hacer visitas adicionales. Esto se debe a que el tiempo del equipo y de los expertos del CAETEC es una aportación sin remuneración, y el equipo, el software y el acceso al campo no tienen costo.
+
+La mayor parte del beneficio proviene del ajuste de concentrado según el BCS y de la posible solución al problema de las colas, aunque esta última es la parte más incierta por el riesgo de falta de tiempo.

@@ -1,0 +1,73 @@
+\subsection{Antecedentes}
+
+\subsubsection{Sobre el CAETEC}
+
+El CAETEC (Campo Agropecuario Experimental del Tecnológico de Monterrey), es el laboratorio más extenso en territorio (70 hectáreas) con el que cuenta actualmente el sistema del Tecnológico de Monterrey en México. Está ubicado en el KM 188 de la carretera México Querétaro. A casi 50 años de su creación, el CAETEC es reconocido como un laboratorio donde se desarrollan soluciones innovadoras que toman en cuenta al medioambiente, el bienestar animal y finalmente la salud del ser humano.
+
+Su principal función es generar datos y analizar esa información para entender mejor cómo cambiar de manera positiva la agricultura y producir de forma sustentable.
+
+Con el paso del tiempo el CAETEC ha ido evolucionando, pasó de ser un espacio para que los estudiantes hicieran prácticas a ser un espacio también enfocado en la ciencia y análisis de datos. En sus instalaciones, cuenta con tecnologías como sistemas de monitoreo, inteligencia artificial, sensores, drones, GPS y sistemas automatizados que ayudan a mejorar la eficiencia y la productividad de diversas actividades agropecuarias.
+
+También realizan diversas actividades de agricultura, pero, dados los objetivos del proyecto, nuestro interés y enfoque está más centrado en la parte de su establo de vacas.
+
+Su establo cuenta con alrededor de 160 vacas y utilizan sistemas de ordeño automático para la producción de leche. Tienen tres de los cinco robots que hay en todo México de la marca DeLeval que permiten llevar un registro de la producción de cada vaca y ordeñar a las vacas de forma automatizada, colocando chupones en cada ubre para extraer la leche.
+
+Gracias a todas estas tecnologías a las cuales tiene acceso el CAETEC, actualmente se encuentran trabajando de la mano con Nestlé en un proyecto estratégico a nivel global, para encontrar acciones que ayuden a reducir las emisiones de metano que producen el estiércol de las vacas.
+
+\subsubsection{Papers}
+
+Los siguientes papers nos permitieron entender el problema relacionado al Body Condition Score de las vacas, ya que tratan sobre cámaras aplicadas en las vacas, redes neuronales convolucionales, lecturas 3D, etc. Lo cual puede aplicarse a una posible solución de este problema.
+
+\paragraph{Un método mejorado para la medición automatizada de la condición corporal en vacas lecheras mediante un sistema de cámara tridimensional}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:000752643700001}
+
+En este trabajo se tienen 32 vacas Holstein (mismas que las que hay en el CAETEC), y se compara la cámara 3D contra la opinión de 3 evaluadores humanos durante 7 semanas. Al final en las conclusiones el aporte clave que se tiene es que las mediciones automáticas tienen algo de ruido y por ello se suavizó la serie temporal de cada vaca, lo que permitió que se mejorara la detección.
+
+\paragraph{Evaluación automatizada de la condición corporal de vacas lecheras mediante la extracción de características tridimensionales de múltiples regiones corporales}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:000464425700047}
+
+En este segundo artículo, se trabajó con 44 vacas, este artículo es muy importante para este trabajo ya que nos permite tener una idea de cómo implementar un modelo, ya que en este particularmente se espera que el modelo reciba 3 vistas, siendo estas una superior, otra lateral y finalmente una posterior. Lo que el modelo intenta buscar en las imágenes son 8 regiones corporales, prominencias óseas y depresiones. Gracias a esto es que se puede obtener una idea de cómo poder construir un modelo.
+
+\paragraph{Evaluación automatizada de la condición corporal de las vacas mediante múltiples cámaras 3D y redes neuronales convolucionales}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:001113690300001}
+
+Siguiendo con el artículo anterior, este tercero nos da más ideas sobre la construcción del modelo, en este caso se utilizaron 462 vacas para el estudio, donde un gran aporte es que se utilice una vaca completa en Train o Test, es decir, que no haya fotos de la misma vaca en Train y Test ya que esto provocaría Data Leakage. Además de que se prueba con early, mid y Late Fusion, en donde gana Late, algo que se puede tomar en consideración.
+
+\paragraph{Evaluación automatizada en tiempo real de la condición corporal de vacas lecheras en una sala de ordeño rotativa comercial mediante aprendizaje profundo de dos flujos RGB-D}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:001836452900001}
+
+Por otro lado en este cuarto trabajo, expandemos lo que se había investigado ya que se utiliza RGB-D en vez de una cámara 3D para ver qué resulta mejor. En este trabajo se utilizaron 1025 vacas, generando finalmente 25700 pares de RGB-D. El pipeline que siguieron fue RFID $\rightarrow$ adquisición RGB-D $\rightarrow$ detección de vaca $\rightarrow$ extracción de región $\rightarrow$ alineamiento RGB/depth $\rightarrow$ modelo $\rightarrow$ BCS.
+
+Además utilizan Two-Stream ResNet18 con Late Fusion (Lo que en el artículo anterior vimos que era mejor opción). Esto hace que RGB pueda aprender apariencia, textura, boredes, etc. Mientras que el Depth aprende geometría y forma corporal. Este trabajo se alinea más con lo que podríamos hacer que los anteriores al no utilizar cámaras 3D.
+
+Los anteriores papers nos dan una buena idea de qué modelo poder crear para calcular el BCS, y los siguientes serían de apoyo para entender mejor el mundo de la ganadería enfocado en las vacas.
+
+\paragraph{AI-powered cow detection in complex farm environments}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:001398182100001}
+
+Este artículo nos ayuda a entender cómo tomar las imágenes en la visita al CAETEC para fotografiar a las vacas, esto debido a que el paper muestra la lista de problemas comunes que puede presentar un dataset de vacas, como la iluminación, poses, fondo, escala, ángulo, altura de la cámara, oclusiones, etc.
+
+\paragraph{Using big data in cattle practice}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:000454457600004}
+
+Por otro lado tenemos este artículo en el que se presenta el Big Data como posible uso en la medicina ganadera, en donde se aplican las 4 V´s para poder medir la ganadería bovina. Volumen, variedad, velocidad y veracidad. En este trabajo se llega a la conclusión de que es complicado obtener datos veraces más que un volumen alto, ya que los sensores pueden presentar fallas de calibración o presentar ruido, etc. Este artículo resulta de gran ayuda ya que nos brinda la idea de utilizar o no Big Data en el trabajo.
+
+Finalmente tenemos la sección de artículos que nos brindan contexto de la situación, cómo es que funciona un ordeño, cómo es un rancho normalmente, entre otras cuestiones que ayudan a comprender todo lo necesario a las vacas sin entrar en aspectos tecnológicos o alguna invención que nos pudiera ayudar al modelo.
+
+\paragraph{Importance of body condition score and ovarian activity on determining the fertility in beef cows supplemented with long-acting progesterone after timed-AI-Web of Science Core Collection}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:000449567400004}
+
+El objetivo de este artículo es poder entender la importancia de el BCS y por qué queremos hacer un modelo que pueda detectarlo, en este articulo se trabaja con 1054 vacas Holstein en donde se creó un modelo que predijera el BCS y además se entrenó con datos como la edad, peso, enfermedades, etc. y entender si importa el BCS para la preñez en las vacas. El resultado mostró que las vacas con BCS menor a 2.75 tuvieron un 59\% de preñez, mientras que las vacas con BCS aún más bajo tiene una preñez de 41.5\%.
+
+\paragraph{The Association of Delayed Milk Ejection and Milk Production in Dairy Cows Milked by an Automated Milking System}
+
+\url{https://www.webofscience.com/wos/woscc/full-record/WOS:001463698600001}
+
+Finalmente en este artículo se analiza el efecto del retraso en la eyeccion de leche sobre la producción de leche en un sistema de ordeño automatizado, se analizaron 689,484 registros de ordeño individual y 194,142 observaciones diarias de 1,573 vacas durante 350 días. En ordeños individuales, la presencia de bimodalidad reduce el rendimiento en 1.2 kg por sesión debido a una preparación/estimulación inadecuada del pezón o fallas en el vacío. Paradójicamente, las vacas que mostraron DME con mayor frecuencia diaria presentaron en general una mayor producción diaria de leche (diferencias de 1.5 a 7.4 kg/día). Esto se debe a que las vacas de alta producción acuden con mayor frecuencia al robot (hasta 6 ordeños/día).

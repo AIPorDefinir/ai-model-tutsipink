@@ -11,5 +11,6 @@ Participantes del proyecto:
 
 ## Reportes
 
-Los reportes se pueden encontrar en el directorio `reports`.
-Dentro de la misma vienen organizados por etapa. 
+Hay un PDF por fase de CRISP-DM en el directorio `reports`, cada uno con su índice al inicio.
+
+- [Business Understanding](reports/business-understanding/Business%20Understanding.pdf) 
