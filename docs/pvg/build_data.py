@@ -51,7 +51,11 @@ def fetch_issues():
          "--json", "number,title,state,body,url,assignees"],
         capture_output=True, text=True, check=True,
     ).stdout
-    return {i["title"].split(" ", 1)[-1].strip(): i for i in json.loads(out)}
+    issues = json.loads(out)
+    # Se relaciona por el código al inicio del título ("1.5.1 ..."); por nombre si el código no coincide
+    by_code = {i["title"].split(" ", 1)[0]: i for i in issues}
+    by_name = {i["title"].split(" ", 1)[-1].strip(): i for i in issues}
+    return by_code, by_name
 
 
 def progress(issue):
@@ -76,14 +80,14 @@ def fetch_actual_hours():
 def main():
     project, wbs = parse_wbs((HERE / "crisp-dm-wbs.puml").read_text())
     plan = json.loads((HERE / "plan.json").read_text())
-    issues = fetch_issues()
+    by_code, by_name = fetch_issues()
     hours = fetch_actual_hours()
     tasks = []
     for item in wbs:
         if item["codigo"] not in plan:
             print(f"Sin planificar en plan.json: {item['codigo']} {item['nombre']}")
             continue
-        issue = issues.get(item["nombre"])
+        issue = by_code.get(item["codigo"]) or by_name.get(item["nombre"])
         tasks.append({
             **item,
             **plan[item["codigo"]],
