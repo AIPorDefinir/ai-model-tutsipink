@@ -1,7 +1,7 @@
 {
   "repo": "AIPorDefinir/ai-model-tutsipink",
   "proyecto": "Proyecto CRISP-DM",
-  "corte": "2026-10-05",
+  "corte": "2026-10-09",
   "tareas": [
     {
       "codigo": "1.1.1",
@@ -15,8 +15,12 @@
       "depende": [],
       "issue": 7,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/7",
+      "responsables": [
+        "Alfredo Alejandro Soto Herrera",
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 3.5
     },
     {
       "codigo": "1.1.2",
@@ -32,8 +36,11 @@
       ],
       "issue": 8,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/8",
+      "responsables": [
+        "Iker Mejia Hernandez"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.0
     },
     {
       "codigo": "1.1.3",
@@ -49,6 +56,9 @@
       ],
       "issue": 9,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/9",
+      "responsables": [
+        "Facundo Bautista Barbera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -60,14 +70,17 @@
       "definido": true,
       "horas": 3,
       "inicio": "2026-10-02",
-      "fin": "2026-10-03",
+      "fin": "2026-10-02",
       "depende": [
         "1.1.2"
       ],
       "issue": 10,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/10",
+      "responsables": [
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.0
     },
     {
       "codigo": "1.2.2",
@@ -76,15 +89,18 @@
       "actividad": "1.2 Evaluar la situación",
       "definido": true,
       "horas": 4,
-      "inicio": "2026-10-05",
-      "fin": "2026-10-06",
+      "inicio": "2026-10-03",
+      "fin": "2026-10-04",
       "depende": [
         "1.2.1"
       ],
       "issue": 11,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/11",
+      "responsables": [
+        "Alfredo Alejandro Soto Herrera"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.5
     },
     {
       "codigo": "1.2.3",
@@ -93,15 +109,18 @@
       "actividad": "1.2 Evaluar la situación",
       "definido": true,
       "horas": 4,
-      "inicio": "2026-10-07",
-      "fin": "2026-10-08",
+      "inicio": "2026-10-05",
+      "fin": "2026-10-06",
       "depende": [
         "1.2.2"
       ],
       "issue": 12,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/12",
+      "responsables": [
+        "Alfredo Alejandro Soto Herrera"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.5
     },
     {
       "codigo": "1.2.4",
@@ -117,8 +136,11 @@
       ],
       "issue": 13,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/13",
+      "responsables": [
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.0
     },
     {
       "codigo": "1.2.5",
@@ -127,16 +149,19 @@
       "actividad": "1.2 Evaluar la situación",
       "definido": true,
       "horas": 5,
-      "inicio": "2026-10-09",
-      "fin": "2026-10-10",
+      "inicio": "2026-10-07",
+      "fin": "2026-10-07",
       "depende": [
         "1.2.1",
         "1.2.3"
       ],
       "issue": 14,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/14",
+      "responsables": [
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 2.5
     },
     {
       "codigo": "1.3.1",
@@ -152,8 +177,11 @@
       ],
       "issue": 15,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/15",
+      "responsables": [
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.0
     },
     {
       "codigo": "1.3.2",
@@ -162,16 +190,20 @@
       "actividad": "1.3 Determinar objetivos de minería de datos",
       "definido": true,
       "horas": 3,
-      "inicio": "2026-10-05",
-      "fin": "2026-10-06",
+      "inicio": "2026-10-04",
+      "fin": "2026-10-05",
       "depende": [
         "1.1.3",
         "1.3.1"
       ],
       "issue": 16,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/16",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 1.0
     },
     {
       "codigo": "1.4.1",
@@ -180,8 +212,8 @@
       "actividad": "1.4 Elaborar el plan del proyecto",
       "definido": true,
       "horas": 6,
-      "inicio": "2026-10-12",
-      "fin": "2026-10-14",
+      "inicio": "2026-10-07",
+      "fin": "2026-10-07",
       "depende": [
         "1.2.2",
         "1.2.3",
@@ -190,6 +222,9 @@
       ],
       "issue": 18,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/18",
+      "responsables": [
+        "Facundo Bautista Barbera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -200,14 +235,155 @@
       "actividad": "1.4 Elaborar el plan del proyecto",
       "definido": true,
       "horas": 3,
-      "inicio": "2026-10-05",
-      "fin": "2026-10-06",
+      "inicio": "2026-10-04",
+      "fin": "2026-10-05",
       "depende": [
         "1.2.1",
         "1.3.1"
       ],
       "issue": 17,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/17",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Oswaldo Isaias Hernandez Santes"
+      ],
+      "avance": 1.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.5.1",
+      "nombre": "Reducir alcance y redefinir objetivos",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-10-10",
+      "fin": "2026-10-11",
+      "depende": [
+        "1.1.2",
+        "1.3.1"
+      ],
+      "issue": 26,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/26",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.5.2",
+      "nombre": "Objetivos y criterios de éxito 1 a 1",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 6,
+      "inicio": "2026-10-12",
+      "fin": "2026-10-13",
+      "depende": [
+        "1.5.1",
+        "1.1.3",
+        "1.3.2"
+      ],
+      "issue": 27,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/27",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.5.3",
+      "nombre": "Matriz de riesgos (probabilidad × impacto)",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-12",
+      "fin": "2026-10-12",
+      "depende": [
+        "1.2.3"
+      ],
+      "issue": 28,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/28",
+      "responsables": [
+        "Alfredo Alejandro Soto Herrera"
+      ],
+      "avance": 0.0,
+      "horas_reales": 0.4
+    },
+    {
+      "codigo": "1.5.4",
+      "nombre": "Completar el plan del proyecto",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 6,
+      "inicio": "2026-10-13",
+      "fin": "2026-10-14",
+      "depende": [
+        "1.4.1",
+        "1.5.1",
+        "1.5.3"
+      ],
+      "issue": 29,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/29",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.5.5",
+      "nombre": "Índice de documentos",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 2,
+      "inicio": "2026-10-14",
+      "fin": "2026-10-14",
+      "depende": [
+        "1.5.2"
+      ],
+      "issue": 30,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/30",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.5.6",
+      "nombre": "Adaptaciones a CRISP-DM",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-10-12",
+      "fin": "2026-10-13",
+      "depende": [
+        "1.5.1"
+      ],
+      "issue": 31,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/31",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "1.5.7",
+      "nombre": "Revisión ortográfica",
+      "fase": "1. Comprensión del negocio",
+      "actividad": "1.5 Correcciones por retroalimentación",
+      "definido": true,
+      "horas": 2,
+      "inicio": "2026-10-15",
+      "fin": "2026-10-16",
+      "depende": [
+        "1.5.2",
+        "1.5.3",
+        "1.5.4",
+        "1.5.5",
+        "1.5.6"
+      ],
+      "issue": 32,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/32",
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -225,6 +401,9 @@
       ],
       "issue": 3,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/3",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -242,8 +421,11 @@
       ],
       "issue": 4,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/4",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
-      "horas_reales": 0.0
+      "horas_reales": 5.0
     },
     {
       "codigo": "2.3.1",
@@ -260,6 +442,9 @@
       ],
       "issue": 5,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/5",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -277,6 +462,9 @@
       ],
       "issue": 6,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/6",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -295,6 +483,7 @@
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -312,6 +501,7 @@
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -323,12 +513,13 @@
       "definido": false,
       "horas": 6,
       "inicio": "2026-10-29",
-      "fin": "2026-11-02",
+      "fin": "2026-11-01",
       "depende": [
         "3.2.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -339,13 +530,14 @@
       "actividad": "3.4 Integrar los datos",
       "definido": false,
       "horas": 4,
-      "inicio": "2026-11-03",
-      "fin": "2026-11-04",
+      "inicio": "2026-11-02",
+      "fin": "2026-11-03",
       "depende": [
         "3.3.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -356,13 +548,14 @@
       "actividad": "3.5 Formatear los datos",
       "definido": false,
       "horas": 3,
-      "inicio": "2026-11-05",
-      "fin": "2026-11-06",
+      "inicio": "2026-11-04",
+      "fin": "2026-11-04",
       "depende": [
         "3.4.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -373,14 +566,15 @@
       "actividad": "4.1 Seleccionar la técnica de modelado",
       "definido": false,
       "horas": 4,
-      "inicio": "2026-11-09",
-      "fin": "2026-11-10",
+      "inicio": "2026-11-05",
+      "fin": "2026-11-06",
       "depende": [
         "3.5.1",
         "1.4.2"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -391,13 +585,14 @@
       "actividad": "4.2 Diseñar las pruebas",
       "definido": false,
       "horas": 4,
-      "inicio": "2026-11-11",
-      "fin": "2026-11-12",
+      "inicio": "2026-11-07",
+      "fin": "2026-11-08",
       "depende": [
         "4.1.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -408,13 +603,14 @@
       "actividad": "4.3 Construir el modelo",
       "definido": false,
       "horas": 16,
-      "inicio": "2026-11-13",
-      "fin": "2026-11-24",
+      "inicio": "2026-11-09",
+      "fin": "2026-11-13",
       "depende": [
         "4.2.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -425,13 +621,14 @@
       "actividad": "4.4 Evaluar el modelo",
       "definido": false,
       "horas": 6,
-      "inicio": "2026-11-25",
-      "fin": "2026-11-27",
+      "inicio": "2026-11-14",
+      "fin": "2026-11-15",
       "depende": [
         "4.3.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -442,8 +639,8 @@
       "actividad": "5.1 Evaluar los resultados",
       "definido": false,
       "horas": 4,
-      "inicio": "2026-11-30",
-      "fin": "2026-12-01",
+      "inicio": "2026-11-16",
+      "fin": "2026-11-17",
       "depende": [
         "4.4.1",
         "1.1.3",
@@ -451,6 +648,7 @@
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -461,13 +659,14 @@
       "actividad": "5.2 Revisar el proceso",
       "definido": false,
       "horas": 3,
-      "inicio": "2026-12-02",
-      "fin": "2026-12-02",
+      "inicio": "2026-11-18",
+      "fin": "2026-11-19",
       "depende": [
         "5.1.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -478,13 +677,14 @@
       "actividad": "5.3 Determinar los próximos pasos",
       "definido": false,
       "horas": 2,
-      "inicio": "2026-12-03",
-      "fin": "2026-12-04",
+      "inicio": "2026-11-20",
+      "fin": "2026-11-20",
       "depende": [
         "5.2.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -495,13 +695,14 @@
       "actividad": "6.1 Planificar el despliegue",
       "definido": false,
       "horas": 3,
-      "inicio": "2026-12-07",
-      "fin": "2026-12-08",
+      "inicio": "2026-11-21",
+      "fin": "2026-11-24",
       "depende": [
         "5.3.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -512,13 +713,14 @@
       "actividad": "6.2 Planificar monitoreo y mantenimiento",
       "definido": false,
       "horas": 3,
-      "inicio": "2026-12-07",
-      "fin": "2026-12-08",
+      "inicio": "2026-11-21",
+      "fin": "2026-11-24",
       "depende": [
         "5.3.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -529,14 +731,15 @@
       "actividad": "6.3 Elaborar el informe final",
       "definido": false,
       "horas": 8,
-      "inicio": "2026-12-09",
-      "fin": "2026-12-14",
+      "inicio": "2026-11-25",
+      "fin": "2026-11-30",
       "depende": [
         "6.1.1",
         "6.2.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -547,13 +750,14 @@
       "actividad": "6.4 Revisar el proyecto",
       "definido": false,
       "horas": 2,
-      "inicio": "2026-12-15",
-      "fin": "2026-12-15",
+      "inicio": "2026-12-01",
+      "fin": "2026-12-02",
       "depende": [
         "6.3.1"
       ],
       "issue": null,
       "url": null,
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     }
