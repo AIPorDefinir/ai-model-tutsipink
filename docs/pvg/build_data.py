@@ -9,6 +9,15 @@ OWNER = "AIPorDefinir"
 REPO = f"{OWNER}/ai-model-tutsipink"
 PROJECT = "1"
 PLACEHOLDER = "Tu actividad aquí"
+# Usuario de GitHub -> nombre del integrante (README)
+TEAM = {
+    "Facundo-Barbera": "Facundo Bautista Barbera",
+    "taqueritospro": "Oswaldo Isaias Hernandez Santes",
+    "AlejandroSH1": "Alfredo Alejandro Soto Herrera",
+    "Emiliano1410": "Emiliano Camacho Ponce",
+    "ikerMJHDZ09": "Iker Mejia Hernandez",
+    "JorgeManuelOyoqui": "Jorge Manuel Oyoqui Aguilera",
+}
 
 
 def parse_wbs(text):
@@ -39,10 +48,14 @@ def parse_wbs(text):
 def fetch_issues():
     out = subprocess.run(
         ["gh", "issue", "list", "-R", REPO, "--state", "all", "--limit", "500",
-         "--json", "number,title,state,body,url"],
+         "--json", "number,title,state,body,url,assignees"],
         capture_output=True, text=True, check=True,
     ).stdout
-    return {i["title"].split(" ", 1)[-1].strip(): i for i in json.loads(out)}
+    issues = json.loads(out)
+    # Se relaciona por el código al inicio del título ("1.5.1 ..."); por nombre si el código no coincide
+    by_code = {i["title"].split(" ", 1)[0]: i for i in issues}
+    by_name = {i["title"].split(" ", 1)[-1].strip(): i for i in issues}
+    return by_code, by_name
 
 
 def progress(issue):
@@ -67,19 +80,20 @@ def fetch_actual_hours():
 def main():
     project, wbs = parse_wbs((HERE / "crisp-dm-wbs.puml").read_text())
     plan = json.loads((HERE / "plan.json").read_text())
-    issues = fetch_issues()
+    by_code, by_name = fetch_issues()
     hours = fetch_actual_hours()
     tasks = []
     for item in wbs:
         if item["codigo"] not in plan:
             print(f"Sin planificar en plan.json: {item['codigo']} {item['nombre']}")
             continue
-        issue = issues.get(item["nombre"])
+        issue = by_code.get(item["codigo"]) or by_name.get(item["nombre"])
         tasks.append({
             **item,
             **plan[item["codigo"]],
             "issue": issue["number"] if issue else None,
             "url": issue["url"] if issue else None,
+            "responsables": [TEAM.get(a["login"], a["login"]) for a in issue["assignees"]] if issue else [],
             "avance": round(progress(issue), 3) if issue else 0.0,
             "horas_reales": hours.get(issue["number"], 0.0) if issue else 0.0,
         })
