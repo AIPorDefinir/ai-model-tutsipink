@@ -5,13 +5,13 @@ Dentro del proyecto pueden llegar a suscitarse situaciones en las que podamos te
 \noindent
 \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{1.8cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
   \toprule
-  Riesgo & Nivel de riesgo (0 - 100) & Plan de Mitigación & Plan de Contingencia \\
+  Riesgo & Nivel de riesgo (0--100) & Plan de mitigación & Plan de contingencia \\
   \midrule
-  Dataset chico o desbalanceado & 85 & Definir un mínimo de vacas a las que tomarles foto, además de decidir cuántas fotos tomar por vaca. & Utilizar algún modelo pre entrenado con capas congeladas si es posible. \\
+  Dataset chico o desbalanceado & 85 & Definir un mínimo de vacas a las que tomarles foto, además de decidir cuántas fotos tomar por vaca. & Utilizar algún modelo preentrenado con capas congeladas si es posible. \\
   \addlinespace
   Calidad irregular en las fotos & 80 & Definir una misma vista, distancia, altura, etc. para las diferentes vacas. Además de descartar fotos borrosas. & Usar data augmentation y volver a eliminar fotos irregulares. \\
   \addlinespace
-  Data leakage por no separar por vacas & 80 & Separar train, validation y test por vaca y no solo al azar. & Rehacer la separación por vaca y re entrenar. \\
+  Data leakage por no separar por vacas & 80 & Separar train, validation y test por vaca y no solo al azar. & Rehacer la separación por vaca y reentrenar. \\
   \addlinespace
   El modelo aprende cosas que no son de la vaca en sí & 75 & Se puede recortar o segmentar a la vaca, además de poder implementar un bounding box a la imagen. & Segmentar y enmascarar el fondo de la imagen. \\
   \addlinespace
