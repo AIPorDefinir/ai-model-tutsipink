@@ -1,5 +1,7 @@
 \subsection{Requerimientos, supuestos y restricciones}
 
+\subsubsection{Requerimientos}
+
 Este proyecto cuenta con una serie de requerimientos a cumplir, empezando por las fechas importantes de entrega de avances así como la entrega final, todo esto siguiendo la metodología CRISP-DM, programado para las siguientes fechas:
 
 \begin{itemize}
@@ -11,17 +13,16 @@ Este proyecto cuenta con una serie de requerimientos a cumplir, empezando por la
   \item La entrega final de todo el proyecto sería el 2 de diciembre.
 \end{itemize}
 
-El segundo requerimiento a tener en cuenta son los datos, cómo es que vienen pero enfocado en su comprensión y calidad, en este caso no se profundiza mucho en ello ya que esto es parte de la sección de ``Data Understanding'' siguiendo con la metodología CRISP-DM. Por lo que solo nos centramos en explicar lo justo y necesario. Los datos que tenemos son archivos de Excel por vaca en donde se registra diariamente la producción de leche de la vaca. En estos archivos podemos ver un orden claro, sin valores faltantes o nulos en la mayoría de columnas, aunque hay algunas que sí tienen instancias con valores faltantes. Por lo que podemos decir que los datos son de fácil comprensión debido a su buen orden y con una calidad alta por tener tanta información y con muy pocas casillas faltantes.
+El segundo requerimiento a tener en cuenta son los datos, cómo es que vienen pero enfocado en su comprensión y calidad, en este caso no se profundiza mucho en ello ya que esto es parte de la sección de ``Data Understanding'' siguiendo con la metodología CRISP-DM. Por lo que solo nos centramos en explicar lo justo y necesario. Los datos que tenemos son imágenes en formato .HEIC las cuales fueron tomadas en la visita al CAETEC, siguiendo con una vista posterior a la vaca, alineada a ella y desde más arriba; también fueron laterales de lado izquierdo y derecho, esto para seguir con un estándar en todas las vacas fotografiadas. En cuanto a calidad y resolución se tomaron de la misma manera para evitar tener una variabilidad que pueda hacer que falle el modelo.
 
-En cuanto a seguridad y aspectos legales, tenemos acceso a los datos y los podemos utilizar siempre y cuando no los introduzcamos en sitios públicos en donde otras personas ajenas a la institución puedan utilizarlos para sus intereses personales, al no estar tratando con datos de personas no existe un riesgo de que alguien salga afectado al usar sus datos, pero sí estamos tratando con el trabajo de recolección de otros, por ello es importante cuidar el uso que le damos ya que no nos pertenecen.
+Para el apartado de seguridad y legal, tenemos acceso a los datos y los podemos utilizar siempre y cuando no los introduzcamos en sitios públicos en donde otras personas ajenas a la institución puedan utilizarlos para sus intereses personales, al no estar tratando con datos de personas no existe un riesgo de que alguien salga afectado al usar sus datos, pero sí estamos tratando con el trabajo de recolección de otros, por ello es importante cuidar el uso que le damos ya que no nos pertenecen.
 
 \subsubsection{Supuestos}
 
 \begin{itemize}
   \item Todas las vacas se encuentran en un rango de BCS de 2.25 a 3.75.
   \item El BCS dicho por los expertos será tomado como lo correcto.
-  \item Entre más leche produzcan las vacas, mejor.
-  \item Los datos brindados por la organización son correctos.
+  \item Entre más leche producen las vacas mejor.
 \end{itemize}
 
 \subsubsection{Restricciones}
