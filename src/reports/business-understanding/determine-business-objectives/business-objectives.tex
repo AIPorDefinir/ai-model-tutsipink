@@ -2,41 +2,29 @@
 
 \subsubsection{Propósito y visión global}
 
-Aprovechando la infraestructura tecnológica del CAETEC, transformar la gestión del establo lechero hacia un modelo de ganadería de precisión 4.0 proactiva. El proyecto fusiona la telemetría continua de los 3 robots con la captura multimodal de dispositivos móviles accesibles (iPhone RGB + LiDAR), transformando datos de sensores en decisiones operativas automatizadas que preserven el bienestar animal, eviten mermas productivas por estrés y aseguren la viabilidad reproductiva de las 160 vacas Holstein del hato.
+Transformar la comprensión zootécnica y operativa del establo lechero experimental CAETEC (Alianza TEC -- UAQ -- UNAM) bajo un enfoque riguroso de Ciencia de Datos y Ganadería de Precisión 4.0. El proyecto se enfoca en la generación de conocimiento reproducible con el uso del fenotipado óptico multimodal (iPhone RGB + sensor LiDAR), abordando: la identificación oportuna de condiciones corporales potencialmente inadecuadas para la etapa de lactancia.
 
-\subsubsection{Objetivo general del negocio}
+\subsubsection{Principio metodológico de articulación entre objetivos de negocio y minería de datos}
 
-Permitir evaluar de forma frecuente y no invasiva la Condición Corporal (BCS) de cada vaca, con equipo accesible para el personal del establo, buscando prevenir caídas de BCS por debajo de 2.75 para evitar el colapso de fertilidad postparto. \textbf{Objetivo secundario:} anticipar y mitigar la saturación operativa de las 3 estaciones DeLaval VMS del CAETEC, para reducir las esperas en la manga, mejorar la distribución del tráfico de las vacas a lo largo del día y prevenir caídas de producción por eyección retardada. Todo esto orientado a elevar los litros de leche recolectados, garantizar el bienestar de los animales y optimizar la rentabilidad del socio.
+El cumplimiento de los objetivos de minería de datos contribuye al objetivo de negocio, pero no lo garantiza automáticamente. La estimación precisa del BCS constituye un componente del análisis; su utilidad para identificar riesgo metabólico depende de la disponibilidad de variables contextuales, etiquetas de referencia apropiadas y evidencia de que los resultados permiten distinguir condiciones de riesgo relevantes para el establo.
 
-\subsubsection{Objetivos específicos del negocio por eje estratégico}
+Por ello, el análisis se plantea en dos etapas complementarias independientes:
 
-\paragraph{Eje A (principal): salud, bienestar y condición corporal (BCS)}
+\begin{enumerate}
+  \item \textbf{Estimación de la condición corporal:} desarrollar y evaluar un modelo de regresión que estime el BCS a partir de imágenes RGB y, cuando aporte valor medible, información de profundidad LiDAR.
+  \item \textbf{Interpretación contextual del riesgo:} integrar el BCS estimado con los días en leche y las variables productivas disponibles para identificar animales cuya condición corporal sea potencialmente inadecuada para su etapa fisiológica.
+\end{enumerate}
 
-\begin{itemize}
-  \item \textbf{Evaluación objetiva y frecuente de la condición corporal:} sustituir la evaluación visual esporádica del BCS por una evaluación frecuente, no invasiva y consistente, realizada en el propio establo, que permita dar seguimiento a cada vaca a lo largo de la lactancia.
-  \item \textbf{Viabilidad reproductiva:} detectar a tiempo a las vacas en postparto cuyo BCS tiende a caer por debajo de 2.75, para ajustar su nutrición y manejo antes de que se comprometa la preñez. (Se apoya en el artículo sobre BCS y fertilidad revisado en 1.1.1).
-  \item \textbf{Prevención proactiva de patologías metabólicas:} alertar a los nutricionistas y veterinarios cuando una vaca entre en periodo seco con sobrepeso (BCS > 4) o presente emaciación severa (BCS < 2.25), previniendo cetosis clínica, hígado graso e hipocalcemia.
-\end{itemize}
+La segunda etapa se validará de acuerdo con las etiquetas y los indicadores de referencia disponibles. Cuando no existan datos suficientes para validar el riesgo metabólico directamente, los resultados se reportarán como indicadores de riesgo potencial, sin interpretarlos como diagnósticos clínicos. Un buen resultado en la primera etapa no garantiza un buen resultado en la segunda.
 
-\paragraph{Eje B: eficiencia operativa, capacidad y teoría de colas en el VMS}
+\subsubsection{Objetivo de Negocio 1 (ON-1): Salud metabólica y condición corporal (BCS)}
 
-\begin{itemize}
-  \item \textbf{Mitigación de la eyección retardada de leche (DME) y del flujo bimodal:} con base en la literatura (artículo sobre eyección retardada revisado en 1.1.1, donde el flujo bimodal genera pérdidas de 1.2 kg de leche por sesión), reducir los tiempos muertos y el nerviosismo en la manga de acceso para asegurar que la estimulación del pezón induzca una bajada continua y homogénea de leche.
-  \item \textbf{Protección de vacas primíparas:} evitar que las vacas dominantes de alta producción lleguen a monopolizar el VMS, garantizando que otras vacas alcancen la frecuencia óptima de ordeño sin sufrir desplazamientos agresivos en la fila.
-  \item \textbf{Anticipación de colapsos:} evitar que cualquiera de los 3 robots opere saturado durante periodos prolongados, dando al personal de campo aviso con anticipación suficiente para rebalancear el tráfico de las 160 vacas antes de que se forme una cola física prolongada.
-\end{itemize}
+\paragraph{Declaración oficial del objetivo}
+Estimar la condición corporal BCS de vacas productoras de leche de forma automatizada a partir de imágenes.
 
-\subsubsection{Indicadores clave de desempeño del negocio (KPI)}
+\paragraph{Preguntas clave de negocio (generación de conocimiento)}
 
-\noindent
-\begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
-  \toprule
-  Indicador de negocio & Línea base & Meta esperada & Impacto cuantitativo en el establo del CAETEC \\
-  \midrule
-  \textbf{Pérdida por flujo bimodal (DME)} & Merma recurrente no monitoreada de 1.2 kg por ordeño atípico. & Reducción del 40\% en sesiones bimodales por estrés de espera. & Recuperación de hasta 150--200 kg de leche diarios en el hato de 160 vacas. \\
-  \addlinespace
-  \textbf{Horas diarias de saturación robótica (>90\%)} & 4--6 horas/día con colapso silencioso de manga. & Reducción del 35\% de horas de colapso mediante alertas anticipadas. & Aprovechamiento óptimo de los 3 robots DeLaval VMS del CAETEC. \\
-  \addlinespace
-  \textbf{Tiempo de espera promedio en la manga} & Picos de hasta 45--90 min en horas pico de alimento. & $\leq$20 minutos sostenidos en horas pico. & Mayor tiempo de rumia y aumento estimado de 1.0 a 1.8 kg de leche/vaca/día. \\
-  \bottomrule
-\end{tabularx}
+\begin{enumerate}
+  \item ¿Es viable sustituir o complementar la inspección visual humana tradicional mediante visión computacional accesible (iPhone RGB + LiDAR) sin perder consistencia clínica?
+  \item ¿Aporta el sensor de profundidad LiDAR una ventaja medible en invariancia lumínica y precisión frente a imágenes RGB convencionales en el entorno del corral?
+\end{enumerate}
