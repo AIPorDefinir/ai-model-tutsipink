@@ -1,0 +1,30 @@
+\subsection{Objetivos de negocio}
+
+\subsubsection{Propósito y visión global}
+
+Transformar la comprensión zootécnica y operativa del establo lechero experimental CAETEC (Alianza TEC -- UAQ -- UNAM) bajo un enfoque riguroso de Ciencia de Datos y Ganadería de Precisión 4.0. El proyecto se enfoca en la generación de conocimiento reproducible con el uso del fenotipado óptico multimodal (iPhone RGB + sensor LiDAR), abordando: la identificación oportuna de condiciones corporales potencialmente inadecuadas para la etapa de lactancia.
+
+\subsubsection{Principio metodológico de articulación entre objetivos de negocio y minería de datos}
+
+El cumplimiento de los objetivos de minería de datos contribuye al objetivo de negocio, pero no lo garantiza automáticamente. La estimación precisa del BCS constituye un componente del análisis; su utilidad para identificar riesgo metabólico depende de la disponibilidad de variables contextuales, etiquetas de referencia apropiadas y evidencia de que los resultados permiten distinguir condiciones de riesgo relevantes para el establo.
+
+Por ello, el análisis se plantea en dos etapas complementarias independientes:
+
+\begin{enumerate}
+  \item \textbf{Estimación de la condición corporal:} desarrollar y evaluar un modelo de regresión que estime el BCS a partir de imágenes RGB y, cuando aporte valor medible, información de profundidad LiDAR.
+  \item \textbf{Interpretación contextual del riesgo:} integrar el BCS estimado con los días en leche y las variables productivas disponibles para identificar animales cuya condición corporal sea potencialmente inadecuada para su etapa fisiológica.
+\end{enumerate}
+
+La segunda etapa se validará de acuerdo con las etiquetas y los indicadores de referencia disponibles. Cuando no existan datos suficientes para validar el riesgo metabólico directamente, los resultados se reportarán como indicadores de riesgo potencial, sin interpretarlos como diagnósticos clínicos. Un buen resultado en la primera etapa no garantiza un buen resultado en la segunda.
+
+\subsubsection{Objetivo de Negocio 1 (ON-1): Salud metabólica y condición corporal (BCS)}
+
+\paragraph{Declaración oficial del objetivo}
+Estimar la condición corporal BCS de vacas productoras de leche de forma automatizada a partir de imágenes.
+
+\paragraph{Preguntas clave de negocio (generación de conocimiento)}
+
+\begin{enumerate}
+  \item ¿Es viable sustituir o complementar la inspección visual humana tradicional mediante visión computacional accesible (iPhone RGB + LiDAR) sin perder consistencia clínica?
+  \item ¿Aporta el sensor de profundidad LiDAR una ventaja medible en invariancia lumínica y precisión frente a imágenes RGB convencionales en el entorno del corral?
+\end{enumerate}
