@@ -92,22 +92,28 @@ def progress(issue):
     return sum(b != " " for b in boxes) / len(boxes) if boxes else 0.0
 
 
-def fetch_actual_hours():
-    # Sin acceso al Project (p. ej. en CI sin PVG_TOKEN) se conservan las horas del data.json anterior
+def fetch_project():
+    # Campos del Project por issue: horas reales, puntos de esfuerzo e inicio/fin reales.
+    # Sin acceso (p. ej. en CI sin PVG_TOKEN) se conservan los valores del data.json anterior.
     try:
         out = subprocess.run(
-        ["gh", "project", "item-list", PROJECT, "--owner", OWNER, "--format", "json", "--limit", "500"],
+            ["gh", "project", "item-list", PROJECT, "--owner", OWNER, "--format", "json", "--limit", "500"],
             capture_output=True, text=True, check=True,
         ).stdout
     except subprocess.CalledProcessError as e:
-        print(f"No se pudo leer el Project, se usan las horas reales anteriores: {e.stderr.strip()}")
+        print(f"No se pudo leer el Project, se usan los valores anteriores: {e.stderr.strip()}")
         try:
             previous = json.loads((HERE / "data.json").read_text())["tareas"]
         except (OSError, ValueError, KeyError):
             return {}
-        return {t["issue"]: t["horas_reales"] for t in previous if t.get("issue")}
+        return {t["issue"]: {"horas_reales": t["horas_reales"]} for t in previous if t.get("issue")}
     return {
-        i["content"]["number"]: float(i.get("horas reales") or 0)
+        i["content"]["number"]: {
+            "horas_reales": float(i.get("horas reales") or 0),
+            "puntos": i.get("puntos de esfuerzo"),
+            "inicio_real": i.get("inicio real"),
+            "fin_real": i.get("fin real"),
+        }
         for i in json.loads(out)["items"]
         if i["content"].get("type") == "Issue"
     }
@@ -117,25 +123,28 @@ def main():
     project, wbs = parse_wbs((HERE / "crisp-dm-wbs.puml").read_text())
     plan = json.loads((HERE / "plan.json").read_text())
     by_code, by_name = fetch_issues()
-    hours = fetch_actual_hours()
+    fields = fetch_project()
     tasks = []
     for item in wbs:
         if item["codigo"] not in plan:
             print(f"Sin planificar en plan.json: {item['codigo']} {item['nombre']}")
             continue
         issue = by_code.get(item["codigo"]) or by_name.get(item["nombre"])
+        task = plan[item["codigo"]]
+        # El Project manda; plan.json queda como respaldo
+        pf = fields.get(issue["number"], {}) if issue else {}
+        planned_points = effort_points(task["evidencia"]) if "evidencia" in task else task.get("puntos") or points(task["horas"])
         tasks.append({
             **item,
-            **plan[item["codigo"]],
-            "puntos": effort_points(plan[item["codigo"]]["evidencia"]) if "evidencia" in plan[item["codigo"]]
-            else plan[item["codigo"]].get("puntos") or points(plan[item["codigo"]]["horas"]),
-            "inicio_real": plan[item["codigo"]].get("inicio_real"),
-            "fin_real": finish_date(plan[item["codigo"]], issue),
+            **task,
+            "puntos": int(pf["puntos"]) if pf.get("puntos") else planned_points,
+            "inicio_real": pf.get("inicio_real") or task.get("inicio_real"),
+            "fin_real": pf.get("fin_real") or finish_date(task, issue),
             "issue": issue["number"] if issue else None,
             "url": issue["url"] if issue else None,
             "responsables": [TEAM.get(a["login"], a["login"]) for a in issue["assignees"]] if issue else [],
             "avance": round(progress(issue), 3) if issue else 0.0,
-            "horas_reales": hours.get(issue["number"], 0.0) if issue else 0.0,
+            "horas_reales": pf.get("horas_reales", 0.0),
         })
     data = {"repo": REPO, "proyecto": project, "corte": date.today().isoformat(), "tareas": tasks}
     out = HERE / "data.json"

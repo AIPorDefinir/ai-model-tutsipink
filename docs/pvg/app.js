@@ -25,21 +25,19 @@ document.getElementById("corte").textContent = `Fecha de corte: ${data.corte} ·
 
 // Siglas del Plan de Valor Ganado: [nombre, qué significa]
 const glossary = {
-  BAC: ["Valor total", "Puntos de complejidad de todo el proyecto."],
-  PV: ["Valor planeado", "Puntos de los entregables cuya fecha planeada ya pasó."],
-  EV: ["Valor ganado", "Puntos de los entregables con fecha real (terminados)."],
-  CP: ["Costo planeado", "Horas estimadas de los entregables terminados."],
-  CR: ["Costo real", "Horas reales registradas en el Project de los entregables terminados."],
-  SPI: ["Índice de cronograma", "EV ÷ PV. Mayor a 1: adelantados; menor a 1: atrasados."],
-  Desv: ["Desviación", "1 − SPI. Fracción del valor planeado que falta por ganar."],
-  CPI: ["Índice de costo (convención del curso)", "Costo real ÷ costo planeado. Ojo: es el inverso del CPI estándar (EV ÷ AC). Menor a 1: se usaron menos horas de las estimadas."],
-  Err: ["Error de estimación", "1 − CPI. Positivo: sobrestimamos horas; negativo: las subestimamos."],
+  BAC: ["Valor total", "Puntos de todo el proyecto."],
+  PV: ["Valor planeado", "Puntos que ya deberíamos tener a la fecha."],
+  EV: ["Valor ganado", "Puntos de lo que ya terminamos."],
+  CP: ["Costo planeado", "Horas estimadas de lo terminado."],
+  CR: ["Costo real", "Horas que de verdad le dedicamos a lo terminado."],
+  SPI: ["Índice de cronograma", "EV / PV. Arriba de 1 vamos adelantados."],
+  Desv: ["Desviación", "1 − SPI."],
+  CPI: ["Índice de costo", "Costo real / costo planeado, como lo pide el profe (al revés del CPI normal). Abajo de 1 usamos menos horas."],
+  Err: ["Error de estimación", "1 − CPI."],
 }
 const extraTerms = {
-  "Puntos": "Esfuerzo en escala Fibonacci. Con historial de Drive: E = días activos + editores + guardados ÷ 20; E ≤2 → 1, ≤4 → 2, ≤6 → 3, ≤9 → 5, ≤13 → 8, más → 13. Sin historial (fase 3 en adelante): por horas planeadas, ≤1 h → 1, ≤2 → 2, ≤3 → 3, ≤6 → 5, ≤10 → 8, >10 → 13.",
-  "Inicio real": "Primera edición real del documento en Drive (sin contar la plantilla).",
-  "Fecha planeada": "Fin planeado del entregable (plan.json).",
-  "Fecha real": "Última edición del entregable según el historial de Drive (fin_real); si falta, fecha de cierre del issue. * = provisional.",
+  "Puntos": "Esfuerzo en Fibonacci. Sumamos días trabajados + personas que editaron + guardados / 20 en Drive: hasta 2 → 1, 4 → 2, 6 → 3, 9 → 5, 13 → 8, más → 13. Sin historial usamos las horas planeadas.",
+  "Fecha real": "Cuándo empezamos y terminamos según el historial de Drive. Con * es estimada por el orden de las actividades.",
 }
 
 const kpis = [
@@ -152,7 +150,7 @@ const rows = tasks.map(t => [
   done(t) ? t.puntos : 0,
   t.horas_reales,
   t.inicio_real || "–",
-  t.fin_real ? `<span class="${late(t) ? "mal" : "bien"}">${t.fin_real}${t.provisional ? "*" : ""}</span>` : "–",
+  t.fin_real ? `<span class="${late(t) ? "mal" : "bien"}">${t.fin_real}${t.estimada ? "*" : ""}</span>` : "–",
 ])
 const isNum = i => i === 4 || i === 5 || i === 7 || i === 8
 const colHelp = {
