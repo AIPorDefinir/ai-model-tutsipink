@@ -66,10 +66,19 @@ def progress(issue):
 
 
 def fetch_actual_hours():
-    out = subprocess.run(
+    # Sin acceso al Project (p. ej. en CI sin PVG_TOKEN) se conservan las horas del data.json anterior
+    try:
+        out = subprocess.run(
         ["gh", "project", "item-list", PROJECT, "--owner", OWNER, "--format", "json", "--limit", "500"],
-        capture_output=True, text=True, check=True,
-    ).stdout
+            capture_output=True, text=True, check=True,
+        ).stdout
+    except subprocess.CalledProcessError as e:
+        print(f"No se pudo leer el Project, se usan las horas reales anteriores: {e.stderr.strip()}")
+        try:
+            previous = json.loads((HERE / "data.json").read_text())["tareas"]
+        except (OSError, ValueError, KeyError):
+            return {}
+        return {t["issue"]: t["horas_reales"] for t in previous if t.get("issue")}
     return {
         i["content"]["number"]: float(i.get("horas reales") or 0)
         for i in json.loads(out)["items"]
