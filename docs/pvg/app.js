@@ -36,9 +36,10 @@ const glossary = {
   Err: ["Error de estimación", "1 − CPI. Positivo: sobrestimamos horas; negativo: las subestimamos."],
 }
 const extraTerms = {
-  "Puntos": "Complejidad del entregable en escala Fibonacci según horas planeadas: ≤1 h → 1, ≤2 → 2, ≤3 → 3, ≤6 → 5, ≤10 → 8, >10 → 13.",
+  "Puntos": "Esfuerzo en escala Fibonacci. Con historial de Drive: E = días activos + editores + guardados ÷ 20; E ≤2 → 1, ≤4 → 2, ≤6 → 3, ≤9 → 5, ≤13 → 8, más → 13. Sin historial (fase 3 en adelante): por horas planeadas, ≤1 h → 1, ≤2 → 2, ≤3 → 3, ≤6 → 5, ≤10 → 8, >10 → 13.",
+  "Inicio real": "Primera edición real del documento en Drive (sin contar la plantilla).",
   "Fecha planeada": "Fin planeado del entregable (plan.json).",
-  "Fecha real": "Fecha en que se terminó: fin_real de plan.json o, si está vacío, la fecha de cierre del issue.",
+  "Fecha real": "Última edición del entregable según el historial de Drive (fin_real); si falta, fecha de cierre del issue. * = provisional.",
 }
 
 const kpis = [
@@ -138,7 +139,7 @@ for (const box of boxes) {
   box.addEventListener("mouseleave", () => boxes.forEach(o => o.classList.remove("previa", "sigue")))
 }
 
-const cols = ["WBS", "Actividades", "Issue", "Responsables", "Valor planeado", "Costo planeado", "Fecha planeada", "Valor ganado", "Costo real", "Fecha real"]
+const cols = ["WBS", "Actividades", "Issue", "Responsables", "Valor planeado", "Costo planeado", "Fecha planeada", "Valor ganado", "Costo real", "Inicio real", "Fecha real"]
 const late = t => t.fin_real && t.fin_real > t.fin
 const rows = tasks.map(t => [
   t.codigo,
@@ -150,7 +151,8 @@ const rows = tasks.map(t => [
   t.fin,
   done(t) ? t.puntos : 0,
   t.horas_reales,
-  t.fin_real ? `<span class="${late(t) ? "mal" : "bien"}">${t.fin_real}</span>` : "–",
+  t.inicio_real || "–",
+  t.fin_real ? `<span class="${late(t) ? "mal" : "bien"}">${t.fin_real}${t.provisional ? "*" : ""}</span>` : "–",
 ])
 const isNum = i => i === 4 || i === 5 || i === 7 || i === 8
 const colHelp = {

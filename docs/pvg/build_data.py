@@ -66,6 +66,15 @@ def points(hours):
     return 13
 
 
+def effort_points(e):
+    # Esfuerzo observado en el historial de Drive: días activos + editores + guardados ÷ 20 (entero)
+    score = e["dias"] + e["editores"] + e["guardados"] // 20
+    for limit, value in ((2, 1), (4, 2), (6, 3), (9, 5), (13, 8)):
+        if score <= limit:
+            return value
+    return 13
+
+
 def finish_date(task, issue):
     # Fecha real: la de plan.json si hay evidencia; si no, el cierre del issue (UTC-6)
     if task.get("fin_real"):
@@ -118,7 +127,9 @@ def main():
         tasks.append({
             **item,
             **plan[item["codigo"]],
-            "puntos": plan[item["codigo"]].get("puntos") or points(plan[item["codigo"]]["horas"]),
+            "puntos": effort_points(plan[item["codigo"]]["evidencia"]) if "evidencia" in plan[item["codigo"]]
+            else plan[item["codigo"]].get("puntos") or points(plan[item["codigo"]]["horas"]),
+            "inicio_real": plan[item["codigo"]].get("inicio_real"),
             "fin_real": finish_date(plan[item["codigo"]], issue),
             "issue": issue["number"] if issue else None,
             "url": issue["url"] if issue else None,
