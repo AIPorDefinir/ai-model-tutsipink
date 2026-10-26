@@ -228,3 +228,69 @@ em {
 td.num, th.num {
   text-align: right;
 }
+
+.kpi small {
+  display: block;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.info {
+  display: inline-grid;
+  place-items: center;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  background: #e5e7eb;
+  color: #374151;
+  font-size: 0.7em;
+  font-style: normal;
+  font-weight: 600;
+  cursor: help;
+  vertical-align: middle;
+}
+
+#glosario {
+  margin: 1rem 0 2rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+#glosario summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+#glosario dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.35rem 1rem;
+  margin: 0.75rem 0 0;
+}
+
+#glosario dt {
+  font-weight: 600;
+}
+
+#glosario dd {
+  margin: 0;
+  color: #374151;
+}
+
+.graficas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.graficas section {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .graficas {
+    grid-template-columns: 1fr;
+  }
+}
