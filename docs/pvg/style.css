@@ -278,3 +278,19 @@ td.num, th.num {
   margin: 0;
   color: #374151;
 }
+
+.graficas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.graficas section {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .graficas {
+    grid-template-columns: 1fr;
+  }
+}

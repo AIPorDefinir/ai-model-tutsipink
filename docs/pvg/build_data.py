@@ -1,7 +1,7 @@
 import json
 import re
 import subprocess
-from datetime import date
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent  # docs/pvg: fuentes y salida de la página
@@ -48,7 +48,7 @@ def parse_wbs(text):
 def fetch_issues():
     out = subprocess.run(
         ["gh", "issue", "list", "-R", REPO, "--state", "all", "--limit", "500",
-         "--json", "number,title,state,body,url,assignees"],
+         "--json", "number,title,state,body,url,assignees,closedAt"],
         capture_output=True, text=True, check=True,
     ).stdout
     issues = json.loads(out)
@@ -56,6 +56,24 @@ def fetch_issues():
     by_code = {i["title"].split(" ", 1)[0]: i for i in issues}
     by_name = {i["title"].split(" ", 1)[-1].strip(): i for i in issues}
     return by_code, by_name
+
+
+def points(hours):
+    # Puntos de complejidad (Fibonacci) según horas planeadas, si plan.json no los trae
+    for limit, value in ((1, 1), (2, 2), (3, 3), (6, 5), (10, 8)):
+        if hours <= limit:
+            return value
+    return 13
+
+
+def finish_date(task, issue):
+    # Fecha real: la de plan.json si hay evidencia; si no, el cierre del issue (UTC-6)
+    if task.get("fin_real"):
+        return task["fin_real"]
+    if issue and issue.get("closedAt"):
+        closed = datetime.fromisoformat(issue["closedAt"].replace("Z", "+00:00"))
+        return closed.astimezone(timezone(timedelta(hours=-6))).date().isoformat()
+    return None
 
 
 def progress(issue):
@@ -100,6 +118,8 @@ def main():
         tasks.append({
             **item,
             **plan[item["codigo"]],
+            "puntos": plan[item["codigo"]].get("puntos") or points(plan[item["codigo"]]["horas"]),
+            "fin_real": finish_date(plan[item["codigo"]], issue),
             "issue": issue["number"] if issue else None,
             "url": issue["url"] if issue else None,
             "responsables": [TEAM.get(a["login"], a["login"]) for a in issue["assignees"]] if issue else [],
