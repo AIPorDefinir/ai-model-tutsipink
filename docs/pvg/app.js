@@ -27,6 +27,18 @@ const cpi = ac ? ev / ac : null
 
 document.getElementById("corte").textContent = `Fecha de corte: ${data.corte} · ${data.repo}`
 
+// Siglas del Plan de Valor Ganado: [sigla, nombre, qué significa]
+const glossary = {
+  BAC: ["Presupuesto total", "Horas planeadas de todo el proyecto."],
+  PV: ["Valor planificado", "Horas que, según el plan, ya deberían estar hechas a la fecha de corte."],
+  EV: ["Valor ganado", "Horas planeadas del trabajo ya terminado (horas × avance)."],
+  AC: ["Costo real", "Horas que el equipo de verdad ha trabajado."],
+  SV: ["Variación del cronograma", "EV − PV. Positivo: vamos adelantados; negativo: atrasados."],
+  CV: ["Variación del costo", "EV − AC. Positivo: gastamos menos horas de lo planeado."],
+  SPI: ["Índice de cronograma", "EV ÷ PV. Mayor a 1: adelantados; menor a 1: atrasados."],
+  CPI: ["Índice de costo", "EV ÷ AC. Mayor a 1: por debajo del presupuesto; menor a 1: por encima."],
+}
+
 const kpis = [
   ["BAC", bac.toFixed(1) + " h"],
   ["PV", pv.toFixed(1) + " h"],
@@ -38,8 +50,10 @@ const kpis = [
   ["CPI", fmt(cpi), cpi == null || cpi >= 1],
 ]
 document.getElementById("kpis").innerHTML = kpis
-  .map(([k, v, ok]) => `<div class="kpi"><span>${k}</span><strong class="${ok == null ? "" : ok ? "bien" : "mal"}">${v}</strong></div>`)
+  .map(([k, v, ok]) => `<div class="kpi" title="${k} · ${glossary[k][0]}: ${glossary[k][1]}"><span>${k} <i class="info">i</i></span><strong class="${ok == null ? "" : ok ? "bien" : "mal"}">${v}</strong><small>${glossary[k][0]}</small></div>`)
   .join("")
+document.getElementById("glosario").innerHTML = `<summary>¿Qué significa cada sigla?</summary><dl>${Object.entries(glossary)
+  .map(([k, [name, desc]]) => `<dt>${k} · ${name}</dt><dd>${desc}</dd>`).join("")}</dl>`
 
 const first = Math.min(...tasks.map(t => day(t.inicio)))
 const last = Math.max(...tasks.map(t => day(t.fin)))
@@ -127,7 +141,14 @@ const rows = tasks.map(t => [
   t.depende.join(", "),
 ])
 const isNum = i => i >= 6 && i <= 9
-const header = `<tr>${cols.map((c, i) => `<th class="${isNum(i) ? "num" : ""}">${c}</th>`).join("")}</tr>`
+const colHelp = {
+  WBS: "Código en la estructura de desglose del trabajo",
+  Horas: "Horas planeadas del entregable",
+  Avance: "Porcentaje terminado (issue cerrado = 100 %, si no, casillas marcadas)",
+  EV: "Valor ganado: horas planeadas × avance",
+  Reales: "Horas reales registradas en el Project",
+}
+const header = `<tr>${cols.map((c, i) => `<th class="${isNum(i) ? "num" : ""}"${colHelp[c] ? ` title="${colHelp[c]}"` : ""}>${c}${colHelp[c] ? ` <i class="info">i</i>` : ""}</th>`).join("")}</tr>`
 const body = Object.entries(Object.groupBy(rows, (_, i) => tasks[i].fase))
   .map(([fase, rs]) => `<tr class="fase"><td colspan="${cols.length}">${fase}</td></tr>` +
     rs.map(r => `<tr>${r.map((c, i) => `<td class="${isNum(i) ? "num" : ""}">${c}</td>`).join("")}</tr>`).join(""))
