@@ -13,16 +13,23 @@
   </header>
   <main>
     <section id="kpis"></section>
-    <section>
-      <h2>Curva S (horas)</h2>
-      <canvas id="curva"></canvas>
-    </section>
+    <details id="glosario"></details>
+    <div class="graficas">
+      <section>
+        <h2>Valor: planeado vs ganado (puntos)</h2>
+        <canvas id="valor"></canvas>
+      </section>
+      <section>
+        <h2>Costo: planeado vs real (horas)</h2>
+        <canvas id="costo"></canvas>
+      </section>
+    </div>
     <section>
       <h2>WBS y dependencias</h2>
       <div id="grafo"></div>
     </section>
     <section>
-      <h2>Tareas</h2>
+      <h2>Actividades</h2>
       <table id="tabla"></table>
     </section>
   </main>
