@@ -14,3 +14,13 @@ src/reports/**/*.toc
 src/reports/**/*.fls
 src/reports/**/*.fdb_latexmk
 src/reports/**/*.synctex.gz
+src/reports/**/*.bbl
+src/reports/**/*.bcf
+src/reports/**/*.blg
+src/reports/**/*.run.xml
+
+# Los PDF de los reportes se compilan, no se versionan
+src/reports/**/*.pdf
+
+# macOS
+.DS_Store

@@ -10,10 +10,10 @@ Las fotos sirven para que el modelo aprenda la forma de las vacas y pueda predec
 
 \subsubsection*{Cómo obtuvimos las cifras}
 
-Las cifras de BCS y de fotografías se calcularon en un notebook de Python que está en la ruta \texttt{src/notebooks/} del repositorio:
+Las cifras de BCS y de fotografías se calcularon en un notebook de Python que está en la ruta \nolinkurl{src/notebooks/data_understanding/} del repositorio:
 
 \begin{center}
-  \texttt{Reporte de Datos BCS fotos.ipynb}
+  \nolinkurl{01_du_bcs_problem.ipynb}
 \end{center}
 
 El notebook lee los datos desde el bucket de Amazon S3 del equipo y solo los lee: no borra, mueve ni convierte nada. Las cifras se definen así:
@@ -27,4 +27,4 @@ El notebook lee los datos desde el bucket de Amazon S3 del equipo y solo los lee
 
 \subsubsection*{Datos de ordeño}
 
-Los datos de ordeño vienen de la carpeta compartida con el equipo llamada ``Vacas en establo Marzo - Junio 2025''. A pesar del nombre, hay fechas que llegan al 18 de julio de 2025. Se analizaron 34 vacas del CAETEC, registradas por los robots de ordeño voluntario (VMS). Cada archivo CSV pertenece a una vaca y todos tienen la misma estructura de 35 columnas. Las cifras se calcularon en el notebook \texttt{Reporte de Datos problema de colas.ipynb}, también en \texttt{src/notebooks/}. Los datos no se suben al repositorio.
+Los datos de ordeño vienen de la carpeta compartida con el equipo llamada ``Vacas en establo Marzo - Junio 2025''. A pesar del nombre, hay fechas que llegan al 18 de julio de 2025. Se analizaron 34 vacas del CAETEC, registradas por los robots de ordeño voluntario (VMS). Cada archivo CSV pertenece a una vaca y todos tienen la misma estructura de 35 columnas. Las cifras se calcularon en el notebook \nolinkurl{02_du_queue_problem.ipynb}, en la misma carpeta. Los datos no se suben al repositorio.
