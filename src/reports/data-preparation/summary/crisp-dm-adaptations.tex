@@ -1,0 +1,12 @@
+\section*{Adaptaciones a CRISP-DM}
+\addcontentsline{toc}{section}{Adaptaciones a CRISP-DM}
+
+En esta fase hicimos los siguientes ajustes a CRISP-DM:
+
+\begin{itemize}
+  \item Mantenemos el orden de las tareas 3.1 a 3.5, pero la conversión de las fotos a JPG, que es parte de 3.5, la hacemos antes de 3.3. La vista de cada foto se marca a mano en una página que corre en el navegador, y el navegador no puede mostrar fotos HEIC.
+  \item Preparamos solo los datos de BCS (fotos y bitácora), porque los datos de ordeño no son entrada del modelo. Por eso esta fase usa un solo notebook de Python. Se llama \nolinkurl{01_dp_bcs_problem.ipynb} y está en la carpeta \nolinkurl{src/notebooks/data_preparation/} del repositorio.
+  \item Todo se escribe en la carpeta \nolinkurl{data/}, que no se sube al repositorio, y los archivos originales nunca se modifican.
+  \item La separación en 5 pliegues por vaca es la tarea 4.2 de CRISP-DM (diseño de prueba), pero la hacemos aquí para que el dataset salga listo para entrenar.
+  \item No hay registros generados. La descripción del dataset la hacemos con las tablas de columnas de la sección~\ref{sec:descripcion} y con un \nolinkurl{LEEME.md} que mantiene el equipo en el bucket de S3.
+\end{itemize}

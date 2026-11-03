@@ -1,0 +1,49 @@
+\subsection{Reporte de limpieza de datos}
+
+Hicimos la limpieza sobre los problemas que encontramos en 2.4. Para cada uno decidimos si lo corregimos, lo eliminamos o lo ignoramos, que son las tres estrategias del curso. Ningún archivo original se borra: lo que se elimina solo deja de usarse y queda registrado en \nolinkurl{fotos.csv} (columnas \texttt{excluida} y \texttt{motivo}).
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Problemas de calidad y cómo los tratamos.}
+  \label{tab:limpieza}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.25\textwidth}}
+    \toprule
+    Problema (2.4) & Estrategia & Qué hicimos & Resultado \\
+    \midrule
+    Copias exactas dentro de una misma vaca (carpetas descargadas dos veces y nombres tipo \nolinkurl{IMG_0530(1).HEIC}) & Eliminar & Dejamos una sola copia por huella digital (SHA-256) dentro de cada vaca. Cuando hay varias, nos quedamos con la que no lleva ``(1)''. & De 477 archivos se quitaron 122 copias y quedaron 355 fotos únicas. \\
+    \addlinespace
+    Fotos idénticas en dos vacas (1548 y 2107) & Eliminar & Quitamos esas fotos de las dos vacas porque no sabemos a cuál pertenecen. & Se excluyeron 8 filas de fotos (4 fotos en 2 vacas). La 1548 conserva sus 3 fotos propias y la 2107 se queda sin fotos. \\
+    \addlinespace
+    Vaca 2123 con dos carpetas de fotos distintas que se enciman & Eliminar & Excluimos la vaca completa, porque no se sabe qué fotos van con cada una de sus dos evaluaciones y adivinar podría asignar un BCS equivocado. & Se excluyeron 14 fotos y 2 evaluaciones. \\
+    \addlinespace
+    Hora de la bitácora con ``x'' o con otro formato & Corregir e ignorar & ``13 00'' pasa a ``13:00''. Las ``x'' y los formatos raros quedan vacíos y el valor original se guarda en \texttt{hora\_original}. La hora no se usa en el modelo. & De 83 filas, 16 quedan con la hora vacía (14 con ``x'' y 2 con otro formato). \\
+    \addlinespace
+    BCS con coma decimal o fuera de escala & Corregir y verificar & El BCS se convierte a número y se revisa que esté entre 1 y 5 en pasos de 0.25. & Ningún BCS quedó sin convertir, fuera de rango ni fuera de los pasos de 0.25. \\
+    \addlinespace
+    Fotos del Samsung S22 con orientación EXIF distinta de 1 & Corregir & Los JPG con orientación distinta de 1 se enderezan. En los HEIC la librería ya aplica la rotación al abrirlos. & 20 JPG se enderezaron. Los otros 4 JPG ya estaban derechos y se copiaron sin cambios. \\
+    \addlinespace
+    Dos formatos (HEIC y JPG) y varias resoluciones & Corregir & Todo pasa a JPG (véase 3.5). La resolución no se cambia en esta fase. & Véase la sección~\ref{sec:reformateados}. \\
+    \addlinespace
+    14 vacas con dos evaluaciones de BCS distintas & Ignorar, documentado & No eliminamos ninguna evaluación. Guardamos las dos y entrenamos con el promedio (véase 3.3.1). & 13 de esas vacas siguen en el dataset, porque la 2123 se excluyó. \\
+    \addlinespace
+    Valores faltantes & Ignorar, documentado & No imputamos nada, porque no tenemos campos numéricos con faltantes que estimar. & No aplica. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Cifras de la limpieza:
+
+\begin{itemize}
+  \item \textbf{Fotos:} se leyeron 477 archivos, se quitaron 122 copias exactas y quedaron 355 fotos únicas. Se excluyeron 22 (14 de la vaca 2123 y 8 filas repetidas entre la 1548 y la 2107), así que siguen 333 fotos de 67 vacas.
+  \item \textbf{Bitácora:} tiene 83 evaluaciones, se excluyeron 2 (las de la 2123) y la bitácora limpia queda con 81 evaluaciones.
+\end{itemize}
+
+\subsubsection*{Pendientes que siguen abiertos y su posible efecto}
+
+\begin{itemize}
+  \item Las 7 vacas con etiqueta ``fresca'' contradictoria entre los expertos y el conjunto de datos de VMS 3 siguen sin auditarse con el CAETEC. Si alguna etiqueta está mal, afecta directamente al BCS de entrenamiento y a las métricas.
+  \item Al excluir la 2123 y la 2107 perdemos vacas y fotos en un dataset que ya es chico. \textbf{Pendiente:} confirmar en equipo la exclusión de la vaca 2123.
+  \item Hay clases de BCS con muy pocas vacas (2.25 tiene una sola evaluación), así que las métricas pueden moverse mucho con un solo error.
+  \item Las vistas de las 333 fotos las marcó una sola persona del equipo el 26/10/2026. \textbf{Pendiente:} definir si otra persona revisa una muestra de las marcas.
+\end{itemize}

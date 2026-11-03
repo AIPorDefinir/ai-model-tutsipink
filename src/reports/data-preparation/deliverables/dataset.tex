@@ -1,0 +1,58 @@
+\subsection{Dataset}\label{sec:dataset}
+
+El dataset es la carpeta \nolinkurl{data/dataset_bcs/}, que se sube al bucket de S3 del equipo:
+
+\begin{verbatim}
+dataset_bcs/
+    imagenes/
+        posterior/<id_vaca>/<foto>.jpg
+        lateral_izq/<id_vaca>/<foto>.jpg
+        lateral_der/<id_vaca>/<foto>.jpg
+        descartadas/<id_vaca>/<foto>.jpg
+    indice_imagenes.csv
+    vacas.csv
+    evaluaciones.csv
+    tiempos.csv
+    LEEME.md
+\end{verbatim}
+
+\begin{table}[H]
+  \centering
+  \caption{Resumen del dataset.}
+  \label{tab:dataset}
+  \begin{tabular}{ll}
+    \toprule
+    Concepto & Valor \\
+    \midrule
+    Fotos & 333 de 67 vacas \\
+    Fotos para entrenar & 325 de 66 vacas \\
+    Evaluaciones de BCS & 81 (79 de vacas que entran al entrenamiento) \\
+    Pliegues & 5, separados por vaca \\
+    Tamaño & 1.61 GB \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Las rutas de los CSV son relativas a \nolinkurl{dataset_bcs/}, así que al descargar el dataset hay que conservar esta estructura. El nombre del bucket no se escribe en el repositorio: los notebooks lo leen de la variable de entorno \texttt{S3\_BUCKET}. \textbf{Pendiente:} indicar en qué carpeta del bucket queda \nolinkurl{dataset_bcs/}.
+
+\subsubsection*{Comparación entre pandas y PySpark}
+
+El paso de integración, el diseño de prueba y la construcción de la etiqueta también los programamos con PySpark, en un contenedor Docker con Java 11 y Spark 3.5.0. Lo hicimos para practicar un enfoque que serviría si el volumen creciera. Los scripts de esa versión están en el bucket del equipo y no en el repositorio. \textbf{Pendiente:} decidir qué pasa con los scripts del bucket.
+
+Las dos versiones generaron exactamente el mismo índice. Con este volumen, PySpark tardó unas 40 veces más en total, por el costo de arrancar Spark (mediana de 5 corridas, \nolinkurl{tiempos.csv}).
+
+\begin{table}[H]
+  \centering
+  \caption{Tiempos de pandas y PySpark (mediana de 5 corridas).}
+  \label{tab:tiempos}
+  \begin{tabular}{lrrr}
+    \toprule
+    Versión & Total (s) & Arranque de sesión (s) & Procesamiento (s) \\
+    \midrule
+    pandas & 0.229 & No aplica & 0.027 \\
+    PySpark (modo local) & 9.237 & 1.798 & 6.492 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Por eso el notebook usa pandas y PySpark queda como comparación. \textbf{Pendiente:} definir si el procesamiento se pasa a PySpark en AWS, como pide el contexto del curso.

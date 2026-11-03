@@ -1,0 +1,13 @@
+\subsection{Datos integrados}
+
+Juntamos las fotos, las vistas, el BCS y los pliegues en tres tablas:
+
+\begin{itemize}
+  \item \nolinkurl{indice_imagenes.csv} tiene una fila por foto (333) con su ruta, vista, BCS y pliegue. Para entrenar se usan las filas con \texttt{usar\_en\_entrenamiento} igual a ``si'', que son las fotos usables de vacas con pliegue (325 fotos de 66 vacas).
+  \item \nolinkurl{vacas.csv} tiene una fila por vaca (67) con su pliegue, su BCS y cuántas fotos usables tiene de cada vista.
+  \item \nolinkurl{evaluaciones.csv} tiene una fila por evaluación real de BCS (81). Incluye también a las vacas que no entran al entrenamiento, marcadas con \texttt{en\_entrenamiento} igual a ``no''. De las 81 evaluaciones, 79 son de vacas que entran al entrenamiento y 2 no (la 2107 y la 1554).
+\end{itemize}
+
+No integramos el conjunto de datos de VMS 3 ni los datos de ordeño. Los cruces que vimos en 2.3 (13 vacas con VMS 3, 12 con ordeño y solo 2 en las tres fuentes) no alcanzan para usarlos como entrada.
+
+Las tres tablas se arman con la misma lógica en dos caminos, pandas y PySpark, y comparamos que den el mismo resultado. El notebook usa pandas y PySpark queda como comparación (véase la sección~\ref{sec:dataset}).

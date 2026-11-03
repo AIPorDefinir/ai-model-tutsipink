@@ -1,0 +1,15 @@
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+
+El objetivo de minería de datos del proyecto es predecir la condición corporal (BCS, por sus siglas en inglés) de las vacas del CAETEC a partir de fotografías. El desempeño del modelo se medirá con el error absoluto medio (MAE) y con la exactitud (\textit{accuracy}). En esta fase preparamos solo los datos de BCS, que son las fotos de la visita del 14 de octubre de 2026 y la bitácora de los expertos. El resultado es un dataset listo para la fase de modelado: fotos en JPG separadas por vista, un índice con el BCS de cada foto y una separación en 5 pliegues por vaca.
+
+\textbf{Datos importantes del dataset final:}
+
+\begin{itemize}
+  \item Partimos de 477 archivos de fotos y 83 evaluaciones de la bitácora (69 vacas). El dataset final tiene 333 fotos de 67 vacas y 81 evaluaciones de BCS.
+  \item De esas fotos, 325 de 66 vacas se usan para entrenar. Las otras 8 son fotos descartadas al marcar la vista (borrosas, cortadas, tapadas o en una vista que no sirve).
+  \item Por vista hay 214 fotos posteriores, 58 laterales izquierdas y 53 laterales derechas.
+  \item Las vacas se reparten en 5 pliegues separados por vaca, de 13 o 14 vacas cada uno, con un BCS medio de entre 3.00 y 3.05 en todos.
+  \item Excluimos la vaca 2123 completa y las 4 fotos que aparecían idénticas en las vacas 1548 y 2107. La 2107 se quedó sin fotos y la 1554 se quedó sin fotos usables, así que ninguna de las dos entra al entrenamiento.
+  \item Las fotos pasaron a JPG a resolución completa y el dataset pesa 1.61 GB.
+\end{itemize}

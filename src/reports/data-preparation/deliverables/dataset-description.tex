@@ -1,0 +1,83 @@
+\subsection{Descripción del dataset}\label{sec:descripcion}
+
+La descripción completa está en el \nolinkurl{LEEME.md} del bucket. Aquí resumimos las columnas de cada tabla.
+
+\subsubsection*{\texttt{indice\_imagenes.csv} (una fila por foto)}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Columnas de \texttt{indice\_imagenes.csv}.}
+  \label{tab:col-indice}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Columna & Descripción \\
+    \midrule
+    \texttt{ruta} & Ruta de la foto dentro de \nolinkurl{dataset_bcs/}. \\
+    \texttt{id\_vaca} & ID de la vaca (conviene leerlo como texto). \\
+    \texttt{vista} & posterior, lateral\_izq o lateral\_der. Queda vacío si la foto se descartó. \\
+    \texttt{usable} & si o no. Vale no cuando la foto se descartó por estar borrosa, cortada, tapada o en una vista que no sirve. \\
+    \texttt{usar\_en\_entrenamiento} & si cuando la foto es usable y su vaca tiene pliegue. \\
+    \texttt{fold} & Pliegue de validación cruzada (0 a 4). Vacío si la vaca no entra. \\
+    \texttt{bcs\_entrenamiento} & BCS con el que se entrena: el promedio de las evaluaciones de la vaca. \\
+    \texttt{bcs\_1}, \texttt{bcs\_2} & Evaluaciones originales. \texttt{bcs\_2} queda vacío si solo hubo una. \\
+    \texttt{n\_eval} & Número de evaluaciones de la vaca (1 o 2). \\
+    \texttt{dif\_evaluadores} & Diferencia entre las dos evaluaciones. Vacío si solo hubo una. \\
+    \texttt{archivo\_jpg} & Ruta de la foto en la carpeta de trabajo intermedia. \\
+    \texttt{archivo\_original} & Archivo original del que salió el JPG. \\
+    \texttt{sha256} & Huella del archivo original, usada para detectar duplicados. \\
+    \texttt{fecha\_hora}, \texttt{camara} & Fecha y hora, y teléfono con el que se tomó, según los metadatos. \\
+    \texttt{ancho}, \texttt{alto} & Tamaño del JPG en píxeles. \\
+    \texttt{profundidad} & si cuando el HEIC original traía mapa de profundidad (LiDAR). Los JPG no lo incluyen. \\
+    \texttt{marcado\_por}, \texttt{marcado\_en} & Quién marcó la vista y cuándo (hora UTC). \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Todas las fotos de una misma vaca tienen los mismos valores de BCS y de pliegue.
+
+\subsubsection*{\texttt{vacas.csv} (una fila por vaca con fotos, 67)}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Columnas de \texttt{vacas.csv}.}
+  \label{tab:col-vacas}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Columna & Descripción \\
+    \midrule
+    \texttt{id\_vaca} & ID de la vaca. \\
+    \texttt{en\_entrenamiento} & si cuando la vaca tiene al menos una foto usable y BCS. \\
+    \texttt{fold} & Pliegue (0 a 4). \\
+    \texttt{bcs\_entrenamiento}, \texttt{bcs\_1}, \texttt{bcs\_2}, \texttt{n\_eval}, \texttt{dif\_evaluadores} & Igual que en \texttt{indice\_imagenes.csv}. \\
+    \texttt{n\_fotos} & Total de fotos de la vaca, incluidas las descartadas. \\
+    \texttt{n\_usables} & Fotos usables. \\
+    \texttt{n\_posterior}, \texttt{n\_lateral\_izq}, \texttt{n\_lateral\_der} & Fotos usables de cada vista. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection*{\texttt{evaluaciones.csv} (una fila por evaluación, 81)}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Columnas de \texttt{evaluaciones.csv}.}
+  \label{tab:col-evaluaciones}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Columna & Descripción \\
+    \midrule
+    \texttt{fila\_excel} & Fila de la bitácora original, para ubicar la evaluación. \\
+    \texttt{id\_vaca} & ID de la vaca. \\
+    \texttt{hora} & Hora de la evaluación (HH:MM). Vacía si la bitácora decía ``x'' o venía en otro formato. \\
+    \texttt{bcs} & BCS de esa evaluación, sin promediar. \\
+    \texttt{orden\_evaluacion} & 1 o 2, según el orden en la bitácora. \\
+    \texttt{n\_eval} & Número de evaluaciones de la vaca. \\
+    \texttt{fold}, \texttt{en\_entrenamiento} & Pliegue de la vaca y si entra al entrenamiento. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Distribución del BCS de las 81 evaluaciones: 2.25 (1), 2.50 (15), 2.75 (13), 3.00 (20), 3.25 (15), 3.50 (10) y 3.75 (7). El rango es el mismo de 2.1, de 2.25 a 3.75, así que el modelo no verá vacas fuera de ese rango.
