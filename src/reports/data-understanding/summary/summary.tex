@@ -1,0 +1,13 @@
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+
+El objetivo de minería de datos del proyecto es predecir la condición corporal (BCS, por sus siglas en inglés) de las vacas del CAETEC. El desempeño del modelo se medirá con el error absoluto medio (MAE), que indica en promedio por cuántos puntos de la escala nos equivocamos, y con la exactitud (\textit{accuracy}), que indica qué porcentaje de las vacas queda en la clase de BCS correcta. Por eso este reporte se enfoca en los datos que tienen BCS: las fotografías tomadas en la visita al CAETEC, el BCS asignado por expertos y el conjunto de datos de condición corporal del grupo VMS 3. Los datos de ordeño se describen como contexto.
+
+\textbf{Datos importantes de BCS:}
+
+\begin{itemize}
+  \item Tenemos 83 evaluaciones de BCS asignadas por expertos para 69 vacas distintas, en un rango de 2.25 a 3.75 en pasos de 0.25, con promedio de 3.03 y mediana de 3.0. De estas vacas, 14 tienen dos evaluaciones.
+  \item Hay 355 fotografías, sin contar copias, de esas 69 vacas, tomadas el 14 de octubre de 2026, con una mediana de 4 fotos por vaca. Como 4 fotos están asignadas a dos vacas, el número de fotos distintas es 351.
+  \item 13 de las vacas con BCS también están en el conjunto de datos de VMS 3. La columna ``Evento BCS'' de ese conjunto no se usa como etiqueta hasta saber qué mide. De las 12 vacas que tienen los dos valores, ``Evento BCS'' es mayor en 9, igual en 2 y menor en 1.
+  \item Solo 12 de las 69 vacas con BCS tienen datos de ordeño, y esos datos son de 2025. Por eso se consideran contexto y su relación con el BCS no es significativa.
+\end{itemize}

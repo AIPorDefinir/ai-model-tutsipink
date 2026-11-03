@@ -1,0 +1,55 @@
+\subsection{Reporte de calidad de los datos}
+
+\subsubsection*{Calidad de los datos de BCS}
+
+\begin{itemize}
+  \item \textbf{Archivos repetidos:} de 477 archivos, 122 son copias dentro de la misma vaca. Además, 13 vacas se descargaron dos veces con exactamente las mismas fotos y hay 18 archivos con nombre tipo ``IMG\_0530(1).HEIC''.
+  \item \textbf{Fotos en más de una vaca:} las vacas 1548 y 2107 tienen 4 fotos iguales y no se sabe a cuál de las dos corresponde cada una. La 2107 no tiene más fotos.
+  \item \textbf{Carpetas distintas para una misma vaca:} la vaca 2123 aparece dos veces en la bitácora con dos carpetas de fotos distintas y no se sabe qué fotos van con cada evaluación.
+  \item \textbf{Orientación:} 20 de las 24 fotos tomadas con el Samsung S22 vienen con una orientación EXIF distinta de 1, por lo que se verían giradas si el programa ignora esa etiqueta.
+  \item \textbf{Formatos y resoluciones mezclados:} hay dos formatos de imagen (HEIC y JPG) y siete resoluciones distintas, aunque tres de ellas concentran 347 de las 351 fotos únicas.
+  \item \textbf{Hora en la bitácora:} hay 14 horas marcadas con ``x'' y 2 con otro formato. La hora no se usará en el modelo.
+  \item \textbf{Cobertura de VMS 3:} solo 13 de las 69 vacas con BCS están en ese conjunto de datos.
+  \item \textbf{``BCS ayer'' y ``Evento BCS'':} ``BCS ayer'' está vacía en las 24 vacas, mientras que ``Evento BCS'' tiene valores parecidos a un BCS. No sabemos si se relacionan ni qué significan.
+  \item \textbf{``Evento BCS'' contra los expertos:} no coincide con el BCS de los expertos. De 12 vacas con ambos valores, el conjunto de datos es mayor en 9, igual en 2 y menor en 1. Las mayores diferencias son la vaca 8744 (3.0 contra 4.17), la 8799 (2.5 contra 3.5) y la 1547 (3.25 contra 3.98). No lo usaremos como etiqueta hasta aclarar qué mide y de qué fecha es.
+  \item \textbf{Consistencia de la bitácora:} todas las vacas de la bitácora tienen carpeta de fotos y todas las carpetas tienen registro en la bitácora. No hay BCS vacíos ni fuera del rango de 1 a 5.
+\end{itemize}
+
+\subsubsection*{Calidad de los datos de ordeño}
+
+\begin{itemize}
+  \item \textbf{Filas que no son de ordeño:} 233 filas tienen otra acción (172 rechazadas y 61 echadas sin ordeñar). Se excluyen de las estadísticas de producción, incidentes y destino.
+  \item \textbf{Posibles duplicados:} 25 registros comparten vaca y hora de inicio con otro registro. De momento no se eliminan, por lo que los conteos pueden estar inflados hasta en 25 filas.
+  \item \textbf{Columnas vacías:} RCS y Usuario están vacías en las 34 vacas. No interpretamos el vacío de RCS como ausencia de mastitis, sino como que no se registró.
+  \item \textbf{Cuartos sin lectura:} la vaca 6211 (cuarto TI) y la 6232 (cuarto TD) no tienen lecturas en un cuarto. Según el socio formador, son cuartos que no se ordeñan por un problema de salud. Se mantienen como faltantes y no se imputan.
+  \item \textbf{Vacas con pocos datos:} la 1497 tuvo un ordeño, la 8771 tuvo 7 y la 8775 tuvo 10. Se excluyen de las comparaciones entre vacas.
+  \item \textbf{Producción en cero:} hay ordeños con 0 kg en las vacas 1554, 2078, 6232 y 8782, y con 0.08 kg en la 8712. Falta revisar si son ordeños fallidos antes de modelar.
+  \item \textbf{Vacíos que significan ``no ocurrió'':} patada, incompleto, pezones no encontrados y AMD de pezón están vacías entre el 82\% y el 89\% de las filas. No se tratan como faltantes, sino como ausencia del evento.
+  \item \textbf{Umbral de conductividad:} el rango común es de 3.0 a 5.0 mS/cm y usamos 6.0 mS/cm como valor alto.
+\end{itemize}
+
+\subsubsection*{Riesgos de las decisiones de etiqueta}
+
+Evaluamos los riesgos con la misma lógica del plan de riesgos: probabilidad (1 a 5), impacto (1 a 5) y magnitud, que es la probabilidad por el impacto. Con una magnitud de 12 o más mitigamos el riesgo; con una menor lo aceptamos y lo monitoreamos. Los valores de probabilidad e impacto son propuestos y falta validarlos en equipo (véase la sección de pendientes).
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Riesgos de las decisiones de etiqueta.}
+  \label{tab:riesgos}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.33\textwidth}rrr>{\raggedright\arraybackslash}X}
+    \toprule
+    Riesgo & P & I & M & Decisión \\
+    \midrule
+    BCS distinto para la misma vaca (14 vacas con dos evaluaciones) & 5 & 3 & 15 & Mitigar: conservar las dos evaluaciones, entrenar con el promedio y evaluar contra cada una. \\
+    \addlinespace
+    Usar ``Evento BCS'' como etiqueta sin saber qué mide & 3 & 5 & 15 & Mitigar: usar solo el BCS de los expertos hasta que el socio confirme qué mide la columna. \\
+    \addlinespace
+    Etiqueta ``fresca'' contradictoria entre expertos y conjunto de datos & 4 & 3 & 12 & Mitigar: auditar las 7 vacas en conflicto con el CAETEC. \\
+    \addlinespace
+    Pocas vacas por clase de BCS, lo que vuelve inestables la accuracy y el MAE & 5 & 4 & 20 & Mitigar: separar entrenamiento y prueba por vaca y repartir las clases de BCS en los pliegues. \\
+    \addlinespace
+    Fotos duplicadas o asignadas a la vaca equivocada & 5 & 4 & 20 & Mitigar: detectar duplicados por contenido y excluir las fotos y vacas dudosas. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
