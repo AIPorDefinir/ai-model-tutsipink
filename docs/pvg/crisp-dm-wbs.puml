@@ -36,18 +36,23 @@
 **** 2.3.1 Reporte de exploración de los datos
 *** 2.4 Verificar la calidad de los datos
 **** 2.4.1 Reporte de calidad de los datos
+*** 2.5 Integrar al repositorio y a la nube
+**** 2.5.1 Merge de los notebooks al repositorio
+**** 2.5.2 Subida de los datos a AWS
 
 ** 3. Preparación de los datos
 *** 3.1 Seleccionar los datos
-**** 3.1.1 Tu actividad aquí
+**** 3.1.1 Justificación de inclusión y exclusión de datos
 *** 3.2 Limpiar los datos
-**** 3.2.1 Tu actividad aquí
+**** 3.2.1 Reporte de limpieza de los datos
 *** 3.3 Construir datos
-**** 3.3.1 Tu actividad aquí
+**** 3.3.1 Atributos derivados y registros generados
 *** 3.4 Integrar los datos
-**** 3.4.1 Tu actividad aquí
+**** 3.4.1 Datos integrados
 *** 3.5 Formatear los datos
-**** 3.5.1 Tu actividad aquí
+**** 3.5.1 Datos con formato final
+*** 3.6 Integrar al repositorio
+**** 3.6.1 Merge de la rama de data preparation
 
 ** 4. Modelado
 *** 4.1 Seleccionar la técnica de modelado

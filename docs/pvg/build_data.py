@@ -133,7 +133,7 @@ def main():
         task = plan[item["codigo"]]
         # El Project manda; plan.json queda como respaldo
         pf = fields.get(issue["number"], {}) if issue else {}
-        planned_points = effort_points(task["evidencia"]) if "evidencia" in task else task.get("puntos") or points(task["horas"])
+        planned_points = effort_points(task["evidencia"]) if "evidencia" in task else task["puntos"] if "puntos" in task else points(task["horas"])
         tasks.append({
             **item,
             **task,
