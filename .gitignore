@@ -14,3 +14,16 @@ src/reports/**/*.toc
 src/reports/**/*.fls
 src/reports/**/*.fdb_latexmk
 src/reports/**/*.synctex.gz
+src/reports/**/*.bbl
+src/reports/**/*.bcf
+src/reports/**/*.blg
+src/reports/**/*.run.xml
+
+# PDF de los reportes: solo se versiona el de cada etapa
+src/reports/**/*.pdf
+!src/reports/01-business-understanding/main.pdf
+!src/reports/02-data-understanding/main.pdf
+!src/reports/03-data-preparation/main.pdf
+
+# macOS
+.DS_Store

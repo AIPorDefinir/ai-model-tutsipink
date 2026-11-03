@@ -1,0 +1,41 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+% Numeración igual a la del WBS: 2.1 tarea, 2.1.1 entregable
+\renewcommand{\thesection}{2.\arabic{section}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\RedeclareSectionCommand[tocnumwidth=2.3em]{section}
+\RedeclareSectionCommand[afterskip=1ex]{paragraph}
+
+\begin{document}
+
+\input{title}
+
+\tableofcontents
+\clearpage
+
+\input{summary/summary}
+\input{summary/crisp-dm-adaptations}
+
+\section{Recolectar los datos iniciales}
+
+\input{collect-initial-data/initial-data-collection-report}
+
+\section{Describir los datos}
+
+\input{describe-data/data-description-report}
+
+\section{Explorar los datos}
+
+\input{explore-data/data-exploration-report}
+
+\section{Verificar la calidad de los datos}
+
+\input{verify-data-quality/data-quality-report}
+\input{verify-data-quality/open-items}
+
+\printbibliography
+
+\end{document}
