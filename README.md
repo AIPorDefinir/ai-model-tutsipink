@@ -1,4 +1,4 @@
-# Reto de "Inteligencia artificial avanzada para la ciencia de datos"
+# Reto de la concentración "Inteligencia artificial avanzada para la ciencia de datos"
 
 Este proyecto usa la metodología CRISP-DM.
 
