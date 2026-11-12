@@ -24,7 +24,7 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ### 4. Modeling
 
-Pendiente.
+- Código: [src/modeling](src/modeling)
 
 ### 5. Evaluation
 

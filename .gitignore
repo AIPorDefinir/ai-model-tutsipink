@@ -27,3 +27,17 @@ src/reports/**/*.pdf
 
 # macOS
 .DS_Store
+
+# Modelado: entorno virtual, cachés y pesos de las redes
+.venv/
+__pycache__/
+artifacts/
+
+# Credenciales: nunca se suben
+.env
+.env.*
+
+# Spark local
+spark-warehouse/
+metastore_db/
+derby.log
