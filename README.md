@@ -12,7 +12,9 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ### 1. Business Understanding
 
-- [Business Understanding](reports/01-business-understanding/Business%20Understanding.pdf)
+- [Business Understanding 1](reports/01-business-understanding/business-understanding-1/) (7 de octubre)
+- [Business Understanding 2](reports/01-business-understanding/business-understanding-2/Business%20Understanding.pdf) (2 de noviembre)
+- [Business Understanding 3](reports/01-business-understanding/business-understanding-3/Business%20Understanding.pdf) (12 de noviembre)
 
 ### 2. Data Understanding
 
@@ -33,12 +35,6 @@ Pendiente.
 ### 6. Deployment
 
 Pendiente.
-
-## Archivo
-
-Versiones entregadas antes de las correcciones:
-
-- [Business Understanding, 7 de octubre](reports/01-business-understanding/archivo/entrega-2026-10-07)
 
 ## Contributors
 
