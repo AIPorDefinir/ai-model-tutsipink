@@ -146,7 +146,14 @@ def main():
             "avance": round(progress(issue), 3) if issue else 0.0,
             "horas_reales": pf.get("horas_reales", 0.0),
         })
-    data = {"repo": REPO, "proyecto": project, "corte": date.today().isoformat(), "tareas": tasks}
+    # Fecha fija del ajuste de horas (PR #64): último día con issues cerradas al momento del ajuste.
+    data = {
+        "repo": REPO,
+        "proyecto": project,
+        "corte": date.today().isoformat(),
+        "ajuste": "2026-11-03",
+        "tareas": tasks,
+    }
     out = HERE / "data.json"
     out.write_text(json.dumps(data, ensure_ascii=False, indent=2))
     linked = sum(t["issue"] is not None for t in tasks)
