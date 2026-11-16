@@ -1,0 +1,7 @@
+nombre: cnn_propia
+tipo: cnn
+entrada: original
+protocolo: laboratorio
+semilla: 2026
+agregacion_vaca: media
+hiperparametros: {}

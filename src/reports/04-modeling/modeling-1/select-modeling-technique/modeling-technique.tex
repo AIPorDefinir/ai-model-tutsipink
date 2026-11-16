@@ -1,0 +1,3 @@
+\subsection{Técnica de modelado}
+
+Empezamos con regresión supervisada sobre fotos RGB. El modelo predice un número (el BCS) y la calificación de la vaca es el promedio de sus fotos. El BCS es ordinal y casi continuo (cuartos de punto), y la regresión respeta que equivocarse por 0.25 es menos grave que equivocarse por 1.0. Después probamos tratar el BCS como clases de cuarto de punto. La versión que funcionó fue la clasificación con valor esperado, el modelo estima la probabilidad de cada cuarto de punto y entrega su promedio ponderado, de modo que conserva el orden de la escala y no trata igual un error de un cuarto que uno de un punto.

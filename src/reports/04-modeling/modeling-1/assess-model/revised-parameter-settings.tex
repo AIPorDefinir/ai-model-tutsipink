@@ -1,0 +1,13 @@
+\subsection{Parámetros revisados}
+
+\begin{itemize}
+  \item Desde el 12 de noviembre todo se elige con validación cruzada interna dentro del entrenamiento y la validación se mide una sola vez; las cifras del protocolo anterior no se usan.
+  \item Las cifras finales se recalcularon con las 76 vacas del bucket actualizado el 5 de noviembre.
+  \item Se probó foto original, foto sin fondo (segmentada con Mask R-CNN) y recorte de anca y cola; la foto sin fondo se adoptó como entrada estándar.
+  \item De una regresión ridge fija a 25 recetas con selección anidada; agregar más candidatos empeoró el resultado.
+  \item Estiramiento de la salida y pesos por rango, para corregir que las predicciones se concentren en el centro.
+  \item El ajuste fino con varias semillas promediadas se lanzó, pero no se terminó por su costo de cómputo (unas 18 horas).
+  \item Pesos públicos entrenados con fotos de anca de vacas lecheras (Modelo 4).
+  \item De regresión a clasificación por cuartos de punto con valor esperado (Modelo 5).
+  \item En la salida redondeo a 0.25, aplicado igual a todos los modelos y reportado siempre junto a la salida continua.
+\end{itemize}

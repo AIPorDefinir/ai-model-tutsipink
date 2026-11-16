@@ -1,0 +1,10 @@
+nombre: convnext_tiny
+tipo: embeddings_regresion
+extractor: convnext_tiny
+entrada: segmentada
+protocolo: laboratorio
+semilla: 2026
+agregacion_vaca: media
+cabeza:
+  bases: [ridge_min, ridge_1se, ridge_ens1se, ridge_enstop5, mlp]
+  estiramientos: [ninguno, afin, inverso, isotonico, pendiente]
