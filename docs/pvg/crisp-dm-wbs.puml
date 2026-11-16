@@ -58,13 +58,13 @@
 
 ** 4. Modelado
 *** 4.1 Seleccionar la técnica de modelado
-**** 4.1.1 Tu actividad aquí
+**** 4.1.1 Técnica y supuestos del modelado
 *** 4.2 Diseñar las pruebas
-**** 4.2.1 Tu actividad aquí
+**** 4.2.1 Diseño de pruebas
 *** 4.3 Construir el modelo
-**** 4.3.1 Tu actividad aquí
+**** 4.3.1 Modelos significativos y su descripción
 *** 4.4 Evaluar el modelo
-**** 4.4.1 Tu actividad aquí
+**** 4.4.1 Evaluación del modelo y parámetros revisados
 *** 4.5 Integrar findings y código al repositorio
 **** 4.5.1 Informe de findings de modelado en el repo
 **** 4.5.2 Merge del código final de modelado al repositorio
