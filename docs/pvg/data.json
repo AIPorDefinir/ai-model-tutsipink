@@ -1,7 +1,8 @@
 {
   "repo": "AIPorDefinir/ai-model-tutsipink",
   "proyecto": "Proyecto CRISP-DM",
-  "corte": "2026-10-09",
+  "corte": "2026-11-16",
+  "ajuste": "2026-11-03",
   "tareas": [
     {
       "codigo": "1.1.1",
@@ -12,7 +13,15 @@
       "horas": 4,
       "inicio": "2026-09-28",
       "fin": "2026-09-29",
+      "inicio_real": "2026-10-01",
+      "fin_real": "2026-10-02",
+      "evidencia": {
+        "dias": 2,
+        "editores": 3,
+        "guardados": 57
+      },
       "depende": [],
+      "puntos": 5,
       "issue": 7,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/7",
       "responsables": [
@@ -31,9 +40,17 @@
       "horas": 4,
       "inicio": "2026-09-30",
       "fin": "2026-10-01",
+      "inicio_real": "2026-10-01",
+      "fin_real": "2026-10-06",
+      "evidencia": {
+        "dias": 4,
+        "editores": 5,
+        "guardados": 45
+      },
       "depende": [
         "1.1.1"
       ],
+      "puntos": 8,
       "issue": 8,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/8",
       "responsables": [
@@ -51,6 +68,10 @@
       "horas": 3,
       "inicio": "2026-10-02",
       "fin": "2026-10-02",
+      "puntos": 3,
+      "inicio_real": "2026-10-06",
+      "fin_real": "2026-10-07",
+      "estimada": "secuencia",
       "depende": [
         "1.1.2"
       ],
@@ -60,7 +81,7 @@
         "Facundo Bautista Barbera"
       ],
       "avance": 1.0,
-      "horas_reales": 0.0
+      "horas_reales": 2.5
     },
     {
       "codigo": "1.2.1",
@@ -71,9 +92,17 @@
       "horas": 3,
       "inicio": "2026-10-02",
       "fin": "2026-10-02",
+      "inicio_real": "2026-10-01",
+      "fin_real": "2026-10-03",
+      "evidencia": {
+        "dias": 3,
+        "editores": 3,
+        "guardados": 50
+      },
       "depende": [
         "1.1.2"
       ],
+      "puntos": 5,
       "issue": 10,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/10",
       "responsables": [
@@ -91,9 +120,17 @@
       "horas": 4,
       "inicio": "2026-10-03",
       "fin": "2026-10-04",
+      "inicio_real": "2026-10-02",
+      "fin_real": "2026-10-07",
+      "evidencia": {
+        "dias": 3,
+        "editores": 1,
+        "guardados": 22
+      },
       "depende": [
         "1.2.1"
       ],
+      "puntos": 3,
       "issue": 11,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/11",
       "responsables": [
@@ -111,9 +148,17 @@
       "horas": 4,
       "inicio": "2026-10-05",
       "fin": "2026-10-06",
+      "inicio_real": "2026-10-03",
+      "fin_real": "2026-10-09",
+      "evidencia": {
+        "dias": 3,
+        "editores": 2,
+        "guardados": 39
+      },
       "depende": [
         "1.2.2"
       ],
+      "puntos": 3,
       "issue": 12,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/12",
       "responsables": [
@@ -131,9 +176,17 @@
       "horas": 3,
       "inicio": "2026-09-30",
       "fin": "2026-10-02",
+      "inicio_real": "2026-10-03",
+      "fin_real": "2026-10-03",
+      "evidencia": {
+        "dias": 1,
+        "editores": 1,
+        "guardados": 38
+      },
       "depende": [
         "1.1.1"
       ],
+      "puntos": 2,
       "issue": 13,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/13",
       "responsables": [
@@ -151,10 +204,18 @@
       "horas": 5,
       "inicio": "2026-10-07",
       "fin": "2026-10-07",
+      "inicio_real": "2026-10-04",
+      "fin_real": "2026-10-07",
+      "evidencia": {
+        "dias": 3,
+        "editores": 2,
+        "guardados": 5
+      },
       "depende": [
         "1.2.1",
         "1.2.3"
       ],
+      "puntos": 3,
       "issue": 14,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/14",
       "responsables": [
@@ -172,9 +233,17 @@
       "horas": 3,
       "inicio": "2026-10-02",
       "fin": "2026-10-03",
+      "inicio_real": "2026-10-05",
+      "fin_real": "2026-10-07",
+      "evidencia": {
+        "dias": 2,
+        "editores": 2,
+        "guardados": 15
+      },
       "depende": [
         "1.1.2"
       ],
+      "puntos": 2,
       "issue": 15,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/15",
       "responsables": [
@@ -192,6 +261,10 @@
       "horas": 3,
       "inicio": "2026-10-04",
       "fin": "2026-10-05",
+      "puntos": 3,
+      "inicio_real": "2026-10-07",
+      "fin_real": "2026-10-08",
+      "estimada": "secuencia",
       "depende": [
         "1.1.3",
         "1.3.1"
@@ -200,7 +273,8 @@
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/16",
       "responsables": [
         "Facundo Bautista Barbera",
-        "Emiliano Camacho Ponce"
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez"
       ],
       "avance": 1.0,
       "horas_reales": 1.0
@@ -214,6 +288,10 @@
       "horas": 6,
       "inicio": "2026-10-07",
       "fin": "2026-10-07",
+      "puntos": 5,
+      "inicio_real": "2026-10-07",
+      "fin_real": "2026-10-08",
+      "estimada": "secuencia",
       "depende": [
         "1.2.2",
         "1.2.3",
@@ -223,10 +301,11 @@
       "issue": 18,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/18",
       "responsables": [
-        "Facundo Bautista Barbera"
+        "Facundo Bautista Barbera",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 7.0
     },
     {
       "codigo": "1.4.2",
@@ -237,18 +316,27 @@
       "horas": 3,
       "inicio": "2026-10-04",
       "fin": "2026-10-05",
+      "inicio_real": "2026-10-06",
+      "fin_real": "2026-10-07",
+      "evidencia": {
+        "dias": 2,
+        "editores": 3,
+        "guardados": 8
+      },
       "depende": [
         "1.2.1",
         "1.3.1"
       ],
+      "puntos": 3,
       "issue": 17,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/17",
       "responsables": [
         "Facundo Bautista Barbera",
+        "Emiliano Camacho Ponce",
         "Oswaldo Isaias Hernandez Santes"
       ],
       "avance": 1.0,
-      "horas_reales": 0.0
+      "horas_reales": 3.0
     },
     {
       "codigo": "1.5.1",
@@ -259,17 +347,27 @@
       "horas": 4,
       "inicio": "2026-10-10",
       "fin": "2026-10-11",
+      "inicio_real": "2026-10-09",
+      "fin_real": "2026-10-20",
+      "evidencia": {
+        "dias": 7,
+        "editores": 1,
+        "guardados": 7
+      },
       "depende": [
         "1.1.2",
         "1.3.1"
       ],
+      "puntos": 5,
       "issue": 26,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/26",
       "responsables": [
-        "Emiliano Camacho Ponce"
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 2.0
     },
     {
       "codigo": "1.5.2",
@@ -280,18 +378,28 @@
       "horas": 6,
       "inicio": "2026-10-12",
       "fin": "2026-10-13",
+      "inicio_real": "2026-10-09",
+      "fin_real": "2026-10-20",
+      "evidencia": {
+        "dias": 7,
+        "editores": 1,
+        "guardados": 7
+      },
       "depende": [
         "1.5.1",
         "1.1.3",
         "1.3.2"
       ],
+      "puntos": 5,
       "issue": 27,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/27",
       "responsables": [
-        "Emiliano Camacho Ponce"
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 1.0
     },
     {
       "codigo": "1.5.3",
@@ -302,15 +410,23 @@
       "horas": 3,
       "inicio": "2026-10-12",
       "fin": "2026-10-12",
+      "inicio_real": "2026-10-21",
+      "fin_real": "2026-10-21",
+      "evidencia": {
+        "dias": 1,
+        "editores": 1,
+        "guardados": 2
+      },
       "depende": [
         "1.2.3"
       ],
+      "puntos": 1,
       "issue": 28,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/28",
       "responsables": [
         "Alfredo Alejandro Soto Herrera"
       ],
-      "avance": 0.0,
+      "avance": 1.0,
       "horas_reales": 0.4
     },
     {
@@ -319,20 +435,24 @@
       "fase": "1. Comprensión del negocio",
       "actividad": "1.5 Correcciones por retroalimentación",
       "definido": true,
-      "horas": 6,
+      "horas": 2.5,
+      "horas_originales": 6,
       "inicio": "2026-10-13",
       "fin": "2026-10-14",
+      "puntos": 5,
       "depende": [
         "1.4.1",
         "1.5.1",
         "1.5.3"
       ],
+      "inicio_real": "2026-10-21",
+      "fin_real": "2026-10-26",
       "issue": 29,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/29",
       "responsables": [
         "Facundo Bautista Barbera"
       ],
-      "avance": 0.0,
+      "avance": 1.0,
       "horas_reales": 0.0
     },
     {
@@ -344,16 +464,24 @@
       "horas": 2,
       "inicio": "2026-10-14",
       "fin": "2026-10-14",
+      "inicio_real": "2026-10-21",
+      "fin_real": "2026-10-21",
+      "evidencia": {
+        "dias": 1,
+        "editores": 3,
+        "guardados": 3
+      },
       "depende": [
         "1.5.2"
       ],
+      "puntos": 2,
       "issue": 30,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/30",
       "responsables": [
         "Facundo Bautista Barbera"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 1.5
     },
     {
       "codigo": "1.5.6",
@@ -364,16 +492,25 @@
       "horas": 3,
       "inicio": "2026-10-12",
       "fin": "2026-10-13",
+      "inicio_real": "2026-10-21",
+      "fin_real": "2026-10-26",
+      "evidencia": {
+        "dias": 1,
+        "editores": 3,
+        "guardados": 3
+      },
       "depende": [
         "1.5.1"
       ],
+      "puntos": 2,
       "issue": 31,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/31",
       "responsables": [
-        "Facundo Bautista Barbera"
+        "Facundo Bautista Barbera",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 2.0
     },
     {
       "codigo": "1.5.7",
@@ -384,6 +521,13 @@
       "horas": 2,
       "inicio": "2026-10-15",
       "fin": "2026-10-16",
+      "inicio_real": "2026-10-21",
+      "fin_real": "2026-10-21",
+      "evidencia": {
+        "dias": 1,
+        "editores": 3,
+        "guardados": 3
+      },
       "depende": [
         "1.5.2",
         "1.5.3",
@@ -391,13 +535,14 @@
         "1.5.5",
         "1.5.6"
       ],
+      "puntos": 2,
       "issue": 32,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/32",
       "responsables": [
         "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 2.0
     },
     {
       "codigo": "2.1.1",
@@ -408,16 +553,20 @@
       "horas": 6,
       "inicio": "2026-10-05",
       "fin": "2026-10-08",
+      "puntos": 5,
       "depende": [
         "1.2.1"
       ],
+      "inicio_real": "2026-10-05",
+      "fin_real": "2026-10-23",
       "issue": 3,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/3",
       "responsables": [
-        "Jorge Manuel Oyoqui Aguilera"
+        "Jorge Manuel Oyoqui Aguilera",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 0.5
     },
     {
       "codigo": "2.2.1",
@@ -428,16 +577,20 @@
       "horas": 8,
       "inicio": "2026-10-09",
       "fin": "2026-10-14",
+      "puntos": 8,
       "depende": [
         "2.1.1"
       ],
+      "inicio_real": "2026-10-05",
+      "fin_real": "2026-10-23",
       "issue": 4,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/4",
       "responsables": [
-        "Jorge Manuel Oyoqui Aguilera"
+        "Jorge Manuel Oyoqui Aguilera",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 5.0
+      "avance": 1.0,
+      "horas_reales": 6.5
     },
     {
       "codigo": "2.3.1",
@@ -448,17 +601,21 @@
       "horas": 12,
       "inicio": "2026-10-15",
       "fin": "2026-10-20",
+      "puntos": 13,
       "depende": [
         "2.2.1",
         "1.3.1"
       ],
+      "inicio_real": "2026-10-05",
+      "fin_real": "2026-10-23",
       "issue": 5,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/5",
       "responsables": [
-        "Jorge Manuel Oyoqui Aguilera"
+        "Jorge Manuel Oyoqui Aguilera",
+        "Iker Mejia Hernandez"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 3.5
     },
     {
       "codigo": "2.4.1",
@@ -469,107 +626,243 @@
       "horas": 8,
       "inicio": "2026-10-15",
       "fin": "2026-10-20",
+      "puntos": 8,
       "depende": [
         "2.2.1"
       ],
+      "inicio_real": "2026-10-05",
+      "fin_real": "2026-10-23",
       "issue": 6,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/6",
       "responsables": [
         "Jorge Manuel Oyoqui Aguilera"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 3.5
     },
     {
-      "codigo": "3.1.1",
-      "nombre": "Seleccionar los datos",
-      "fase": "3. Preparación de los datos",
-      "actividad": "3.1 Seleccionar los datos",
-      "definido": false,
-      "horas": 4,
+      "codigo": "2.5.1",
+      "nombre": "Merge de los notebooks al repositorio",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.5 Integrar al repositorio y a la nube",
+      "definido": true,
+      "horas": 1,
       "inicio": "2026-10-21",
-      "fin": "2026-10-22",
+      "fin": "2026-10-21",
+      "puntos": 0,
+      "fin_real": "2026-11-02",
       "depende": [
         "2.3.1",
         "2.4.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "inicio_real": "2026-10-27",
+      "issue": 60,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/60",
+      "responsables": [
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
+      ],
+      "avance": 1.0,
+      "horas_reales": 2.5
+    },
+    {
+      "codigo": "2.5.2",
+      "nombre": "Subida de los datos a AWS",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.5 Integrar al repositorio y a la nube",
+      "definido": true,
+      "horas": 1.5,
+      "inicio": "2026-10-09",
+      "fin": "2026-10-10",
+      "puntos": 0,
+      "depende": [
+        "2.1.1"
+      ],
+      "inicio_real": "2026-10-27",
+      "fin_real": "2026-11-03",
+      "issue": 59,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/59",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Oswaldo Isaias Hernandez Santes"
+      ],
+      "avance": 1.0,
+      "horas_reales": 1.0
+    },
+    {
+      "codigo": "2.6.1",
+      "nombre": "Escala de calificación del BCS en Data Understanding 2",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.6 Actualizar el reporte de Data Understanding",
+      "definido": true,
+      "horas": 0.33,
+      "inicio": "2026-11-15",
+      "fin": "2026-11-15",
+      "puntos": 1,
+      "depende": [
+        "2.2.1"
+      ],
+      "inicio_real": "2026-11-15",
+      "fin_real": "2026-11-15",
+      "issue": 73,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/73",
+      "responsables": [
+        "Facundo Bautista Barbera"
+      ],
+      "avance": 1.0,
+      "horas_reales": 0.33
+    },
+    {
+      "codigo": "3.1.1",
+      "nombre": "Justificación de inclusión y exclusión de datos",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.1 Seleccionar los datos",
+      "definido": true,
+      "horas": 1.5,
+      "horas_originales": 4,
+      "inicio": "2026-10-21",
+      "fin": "2026-10-22",
+      "puntos": 5,
+      "depende": [
+        "2.3.1",
+        "2.4.1"
+      ],
+      "inicio_real": "2026-10-30",
+      "fin_real": "2026-10-31",
+      "issue": 35,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/35",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
+      ],
+      "avance": 1.0,
+      "horas_reales": 1.5
     },
     {
       "codigo": "3.2.1",
-      "nombre": "Limpiar los datos",
+      "nombre": "Reporte de limpieza de los datos",
       "fase": "3. Preparación de los datos",
       "actividad": "3.2 Limpiar los datos",
-      "definido": false,
-      "horas": 8,
+      "definido": true,
+      "horas": 3.5,
+      "horas_originales": 8,
       "inicio": "2026-10-23",
       "fin": "2026-10-28",
+      "puntos": 8,
       "depende": [
         "3.1.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "inicio_real": "2026-10-30",
+      "fin_real": "2026-10-31",
+      "issue": 36,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/36",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez"
+      ],
+      "avance": 1.0,
+      "horas_reales": 3.5
     },
     {
       "codigo": "3.3.1",
-      "nombre": "Construir datos",
+      "nombre": "Atributos derivados y registros generados",
       "fase": "3. Preparación de los datos",
       "actividad": "3.3 Construir datos",
-      "definido": false,
-      "horas": 6,
+      "definido": true,
+      "horas": 2.5,
+      "horas_originales": 6,
       "inicio": "2026-10-29",
       "fin": "2026-11-01",
+      "puntos": 5,
       "depende": [
         "3.2.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "inicio_real": "2026-10-30",
+      "fin_real": "2026-10-31",
+      "issue": 37,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/37",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez"
+      ],
+      "avance": 1.0,
+      "horas_reales": 2.5
     },
     {
       "codigo": "3.4.1",
-      "nombre": "Integrar los datos",
+      "nombre": "Datos integrados",
       "fase": "3. Preparación de los datos",
       "actividad": "3.4 Integrar los datos",
-      "definido": false,
-      "horas": 4,
+      "definido": true,
+      "horas": 1.5,
+      "horas_originales": 4,
       "inicio": "2026-11-02",
       "fin": "2026-11-03",
+      "puntos": 5,
       "depende": [
         "3.3.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "inicio_real": "2026-10-30",
+      "fin_real": "2026-10-31",
+      "issue": 38,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/38",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez"
+      ],
+      "avance": 1.0,
+      "horas_reales": 1.5
     },
     {
       "codigo": "3.5.1",
-      "nombre": "Formatear los datos",
+      "nombre": "Datos con formato final",
       "fase": "3. Preparación de los datos",
       "actividad": "3.5 Formatear los datos",
-      "definido": false,
-      "horas": 3,
+      "definido": true,
+      "horas": 1,
+      "horas_originales": 3,
       "inicio": "2026-11-04",
       "fin": "2026-11-04",
+      "puntos": 3,
       "depende": [
         "3.4.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "inicio_real": "2026-10-30",
+      "fin_real": "2026-10-31",
+      "issue": 39,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/39",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez"
+      ],
+      "avance": 1.0,
+      "horas_reales": 1.0
+    },
+    {
+      "codigo": "3.6.1",
+      "nombre": "Merge de la rama de data preparation",
+      "fase": "3. Preparación de los datos",
+      "actividad": "3.6 Integrar al repositorio",
+      "definido": true,
+      "horas": 1,
+      "inicio": "2026-11-05",
+      "fin": "2026-11-05",
+      "puntos": 0,
+      "fin_real": "2026-11-02",
+      "depende": [
+        "3.5.1",
+        "2.5.1"
+      ],
+      "inicio_real": "2026-11-02",
+      "issue": 61,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/61",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez"
+      ],
+      "avance": 1.0,
+      "horas_reales": 1.5
     },
     {
       "codigo": "4.1.1",
@@ -577,16 +870,23 @@
       "fase": "4. Modelado",
       "actividad": "4.1 Seleccionar la técnica de modelado",
       "definido": false,
-      "horas": 4,
+      "horas": 1.5,
+      "horas_originales": 4,
       "inicio": "2026-11-05",
       "fin": "2026-11-06",
+      "puntos": 5,
       "depende": [
         "3.5.1",
         "1.4.2"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 40,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/40",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Emiliano Camacho Ponce"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -596,15 +896,21 @@
       "fase": "4. Modelado",
       "actividad": "4.2 Diseñar las pruebas",
       "definido": false,
-      "horas": 4,
+      "horas": 1.5,
+      "horas_originales": 4,
       "inicio": "2026-11-07",
       "fin": "2026-11-08",
+      "puntos": 5,
       "depende": [
         "4.1.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 41,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/41",
+      "responsables": [
+        "Facundo Bautista Barbera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -614,15 +920,21 @@
       "fase": "4. Modelado",
       "actividad": "4.3 Construir el modelo",
       "definido": false,
-      "horas": 16,
+      "horas": 6.5,
+      "horas_originales": 16,
       "inicio": "2026-11-09",
       "fin": "2026-11-13",
+      "puntos": 13,
       "depende": [
         "4.2.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 42,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/42",
+      "responsables": [
+        "Facundo Bautista Barbera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -632,15 +944,68 @@
       "fase": "4. Modelado",
       "actividad": "4.4 Evaluar el modelo",
       "definido": false,
-      "horas": 6,
+      "horas": 2.5,
+      "horas_originales": 6,
       "inicio": "2026-11-14",
       "fin": "2026-11-15",
+      "puntos": 5,
       "depende": [
         "4.3.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 43,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/43",
+      "responsables": [
+        "Facundo Bautista Barbera",
+        "Emiliano Camacho Ponce"
+      ],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.5.1",
+      "nombre": "Informe de findings de modelado en el repo",
+      "fase": "4. Modelado",
+      "actividad": "4.5 Integrar findings y código al repositorio",
+      "definido": true,
+      "horas": 2,
+      "inicio": "2026-11-16",
+      "fin": "2026-11-17",
+      "puntos": 2,
+      "depende": [
+        "4.4.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 67,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/67",
+      "responsables": [
+        "Emiliano Camacho Ponce"
+      ],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.5.2",
+      "nombre": "Merge del código final de modelado al repositorio",
+      "fase": "4. Modelado",
+      "actividad": "4.5 Integrar findings y código al repositorio",
+      "definido": true,
+      "horas": 1,
+      "inicio": "2026-11-17",
+      "fin": "2026-11-18",
+      "puntos": 0,
+      "depende": [
+        "4.5.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 68,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/68",
+      "responsables": [
+        "Facundo Bautista Barbera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -650,17 +1015,23 @@
       "fase": "5. Evaluación",
       "actividad": "5.1 Evaluar los resultados",
       "definido": false,
-      "horas": 4,
+      "horas": 1.5,
+      "horas_originales": 4,
       "inicio": "2026-11-16",
       "fin": "2026-11-17",
+      "puntos": 5,
       "depende": [
         "4.4.1",
         "1.1.3",
         "1.3.2"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 44,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/44",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -670,15 +1041,21 @@
       "fase": "5. Evaluación",
       "actividad": "5.2 Revisar el proceso",
       "definido": false,
-      "horas": 3,
+      "horas": 1,
+      "horas_originales": 3,
       "inicio": "2026-11-18",
       "fin": "2026-11-19",
+      "puntos": 3,
       "depende": [
         "5.1.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 45,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/45",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -688,15 +1065,21 @@
       "fase": "5. Evaluación",
       "actividad": "5.3 Determinar los próximos pasos",
       "definido": false,
-      "horas": 2,
+      "horas": 1,
+      "horas_originales": 2,
       "inicio": "2026-11-20",
       "fin": "2026-11-20",
+      "puntos": 2,
       "depende": [
         "5.2.1"
       ],
-      "issue": null,
-      "url": null,
-      "responsables": [],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 46,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/46",
+      "responsables": [
+        "Jorge Manuel Oyoqui Aguilera"
+      ],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -706,14 +1089,18 @@
       "fase": "6. Despliegue",
       "actividad": "6.1 Planificar el despliegue",
       "definido": false,
-      "horas": 3,
+      "horas": 1,
+      "horas_originales": 3,
       "inicio": "2026-11-21",
       "fin": "2026-11-24",
+      "puntos": 3,
       "depende": [
         "5.3.1"
       ],
-      "issue": null,
-      "url": null,
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 47,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/47",
       "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
@@ -724,14 +1111,18 @@
       "fase": "6. Despliegue",
       "actividad": "6.2 Planificar monitoreo y mantenimiento",
       "definido": false,
-      "horas": 3,
+      "horas": 1,
+      "horas_originales": 3,
       "inicio": "2026-11-21",
       "fin": "2026-11-24",
+      "puntos": 3,
       "depende": [
         "5.3.1"
       ],
-      "issue": null,
-      "url": null,
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 48,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/48",
       "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
@@ -742,15 +1133,19 @@
       "fase": "6. Despliegue",
       "actividad": "6.3 Elaborar el informe final",
       "definido": false,
-      "horas": 8,
+      "horas": 3.5,
+      "horas_originales": 8,
       "inicio": "2026-11-25",
       "fin": "2026-11-30",
+      "puntos": 8,
       "depende": [
         "6.1.1",
         "6.2.1"
       ],
-      "issue": null,
-      "url": null,
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 49,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/49",
       "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
@@ -761,14 +1156,18 @@
       "fase": "6. Despliegue",
       "actividad": "6.4 Revisar el proyecto",
       "definido": false,
-      "horas": 2,
+      "horas": 1,
+      "horas_originales": 2,
       "inicio": "2026-12-01",
       "fin": "2026-12-02",
+      "puntos": 2,
       "depende": [
         "6.3.1"
       ],
-      "issue": null,
-      "url": null,
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 50,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/50",
       "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
