@@ -866,10 +866,10 @@
     },
     {
       "codigo": "4.1.1",
-      "nombre": "Seleccionar la técnica de modelado",
+      "nombre": "Técnica y supuestos del modelado",
       "fase": "4. Modelado",
       "actividad": "4.1 Seleccionar la técnica de modelado",
-      "definido": false,
+      "definido": true,
       "horas": 1.5,
       "horas_originales": 4,
       "inicio": "2026-11-05",
@@ -879,23 +879,27 @@
         "3.5.1",
         "1.4.2"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-03",
+      "fin_real": "2026-11-12",
       "issue": 40,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/40",
       "responsables": [
         "Facundo Bautista Barbera",
-        "Emiliano Camacho Ponce"
+        "Jorge Manuel Oyoqui Aguilera",
+        "Alfredo Alejandro Soto Herrera",
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 3.0
     },
     {
       "codigo": "4.2.1",
-      "nombre": "Diseñar las pruebas",
+      "nombre": "Diseño de pruebas",
       "fase": "4. Modelado",
       "actividad": "4.2 Diseñar las pruebas",
-      "definido": false,
+      "definido": true,
       "horas": 1.5,
       "horas_originales": 4,
       "inicio": "2026-11-07",
@@ -904,22 +908,27 @@
       "depende": [
         "4.1.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-11",
+      "fin_real": "2026-11-12",
       "issue": 41,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/41",
       "responsables": [
-        "Facundo Bautista Barbera"
+        "Facundo Bautista Barbera",
+        "Jorge Manuel Oyoqui Aguilera",
+        "Alfredo Alejandro Soto Herrera",
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 2.5
     },
     {
       "codigo": "4.3.1",
-      "nombre": "Construir el modelo",
+      "nombre": "Modelos significativos y su descripción",
       "fase": "4. Modelado",
       "actividad": "4.3 Construir el modelo",
-      "definido": false,
+      "definido": true,
       "horas": 6.5,
       "horas_originales": 16,
       "inicio": "2026-11-09",
@@ -928,22 +937,27 @@
       "depende": [
         "4.2.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-03",
+      "fin_real": "2026-11-15",
       "issue": 42,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/42",
       "responsables": [
-        "Facundo Bautista Barbera"
+        "Facundo Bautista Barbera",
+        "Jorge Manuel Oyoqui Aguilera",
+        "Alfredo Alejandro Soto Herrera",
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 10.0
     },
     {
       "codigo": "4.4.1",
-      "nombre": "Evaluar el modelo",
+      "nombre": "Evaluación del modelo y parámetros revisados",
       "fase": "4. Modelado",
       "actividad": "4.4 Evaluar el modelo",
-      "definido": false,
+      "definido": true,
       "horas": 2.5,
       "horas_originales": 6,
       "inicio": "2026-11-14",
@@ -952,16 +966,20 @@
       "depende": [
         "4.3.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-12",
+      "fin_real": "2026-11-15",
       "issue": 43,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/43",
       "responsables": [
         "Facundo Bautista Barbera",
-        "Emiliano Camacho Ponce"
+        "Jorge Manuel Oyoqui Aguilera",
+        "Alfredo Alejandro Soto Herrera",
+        "Emiliano Camacho Ponce",
+        "Iker Mejia Hernandez",
+        "Oswaldo Isaias Hernandez Santes"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 3.0
     },
     {
       "codigo": "4.5.1",
@@ -972,19 +990,20 @@
       "horas": 2,
       "inicio": "2026-11-16",
       "fin": "2026-11-17",
-      "puntos": 2,
+      "puntos": 3,
       "depende": [
         "4.4.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-15",
+      "fin_real": "2026-11-15",
       "issue": 67,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/67",
       "responsables": [
+        "Facundo Bautista Barbera",
         "Emiliano Camacho Ponce"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 3.0
     },
     {
       "codigo": "4.5.2",
@@ -995,19 +1014,19 @@
       "horas": 1,
       "inicio": "2026-11-17",
       "fin": "2026-11-18",
-      "puntos": 0,
+      "puntos": 2,
       "depende": [
         "4.5.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-15",
+      "fin_real": "2026-11-15",
       "issue": 68,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/68",
       "responsables": [
         "Facundo Bautista Barbera"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 1.5
     },
     {
       "codigo": "5.1.1",
