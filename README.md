@@ -18,15 +18,16 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ### 2. Data Understanding
 
-- [Data Understanding](reports/02-data-understanding/Data%20Understanding.pdf)
+- [Data Understanding 1](reports/02-data-understanding/data-understanding-1/Data%20Understanding.pdf)
+- [Data Understanding 2](reports/02-data-understanding/data-understanding-2/Data%20Understanding.pdf)
 
 ### 3. Data Preparation
 
-- [Data Preparation](reports/03-data-preparation/Data%20Preparation.pdf)
+- [Data Preparation 1](reports/03-data-preparation/data-preparation-1/Data%20Preparation.pdf)
 
 ### 4. Modeling
 
-- [Modeling](reports/04-modeling/Modeling.pdf)
+- [Modeling 1](reports/04-modeling/modeling-1/Modeling.pdf)
 - Código: [src/modeling](src/modeling). Cada modelo se corre con `python -m src.modeling.pipeline --config <modelo>`, con su configuración en `src/modeling/configs/`.
 - Referencias del código de modelado:
   - Fang, Y., Sun, Q., Wang, X., Huang, T., Wang, X., & Cao, Y. (2024). EVA-02: A visual representation for neon genesis. *Image and Vision Computing, 149*, 105171. https://doi.org/10.1016/j.imavis.2024.105171
