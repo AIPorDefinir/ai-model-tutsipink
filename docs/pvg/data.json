@@ -884,12 +884,8 @@
       "issue": 40,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/40",
       "responsables": [
-        "Facundo Bautista Barbera",
-        "Jorge Manuel Oyoqui Aguilera",
         "Alfredo Alejandro Soto Herrera",
-        "Emiliano Camacho Ponce",
-        "Iker Mejia Hernandez",
-        "Oswaldo Isaias Hernandez Santes"
+        "Emiliano Camacho Ponce"
       ],
       "avance": 1.0,
       "horas_reales": 3.0
@@ -913,10 +909,6 @@
       "issue": 41,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/41",
       "responsables": [
-        "Facundo Bautista Barbera",
-        "Jorge Manuel Oyoqui Aguilera",
-        "Alfredo Alejandro Soto Herrera",
-        "Emiliano Camacho Ponce",
         "Iker Mejia Hernandez",
         "Oswaldo Isaias Hernandez Santes"
       ],
@@ -943,11 +935,7 @@
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/42",
       "responsables": [
         "Facundo Bautista Barbera",
-        "Jorge Manuel Oyoqui Aguilera",
-        "Alfredo Alejandro Soto Herrera",
-        "Emiliano Camacho Ponce",
-        "Iker Mejia Hernandez",
-        "Oswaldo Isaias Hernandez Santes"
+        "Jorge Manuel Oyoqui Aguilera"
       ],
       "avance": 1.0,
       "horas_reales": 10.0
@@ -971,11 +959,7 @@
       "issue": 43,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/43",
       "responsables": [
-        "Facundo Bautista Barbera",
-        "Jorge Manuel Oyoqui Aguilera",
         "Alfredo Alejandro Soto Herrera",
-        "Emiliano Camacho Ponce",
-        "Iker Mejia Hernandez",
         "Oswaldo Isaias Hernandez Santes"
       ],
       "avance": 1.0,
@@ -999,7 +983,6 @@
       "issue": 67,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/67",
       "responsables": [
-        "Facundo Bautista Barbera",
         "Emiliano Camacho Ponce"
       ],
       "avance": 1.0,
@@ -1023,17 +1006,18 @@
       "issue": 68,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/68",
       "responsables": [
-        "Facundo Bautista Barbera"
+        "Facundo Bautista Barbera",
+        "Iker Mejia Hernandez"
       ],
       "avance": 1.0,
       "horas_reales": 1.5
     },
     {
       "codigo": "5.1.1",
-      "nombre": "Evaluar los resultados",
+      "nombre": "Evaluación de resultados y modelos aprobados",
       "fase": "5. Evaluación",
       "actividad": "5.1 Evaluar los resultados",
-      "definido": false,
+      "definido": true,
       "horas": 1.5,
       "horas_originales": 4,
       "inicio": "2026-11-16",
@@ -1056,10 +1040,10 @@
     },
     {
       "codigo": "5.2.1",
-      "nombre": "Revisar el proceso",
+      "nombre": "Revisión del proceso",
       "fase": "5. Evaluación",
       "actividad": "5.2 Revisar el proceso",
-      "definido": false,
+      "definido": true,
       "horas": 1,
       "horas_originales": 3,
       "inicio": "2026-11-18",
@@ -1080,10 +1064,10 @@
     },
     {
       "codigo": "5.3.1",
-      "nombre": "Determinar los próximos pasos",
+      "nombre": "Lista de acciones posibles y decisión",
       "fase": "5. Evaluación",
       "actividad": "5.3 Determinar los próximos pasos",
-      "definido": false,
+      "definido": true,
       "horas": 1,
       "horas_originales": 2,
       "inicio": "2026-11-20",
@@ -1104,10 +1088,10 @@
     },
     {
       "codigo": "6.1.1",
-      "nombre": "Planificar el despliegue",
+      "nombre": "Plan de despliegue",
       "fase": "6. Despliegue",
       "actividad": "6.1 Planificar el despliegue",
-      "definido": false,
+      "definido": true,
       "horas": 1,
       "horas_originales": 3,
       "inicio": "2026-11-21",
@@ -1126,10 +1110,10 @@
     },
     {
       "codigo": "6.2.1",
-      "nombre": "Planificar monitoreo y mantenimiento",
+      "nombre": "Plan de monitoreo y mantenimiento",
       "fase": "6. Despliegue",
       "actividad": "6.2 Planificar monitoreo y mantenimiento",
-      "definido": false,
+      "definido": true,
       "horas": 1,
       "horas_originales": 3,
       "inicio": "2026-11-21",
@@ -1148,10 +1132,10 @@
     },
     {
       "codigo": "6.3.1",
-      "nombre": "Elaborar el informe final",
+      "nombre": "Informe final y presentación",
       "fase": "6. Despliegue",
       "actividad": "6.3 Elaborar el informe final",
-      "definido": false,
+      "definido": true,
       "horas": 3.5,
       "horas_originales": 8,
       "inicio": "2026-11-25",
@@ -1171,10 +1155,10 @@
     },
     {
       "codigo": "6.4.1",
-      "nombre": "Revisar el proyecto",
+      "nombre": "Documentación de la experiencia",
       "fase": "6. Despliegue",
       "actividad": "6.4 Revisar el proyecto",
-      "definido": false,
+      "definido": true,
       "horas": 1,
       "horas_originales": 2,
       "inicio": "2026-12-01",
