@@ -1,0 +1,44 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+% Numeración igual a la del WBS: 4.1 tarea, 4.1.1 entregable
+\renewcommand{\thesection}{4.\arabic{section}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\RedeclareSectionCommand[tocnumwidth=2.3em]{section}
+\RedeclareSectionCommand[afterskip=1ex]{paragraph}
+
+\begin{document}
+
+\input{title}
+
+\tableofcontents
+\clearpage
+
+\input{summary/summary}
+\input{summary/crisp-dm-adaptations}
+
+\section{Selección de la técnica de modelado}
+
+\input{select-modeling-technique/modeling-technique}
+\input{select-modeling-technique/modeling-assumptions}
+
+\section{Diseño de pruebas}
+
+\input{generate-test-design/test-design}
+
+\section{Construcción del modelo}
+
+\input{build-model/parameter-settings}
+\input{build-model/model-description}
+
+\section{Evaluación del modelo}
+
+\input{assess-model/model-assessment}
+\input{assess-model/revised-parameter-settings}
+\input{assess-model/final-model}
+
+\printbibliography
+
+\end{document}

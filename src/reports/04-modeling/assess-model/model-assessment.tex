@@ -1,0 +1,51 @@
+\subsection{Resultados de los modelos significativos}
+
+Todas las cifras son sobre las 76 vacas, medidas una sola vez en la validación externa.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Resultados de los modelos significativos sobre las 76 vacas.}
+  \label{tab:resultados}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.15\textwidth}>{\raggedright\arraybackslash}p{0.06\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}p{0.19\textwidth}}
+    \toprule
+    Modelo & Vacas dentro de $\pm0.25$ (salida continua) & MAE & \% dentro de $\pm0.50$ & Vacas dentro de $\pm0.25$ (salida redondeada a 0.25) \\
+    \midrule
+    Modelo 1: CNN propia (modelo base) & 32/76 (42.1\,\%) & 0.341 & 77.6\,\% & 40/76 (52.6\,\%) \\
+    \addlinespace
+    Modelo 2: ConvNeXt-Tiny preentrenado congelado & 48/76 (63.2\,\%) & 0.255 & 86.8\,\% & 56/76 (73.7\,\%) \\
+    \addlinespace
+    Modelo 3: EVA02 con ajuste fino & No terminado & --- & --- & --- \\
+    \addlinespace
+    Modelo 4: ResNet-50 entrenada con fotos de vacas, congelada & 47/76 (61.8\,\%) & 0.260 & 85.5\,\% & 57/76 (75.0\,\%) \\
+    \addlinespace
+    Modelo 5: clasificación del BCS con valor esperado & 49/76 (64.5\,\%) & 0.236 & 90.8\,\% & 59/76 (77.6\,\%) \\
+    \addlinespace
+    Modelo final: Modelo 5 con salida redondeada a 0.25 & 59/76 (77.6\,\%) & 0.224 & 94.7\,\% & --- \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Cumplimiento de criterios de éxito de minería de datos}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Cumplimiento de los criterios de éxito de minería de datos.}
+  \label{tab:criterios}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.36\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Criterio & Resultado del modelo final \\
+    \midrule
+    CMD-1.1 (MAE entre 0.25 y 0.50) & MAE 0.224: mejor que la banda (menos de un cuarto de punto de error promedio). \\
+    \addlinespace
+    CMD-1.2 y criterio del negocio: al menos 70\,\% dentro de $\pm0.25$ (54/76) & Se cumple: 59/76 (77.6\,\%) con salida redondeada a 0.25. Con salida continua, el Modelo 5 llega a 49/76 (64.5\,\%). \\
+    \addlinespace
+    CMD-1.2 y criterio del negocio: al menos 90\,\% dentro de $\pm0.50$ & Se cumple: 94.7\,\% con salida redondeada a 0.25 y 90.8\,\% con salida continua. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Fallas del modelo}
+
+El modelo final comprime los extremos hacia 2.75--3.25. Califica bien a la vaca típica y se queda corto con las vacas muy flacas y muy gordas, que son justo los casos de mayor interés para el manejo del ganado. El caso más claro es el modelo base, que no acierta ninguna de las 15 vacas de BCS bajo ni de las 14 de BCS alto. Es el punto débil a mejorar, sobre todo con más vacas en los extremos.

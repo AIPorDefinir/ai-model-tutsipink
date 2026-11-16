@@ -24,6 +24,7 @@ src/reports/**/*.pdf
 !src/reports/01-business-understanding/main.pdf
 !src/reports/02-data-understanding/main.pdf
 !src/reports/03-data-preparation/main.pdf
+!src/reports/04-modeling/main.pdf
 
 # macOS
 .DS_Store

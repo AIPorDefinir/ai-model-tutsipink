@@ -1,0 +1,12 @@
+\section*{Adaptaciones a la metodología CRISP-DM}
+\addcontentsline{toc}{section}{Adaptaciones a la metodología CRISP-DM}
+
+Conservamos las cuatro tareas de la fase de Modelado de CRISP-DM y sus salidas, en el mismo orden y con el mismo nombre. Lo que se adaptó es la forma de ejecutar algunas tareas, por las características del problema (varias fotos por vaca y pocas vacas):
+
+\begin{itemize}
+  \item En lugar de elegir una sola técnica, comparamos familias de modelos contra un modelo base, en iteraciones.
+  \item Desde el 12 de noviembre usamos un protocolo más estricto que el inicial. Toda elección se hace con validación cruzada interna dentro del entrenamiento y el pliegue de validación solo mide, una sola vez, al final.
+  \item Cada experimento se fija antes de mirar su resultado. Si una cifra se obtuvo eligiendo con la validación a la vista, se considera optimista y no cuenta.
+  \item La métrica es por vaca y se reporta como n/76. Además de la salida continua, reportamos aparte la salida redondeada a 0.25.
+  \item Algunas revisiones regresaron a Preparación de Datos (segmentación del fondo y recorte de anca), algo que CRISP-DM permite.
+\end{itemize}

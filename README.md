@@ -26,6 +26,7 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ### 4. Modeling
 
+- [Modeling](reports/04-modeling/Modeling.pdf)
 - Código: [src/modeling](src/modeling). Cada modelo se corre con `python -m src.modeling.pipeline --config <modelo>`, con su configuración en `src/modeling/configs/`.
 - Referencias del código de modelado:
   - Fang, Y., Sun, Q., Wang, X., Huang, T., Wang, X., & Cao, Y. (2024). EVA-02: A visual representation for neon genesis. *Image and Vision Computing, 149*, 105171. https://doi.org/10.1016/j.imavis.2024.105171

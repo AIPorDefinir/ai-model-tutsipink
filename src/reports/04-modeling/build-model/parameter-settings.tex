@@ -1,0 +1,24 @@
+\subsection{Configuración de entrenamiento del Modelo 1 (CNN propia)}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Configuración de entrenamiento del Modelo 1.}
+  \label{tab:config-modelo1}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.25\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Parámetro & Valor \\
+    \midrule
+    Tamaño de entrada & $384\times288$ (los demás modelos, en la tabla siguiente) \\
+    Optimizador & AdamW, con tasas separadas para la red base y la cabeza \\
+    Calentamiento & Lineal, 1 época \\
+    Weight decay & 0.05 \\
+    Dropout (cabeza) & 0.3 \\
+    Lote & 32, con acumulación de microlotes \\
+    BatchNorm & Entrenable (la red aprende desde cero) \\
+    Paro temprano & Paciencia de 10 épocas, máximo 40 \\
+    Pérdida & Huber (Smooth L1), beta = 0.25, ponderada por 1 / fotos de la vaca \\
+    Inferencia & Volteo horizontal en inferencia; predicción recortada a [1, 5] \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
