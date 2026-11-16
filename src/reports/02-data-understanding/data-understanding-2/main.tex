@@ -1,8 +1,13 @@
 \documentclass[11pt,letterpaper,DIV=12]{scrartcl}
 
+% Versión 2: agrega la escala de calificación del BCS y sus referencias.
+% Lo que no cambia respecto a la versión 1 se toma de su carpeta.
+\makeatletter
+\def\input@path{{../data-understanding-1/}}
+\makeatother
+
 \input{preamble}
-% Versión 2: agrega la escala de calificación del BCS y sus referencias
-\addbibresource{references-2.bib}
+\graphicspath{{../data-understanding-1/}}
 
 % Numeración igual a la del WBS: 2.1 tarea, 2.1.1 entregable
 \renewcommand{\thesection}{2.\arabic{section}}
@@ -13,7 +18,7 @@
 
 \begin{document}
 
-\input{title-2}
+\input{title}
 
 \tableofcontents
 \clearpage
@@ -27,7 +32,7 @@
 
 \section{Describir los datos}
 
-\input{describe-data/data-description-report-2}
+\input{describe-data/data-description-report}
 
 \section{Explorar los datos}
 
