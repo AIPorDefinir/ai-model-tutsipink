@@ -25,6 +25,7 @@
   "2.4.1": { "horas": 8,  "inicio": "2026-10-15", "fin": "2026-10-20", "puntos": 8, "depende": ["2.2.1"] },
   "2.5.1": { "horas": 1,  "inicio": "2026-10-21", "fin": "2026-10-21", "puntos": 0, "fin_real": "2026-11-02", "depende": ["2.3.1", "2.4.1"] },
   "2.5.2": { "horas": 1.5,  "inicio": "2026-10-09", "fin": "2026-10-10", "puntos": 0, "depende": ["2.1.1"] },
+  "2.6.1": { "horas": 0.33,  "inicio": "2026-11-15", "fin": "2026-11-15", "puntos": 1, "depende": ["2.2.1"] },
 
   "3.1.1": { "horas": 1.5, "horas_originales": 4, "inicio": "2026-10-21", "fin": "2026-10-22", "puntos": 5, "depende": ["2.3.1", "2.4.1"] },
   "3.2.1": { "horas": 3.5, "horas_originales": 8, "inicio": "2026-10-23", "fin": "2026-10-28", "puntos": 8, "depende": ["3.1.1"] },
