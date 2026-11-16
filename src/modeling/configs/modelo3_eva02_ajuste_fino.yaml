@@ -1,0 +1,9 @@
+nombre: eva02_ajuste_fino
+tipo: ajuste_fino
+entrada: segmentada
+protocolo: laboratorio
+semilla: 2026
+semillas: [2026, 2027, 2028, 2029, 2030]
+agregacion_vaca: mediana
+salidas: [continua]
+receta: {}

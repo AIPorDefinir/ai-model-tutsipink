@@ -1,8 +1,13 @@
-# Modelado con PySpark y TensorFlow en GPU (src/modeling/). Python 3.12 y Java 17.
+# Modelado con PySpark, TensorFlow y PyTorch en GPU (src/modeling/). Python 3.12 y Java 17.
 tensorflow[and-cuda]==2.21.0
+torch
+torchvision
+timm
 pyspark==4.3.0
 pyarrow
 pandas<3
+scipy
+pyyaml
 pillow
 boto3
 python-dotenv

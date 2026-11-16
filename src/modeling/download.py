@@ -1,11 +1,9 @@
+"""Copia local del dataset del bucket (boto3), fuera de Git."""
 import argparse
 import time
 from concurrent.futures import ThreadPoolExecutor
 
 from . import config
-
-DESTINO = config.DATA / "dataset_bcs"
-
 
 def cliente(servicio="s3"):
     import boto3
@@ -34,7 +32,8 @@ def buscar(s3):
     return encontrados
 
 
-def descargar(s3, prefijo=config.PREFIJO_DATASET, destino=DESTINO, hilos=16):
+def descargar(s3, prefijo=config.PREFIJO_DATASET, destino=None, hilos=16):
+    destino = destino or config.DATASET_LOCAL
     bucket = config.bucket()
     prefijo = prefijo.strip("/") + "/"
     objetos = [o for o in listar(s3, prefijo) if not o["Key"].endswith("/")]

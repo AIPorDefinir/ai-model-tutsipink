@@ -32,6 +32,7 @@ src/reports/**/*.pdf
 .venv/
 __pycache__/
 artifacts/
+results/
 
 # Credenciales: nunca se suben
 .env

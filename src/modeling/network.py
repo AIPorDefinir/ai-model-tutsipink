@@ -1,3 +1,4 @@
+"""Modelo 1: CNN propia en Keras, entrenada de punta a punta."""
 import io
 import json
 import time
@@ -5,9 +6,10 @@ import time
 import numpy as np
 
 from . import config
+from .metrics import mae_vaca, pesos_vaca
 
 
-def configurar_gpu(precision="float32"):
+def configurar_gpu(dtype="float32"):
     import keras
     import tensorflow as tf
 
@@ -16,7 +18,7 @@ def configurar_gpu(precision="float32"):
             tf.config.experimental.set_memory_growth(gpu, True)
         except RuntimeError:
             pass
-    keras.mixed_precision.set_global_policy(precision)
+    keras.mixed_precision.set_global_policy(dtype)
     return [g.name for g in tf.config.list_physical_devices("GPU")]
 
 
@@ -34,27 +36,32 @@ def decodificar(jpgs, lado=config.LADO_FOTO):
     return salida
 
 
-def crear_modelo(hp, centro, pesos="imagenet"):
+def cnn_propia(alto, ancho):
+    """Modelo 1: CNN propia de 4 bloques [Conv 3x3 -> BatchNorm -> ReLU -> MaxPool 2x2] con 32/64/128/256 filtros
+    y GAP; desde cero, sin pesos preentrenados."""
     import keras
 
-    alto, ancho = hp["tamano"]
-    base = keras.applications.EfficientNetB0(
-        include_top=False, weights=pesos, input_shape=(alto, ancho, 3), pooling="avg"
-    )
-    etapas = tuple(f"block{i}" for i in range(8 - hp["n_etapas"], 8))
-    for capa in base.layers:
-        entrenable = capa.name.startswith(etapas) or capa.name.startswith("top_")
-        if hp["n_etapas"] >= 7:
-            entrenable = entrenable or capa.name.startswith("stem_")
-        if isinstance(capa, keras.layers.BatchNormalization):
-            entrenable = False
-        capa.trainable = entrenable
+    entrada = keras.Input((alto, ancho, 3), name="entrada")
+    x = keras.layers.Rescaling(1 / 255, name="escala")(entrada)
+    for i, filtros in enumerate((32, 64, 128, 256)):
+        x = keras.layers.Conv2D(filtros, 3, padding="same", use_bias=False, name=f"conv{i}")(x)
+        x = keras.layers.BatchNormalization(name=f"bn{i}")(x)
+        x = keras.layers.Activation("relu", name=f"relu{i}")(x)
+        x = keras.layers.MaxPooling2D(2, name=f"pool{i}")(x)
+    x = keras.layers.GlobalAveragePooling2D(name="gap")(x)
+    return keras.Model(entrada, x, name="cnn_propia")
+
+
+def crear_modelo(hp, centro):
+    import keras
+
+    base = cnn_propia(*hp["tamano"])
     x = keras.layers.Dropout(hp["dropout"], name="dropout_cabeza")(base.output)
     x = keras.layers.Dense(
         1, kernel_initializer="zeros", bias_initializer="zeros", dtype="float32", name="cabeza"
     )(x)
     salida = keras.layers.Rescaling(1.0, offset=float(centro), dtype="float32", name="centro")(x)
-    return keras.Model(base.input, salida, name=f"bcs_{hp['red']}_e{hp['n_etapas']}")
+    return keras.Model(base.input, salida, name="bcs_cnn_propia")
 
 
 def _aumentar(tamano):
@@ -96,16 +103,6 @@ def _limpia(tamano):
     return f
 
 
-def pesos_por_foto(id_vaca, tipo="vaca"):
-    id_vaca = np.asarray(id_vaca)
-    if tipo == "foto":
-        w = np.ones(len(id_vaca))
-    else:
-        _, inv, cuenta = np.unique(id_vaca, return_inverse=True, return_counts=True)
-        w = 1.0 / cuenta[inv]
-    return (w / w.mean()).astype(np.float32)
-
-
 def predecir(modelo, X, hp, lote=32):
     import tensorflow as tf
 
@@ -118,13 +115,6 @@ def predecir(modelo, X, hp, lote=32):
     return np.clip(np.concatenate(preds), config.BCS_MIN, config.BCS_MAX)
 
 
-def mae_vaca(id_vaca, y, pred):
-    import pandas as pd
-
-    v = pd.DataFrame({"id_vaca": id_vaca, "y": y, "pred": pred}).groupby("id_vaca")[["y", "pred"]].mean()
-    return float((v["pred"] - v["y"]).abs().mean())
-
-
 def entrenar(hp, X, y, id_vaca, epocas, val=None, semilla=config.SEMILLA, registro=print):
     import keras
     import tensorflow as tf
@@ -132,15 +122,15 @@ def entrenar(hp, X, y, id_vaca, epocas, val=None, semilla=config.SEMILLA, regist
     keras.utils.set_random_seed(semilla)
     gen = np.random.default_rng(semilla)
     y = np.asarray(y, dtype=np.float32)
-    w = pesos_por_foto(id_vaca, hp["peso"])
+    w = pesos_vaca(id_vaca).astype(np.float32)
     modelo = crear_modelo(hp, centro=float(y.mean()))
     cabeza = modelo.get_layer("cabeza").trainable_variables
     ids_cabeza = {id(v) for v in cabeza}
-    cola = [v for v in modelo.trainable_variables if id(v) not in ids_cabeza]
-    variables = cola + cabeza
+    cuerpo = [v for v in modelo.trainable_variables if id(v) not in ids_cabeza]
+    variables = cuerpo + cabeza
     pasos_epoca = int(np.ceil(len(y) / hp["lote"]))
 
-    opt_cola = keras.optimizers.AdamW(hp["lr_cola"], weight_decay=hp["weight_decay"], epsilon=1e-8)
+    opt_cuerpo = keras.optimizers.AdamW(hp["lr_cuerpo"], weight_decay=hp["weight_decay"], epsilon=1e-8)
     opt_cabeza = keras.optimizers.AdamW(hp["lr_cabeza"], weight_decay=hp["weight_decay"], epsilon=1e-8)
     paso = 0
 
@@ -179,11 +169,11 @@ def entrenar(hp, X, y, id_vaca, epocas, val=None, semilla=config.SEMILLA, regist
             cuenta += 1
             if cuenta == por_lote or j == n_micro - 1:
                 factor = min(1.0, (paso + 1) / pasos_epoca)
-                opt_cola.learning_rate = hp["lr_cola"] * factor
+                opt_cuerpo.learning_rate = hp["lr_cuerpo"] * factor
                 opt_cabeza.learning_rate = hp["lr_cabeza"] * factor
                 grads = [g / n_lote for g in acum]
-                opt_cola.apply_gradients(zip(grads[: len(cola)], cola))
-                opt_cabeza.apply_gradients(zip(grads[len(cola) :], cabeza))
+                opt_cuerpo.apply_gradients(zip(grads[: len(cuerpo)], cuerpo))
+                opt_cabeza.apply_gradients(zip(grads[len(cuerpo) :], cabeza))
                 paso += 1
                 acum, n_lote, cuenta = None, 0, 0
         fila = {"epoca": epoca, "perdida": perdida_total / len(y)}
