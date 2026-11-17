@@ -18,16 +18,16 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ### 2. Data Understanding
 
-- [Data Understanding 1](reports/02-data-understanding/data-understanding-1/Data%20Understanding.pdf)
-- [Data Understanding 2](reports/02-data-understanding/data-understanding-2/Data%20Understanding.pdf)
+- [Data Understanding 1](reports/02-data-understanding/data-understanding-1/Data%20Understanding.pdf) (2 de noviembre)
+- [Data Understanding 2](reports/02-data-understanding/data-understanding-2/Data%20Understanding.pdf) (15 de noviembre)
 
 ### 3. Data Preparation
 
-- [Data Preparation 1](reports/03-data-preparation/data-preparation-1/Data%20Preparation.pdf)
+- [Data Preparation 1](reports/03-data-preparation/data-preparation-1/Data%20Preparation.pdf) (2 de noviembre)
 
 ### 4. Modeling
 
-- [Modeling 1](reports/04-modeling/modeling-1/Modeling.pdf)
+- [Modeling 1](reports/04-modeling/modeling-1/Modeling.pdf) (15 de noviembre)
 
 ### 5. Evaluation
 
