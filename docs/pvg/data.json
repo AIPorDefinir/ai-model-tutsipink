@@ -1,7 +1,7 @@
 {
   "repo": "AIPorDefinir/ai-model-tutsipink",
   "proyecto": "Proyecto CRISP-DM",
-  "corte": "2026-11-16",
+  "corte": "2026-11-17",
   "ajuste": "2026-11-03",
   "tareas": [
     {
@@ -713,6 +713,48 @@
       "horas_reales": 0.33
     },
     {
+      "codigo": "2.6.2",
+      "nombre": "Distribuciones de la base de datos",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.6 Actualizar el reporte de Data Understanding",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-17",
+      "fin": "2026-11-18",
+      "puntos": 3,
+      "depende": [
+        "2.3.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 81,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/81",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "2.6.3",
+      "nombre": "Figuras autoexplicativas de Comprensión de los datos",
+      "fase": "2. Comprensión de los datos",
+      "actividad": "2.6 Actualizar el reporte de Data Understanding",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-18",
+      "fin": "2026-11-19",
+      "puntos": 3,
+      "depende": [
+        "2.6.2"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 82,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/82",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
       "codigo": "3.1.1",
       "nombre": "Justificación de inclusión y exclusión de datos",
       "fase": "3. Preparación de los datos",
@@ -1013,6 +1055,91 @@
       "horas_reales": 1.5
     },
     {
+      "codigo": "4.6.1",
+      "nombre": "Clasificación contra regresión y lectura de la salida",
+      "fase": "4. Modelado",
+      "actividad": "4.6 Ajustar el modelado al clasificador",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-17",
+      "fin": "2026-11-18",
+      "puntos": 3,
+      "depende": [
+        "4.4.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 83,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/83",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.6.2",
+      "nombre": "Ajustes de arquitectura del Modelo 5",
+      "fase": "4. Modelado",
+      "actividad": "4.6 Ajustar el modelado al clasificador",
+      "definido": true,
+      "horas": 5,
+      "inicio": "2026-11-18",
+      "fin": "2026-11-20",
+      "puntos": 5,
+      "depende": [
+        "4.6.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 84,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/84",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.6.3",
+      "nombre": "Quitar el Modelo 3 y reorganizar Modelado alrededor del clasificador",
+      "fase": "4. Modelado",
+      "actividad": "4.6 Ajustar el modelado al clasificador",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-11-18",
+      "fin": "2026-11-19",
+      "puntos": 5,
+      "depende": [
+        "4.6.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 85,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/85",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "4.6.4",
+      "nombre": "Figuras autoexplicativas de Modelado",
+      "fase": "4. Modelado",
+      "actividad": "4.6 Ajustar el modelado al clasificador",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-20",
+      "fin": "2026-11-21",
+      "puntos": 3,
+      "depende": [
+        "4.6.2",
+        "4.6.3"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 86,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/86",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
       "codigo": "5.1.1",
       "nombre": "Evaluación de resultados y modelos aprobados",
       "fase": "5. Evaluación",
@@ -1028,15 +1155,15 @@
         "1.1.3",
         "1.3.2"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-16",
+      "fin_real": "2026-11-16",
       "issue": 44,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/44",
       "responsables": [
         "Jorge Manuel Oyoqui Aguilera"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 3.0
     },
     {
       "codigo": "5.2.1",
@@ -1052,15 +1179,15 @@
       "depende": [
         "5.1.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-16",
+      "fin_real": "2026-11-16",
       "issue": 45,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/45",
       "responsables": [
         "Jorge Manuel Oyoqui Aguilera"
       ],
-      "avance": 0.0,
-      "horas_reales": 0.0
+      "avance": 1.0,
+      "horas_reales": 2.0
     },
     {
       "codigo": "5.3.1",
@@ -1076,13 +1203,163 @@
       "depende": [
         "5.2.1"
       ],
-      "inicio_real": null,
-      "fin_real": null,
+      "inicio_real": "2026-11-16",
+      "fin_real": "2026-11-16",
       "issue": 46,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/46",
       "responsables": [
         "Jorge Manuel Oyoqui Aguilera"
       ],
+      "avance": 1.0,
+      "horas_reales": 1.0
+    },
+    {
+      "codigo": "5.4.1",
+      "nombre": "Definir las métricas nuevas",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-17",
+      "fin": "2026-11-18",
+      "puntos": 3,
+      "depende": [
+        "5.1.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 87,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/87",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.4.2",
+      "nombre": "Explorar las métricas y elegir el criterio principal",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-11-19",
+      "fin": "2026-11-20",
+      "puntos": 5,
+      "depende": [
+        "5.4.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 88,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/88",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.4.3",
+      "nombre": "Documentar la petición de más métricas del socio formador",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 1,
+      "inicio": "2026-11-18",
+      "fin": "2026-11-18",
+      "puntos": 1,
+      "depende": [
+        "5.4.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 89,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/89",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.4.4",
+      "nombre": "Revisar si el modelo pasa el criterio nuevo",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 2,
+      "inicio": "2026-11-21",
+      "fin": "2026-11-22",
+      "puntos": 2,
+      "depende": [
+        "5.4.2",
+        "4.6.2"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 90,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/90",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.4.5",
+      "nombre": "Figuras autoexplicativas de Evaluación",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-22",
+      "fin": "2026-11-23",
+      "puntos": 3,
+      "depende": [
+        "5.4.4"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 91,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/91",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.4.6",
+      "nombre": "Qué hace falta para mejorar el modelo",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 2,
+      "inicio": "2026-11-22",
+      "fin": "2026-11-23",
+      "puntos": 2,
+      "depende": [
+        "5.4.4"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 92,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/92",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "5.4.7",
+      "nombre": "Presentación corta de métricas y criterio",
+      "fase": "5. Evaluación",
+      "actividad": "5.4 Ajustar la evaluación",
+      "definido": true,
+      "horas": 4,
+      "inicio": "2026-11-24",
+      "fin": "2026-11-25",
+      "puntos": 5,
+      "depende": [
+        "5.4.2",
+        "5.4.4",
+        "5.4.5"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 93,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/93",
+      "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
     },
@@ -1104,6 +1381,27 @@
       "fin_real": null,
       "issue": 47,
       "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/47",
+      "responsables": [],
+      "avance": 0.0,
+      "horas_reales": 0.0
+    },
+    {
+      "codigo": "6.1.2",
+      "nombre": "Despliegue en el celular contra la nube",
+      "fase": "6. Despliegue",
+      "actividad": "6.1 Planificar el despliegue",
+      "definido": true,
+      "horas": 3,
+      "inicio": "2026-11-21",
+      "fin": "2026-11-24",
+      "puntos": 3,
+      "depende": [
+        "5.3.1"
+      ],
+      "inicio_real": null,
+      "fin_real": null,
+      "issue": 94,
+      "url": "https://github.com/AIPorDefinir/ai-model-tutsipink/issues/94",
       "responsables": [],
       "avance": 0.0,
       "horas_reales": 0.0
