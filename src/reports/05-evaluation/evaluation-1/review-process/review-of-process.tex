@@ -1,0 +1,29 @@
+\subsection{Revisión del proceso}
+
+Realizamos una retrospectiva de trazabilidad, cobertura de tareas, control de calidad y validez de la evidencia. Tenemos que la posibilidad para retroceder entre fases, así como sucedió al reconsiderar las segmentaciones de las imágenes, es consistente con la estructura iterativa de CRISP-DM. Hasta ahora, en cada una de las fases de CRISP-DM, hemos realizado lo siguiente:
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Revisión de cada fase de CRISP-DM.}
+  \label{tab:fases}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.3\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Fase & Entregables realizados & Resultados y oportunidades \\
+    \midrule
+    1. Comprensión del negocio & ON-1, dos etapas, preguntas clave, criterios de éxito, riesgos y restricciones & Obtuvimos metas de estimación claras, aunque la utilidad operativa y el alcance metabólico siguen requiriendo validación independiente. Igualmente, la sección 1.4.2 está incompleta. \\
+    \addlinespace
+    2. Comprensión de los datos & Inventario de fotos, etiqueta, VMS y ordeño; y el análisis de calidad & Identificamos los duplicados, las ambigüedades y pocos datos productivos. Aún podríamos documentar los cambios de versiones del dataset. \\
+    \addlinespace
+    3. Preparación de los datos & Limpieza, corrección de fotos, índice, vistas, partición por vaca & Evitamos fugas entre fotos de una misma vaca. Faltaría hacer una segunda revisión de etiquetado de vistas. \\
+    \addlinespace
+    4. Modelado & Familias comparadas, segmentación, selección interna y evaluación externa & Realizamos mejoras metodológicas al separar decisiones internas de evaluación externa. Tenemos una limitación persistente en los extremos. \\
+    \addlinespace
+    5. Evaluación & Comparación con las métricas de negocio y nuestros resultados, análisis de omisiones y decisión propuesta & Tenemos lo suficiente como para realizar un piloto supervisado, aunque aún se requeriría hacer un acuerdo formal. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Durante el desarrollo del proyecto utilizamos distintas versiones del conjunto de datos. En Comprensión de los datos, el inventario completo es de 110 evaluaciones de 79 vacas y 625 fotos únicas de 81 vacas; las 355 fotos de 69 vacas corresponden solo a la visita del 14 de octubre de 2026. En Preparación de los datos, el dataset final tiene 580 fotos de 77 vacas, de las cuales 551 fotos de 76 vacas son usables para entrenar. En Modelado se partió al inicio de una copia de 66 vacas; cuando el bucket se actualizó el 5 de noviembre, las cifras finales se recalcularon con las 76 vacas y las cifras sobre 66 vacas ya no se usan.
+
+Por esa razón es que las métricas presentadas en esta evaluación corresponden exclusivamente a los resultados finales de Modelado obtenidos sobre las 76 vacas. No deben combinarse con las cifras de experimentos anteriores.

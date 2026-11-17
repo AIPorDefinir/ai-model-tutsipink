@@ -1,0 +1,25 @@
+Las siguientes alternativas están valoradas según su cumplimiento de criterios, a su utilidad práctica, limitaciones de datos, costo computacional y calendario. La acción final sigue pendiente de la elección del equipo, pero se incluye una recomendación del siguiente paso y el porqué.
+
+\subsection{Acciones posibles}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Acciones posibles.}
+  \label{tab:acciones}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    Acción & Ventajas & Desventajas \\
+    \midrule
+    A. Despliegue del piloto asistido con el Modelo 5 & Ya tenemos un modelo que supera las metas. Dicho piloto permitiría observar el uso real. & El Modelo 5 sigue siendo débil a extremos, por lo que requeriría mantener una revisión por parte de un experto, tener seguimiento de errores y protocolos de captura. \\
+    \addlinespace
+    B. Iterar modelado antes de desplegar & Podría mejorarse el modelo en los extremos y concluir EVA02. & Coste de cálculo, mejoras inciertas y un potencial retraso. \\
+    \addlinespace
+    C. Recolectar más casos extremos y reentrenar & Atacaría la escasez de ejemplos de este tipo y permitiría tener una validación más representativa. & Requeriría de una nueva visita, etiquetado, tiempo de especialistas y volver a la fase de Preparación de los datos. \\
+    \addlinespace
+    D. Comparación RGB-LiDAR & Responde la pregunta clave y evalúa la utilidad de profundidad. & Hay pocas fotos con profundidad, exige preparación y regresar varias fases. \\
+    \addlinespace
+    E. Integrar BCS con variables productivas y días en leche & Permitiría avanzar hacia la segunda etapa del proyecto y evaluar si la condición corporal estimada puede contribuir a identificar situaciones de riesgo relacionadas con la etapa de lactancia. & Por el momento no tenemos suficientes registros contemporáneos y coincidentes con las fotografías. Sería necesario obtener nuevos datos, integrarlos y desarrollar una evaluación independiente. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

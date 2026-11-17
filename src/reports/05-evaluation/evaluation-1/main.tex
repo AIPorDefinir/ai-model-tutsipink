@@ -1,0 +1,42 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+% Numeración igual a la del WBS: 5.1 tarea, 5.1.1 entregable
+\renewcommand{\thesection}{5.\arabic{section}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\RedeclareSectionCommand[tocnumwidth=2.3em]{section}
+\RedeclareSectionCommand[afterskip=1ex]{paragraph}
+
+\begin{document}
+
+\input{title}
+
+\tableofcontents
+\clearpage
+
+\input{summary/summary}
+\input{summary/crisp-dm-adaptations}
+
+\section{Evaluar los resultados}
+
+\input{evaluate-results/assessment-of-results}
+\input{evaluate-results/approved-models}
+
+\section{Revisar el proceso}
+
+\input{review-process/review-of-process}
+\input{review-process/omitted-activities}
+
+\section{Determinar los próximos pasos}
+
+\input{determine-next-steps/list-of-possible-actions}
+\input{determine-next-steps/decision}
+
+\input{summary/sources}
+
+\nocite{*}
+\printbibliography[title={Referencias}]
+
+\end{document}

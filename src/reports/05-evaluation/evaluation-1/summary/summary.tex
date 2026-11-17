@@ -1,0 +1,8 @@
+\section*{Resumen}
+\addcontentsline{toc}{section}{Resumen}
+
+Comparamos los resultados que obtuvimos en la fase de modelado con lo que declaramos del objetivo de negocio ON-1, los criterios CN-1.1 y CN-1.2, el objetivo de minería de datos OMD-1 y los criterios CMD-1.1 y CMD-1.2. No realizamos un entrenamiento nuevo ya que la evaluación utilizó las métricas presentadas en la sección 4.4 de Modelado, calculadas a nivel de vaca sobre 76 vacas, con validación externa y selección interna de modelos.
+
+Propusimos aprobar técnicamente el Modelo 5 (clasificación del BCS por cuartos de punto con valor esperado y entrega redondeada a 0.25). Su salida redondeada obtuvo 59/76 vacas (77.6\,\%) dentro de $\pm0.25$, MAE de 0.224 y 94.7\,\% dentro de $\pm0.50$, de modo que cumplió con las metas cuantitativas de estimación y los criterios operativos de negocio que definimos en la etapa de Comprensión del negocio. No obstante, la salida continua alcanzó un 49/76 (64.5\,\%) dentro de $\pm0.25$, de modo que vimos indispensable tener que reportar las dos lecturas.
+
+El alcance siguió siendo limitado, pues el modelo concentra las predicciones en valores centrales y pierde la capacidad en vacas que poseen un BCS bajo o alto. Tampoco hemos podido demostrar que dicho modelo puede sustituir la inspección de especialistas ni ha sido evaluado bajo un sensor LiDAR. No ejecutamos la segunda etapa de interpretación de riesgo metabólico debido a la falta de registros productivos contemporáneos y suficientes. Por ende, nuestro siguiente paso sería proceder a hacer un despliegue piloto que esté asistido y supervisado, sujeto a la aprobación del equipo y del socio formador.

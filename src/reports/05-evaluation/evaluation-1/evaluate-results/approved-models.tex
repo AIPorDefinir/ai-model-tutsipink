@@ -1,0 +1,40 @@
+\subsection{Modelos aprobados}
+
+De los cinco enfoques significativos que reportamos en la etapa de Modelado, solo el Modelo 5 con salida redondeada superó conjuntamente las metas de error y tolerancia. Es importante distinguir entre aquellos modelos que no pudieron alcanzar los criterios de éxito y aquellos cuyo entrenamiento no terminó. En particular, el Modelo 3 (EVA02 con ajuste fino) no cuenta con resultados suficientes como para realizar una comparación válida, de modo que lo consideramos como no evaluable en esta fase y no puede aprobarse ni descartarse por su desempeño predictivo.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Resultados de los modelos significativos sobre las 76 vacas.}
+  \label{tab:modelos}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}}
+    \toprule
+    Modelo & MAE & $\pm0.25$ continua & $\pm0.50$ & $\pm0.25$ redondeada \\
+    \midrule
+    1. CNN propia & 0.341 & 42.1\,\% & 77.6\,\% & 52.6\,\% \\
+    \addlinespace
+    2. ConvNeXt-Tiny & 0.255 & 63.2\,\% & 86.8\,\% & 73.7\,\% \\
+    \addlinespace
+    3. EVA02 & --- & --- & --- & --- \\
+    \addlinespace
+    4. ResNet-50 & 0.260 & 61.8\,\% & 85.5\,\% & 75.0\,\% \\
+    \addlinespace
+    5. Clasificación con valor esperado & 0.236 & 64.5\,\% & 90.8\,\% & 77.6\,\% \\
+    \addlinespace
+    5. Salida final redondeada & 0.224 & --- & 94.7\,\% & 77.6\,\% \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Las cifras de $\pm0.50$ para los modelos 1 a 5 antes del redondeo son de su salida continua, mientras que el 94.7\,\% del modelo final es de la salida redondeada. Separamos estas modalidades para evitar tener comparaciones que sean engañosas.
+
+\paragraph{Condiciones de aprobación técnica.}
+
+\begin{enumerate}
+  \renewcommand{\labelenumi}{(\roman{enumi})}
+  \item Conservar la salida en pasos de 0.25 y documentar la transformación.
+  \item Reportar conjuntamente el rendimiento continuo y el rendimiento redondeado.
+  \item Usarlo solo como apoyo que estará sujeto a revisión por parte del experto.
+  \item Advertir sobre el sesgo hacia 2.75--3.25 y tratar las estimaciones en extremos con cuidado.
+  \item Validar a futuro la captura, consistencia y errores por rango antes de realizar un despliegue autónomo.
+\end{enumerate}

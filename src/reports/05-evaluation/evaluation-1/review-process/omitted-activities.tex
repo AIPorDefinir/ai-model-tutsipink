@@ -1,0 +1,35 @@
+\subsection{Actividades omitidas o que hay que repetir}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Actividades omitidas o que hay que repetir.}
+  \label{tab:omitidas}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.07\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Actividad & Fase & Estado & Efecto y recomendación \\
+    \midrule
+    Completar el inventario de herramientas (1.4.2) & 1 & Está reportado como vacío & Completar la trazabilidad documental, aunque no modifica las métricas. \\
+    \addlinespace
+    Análisis contextual sobre los días en leche y producción & 1--3 & No ejecutado & No probamos el alcance de riesgo metabólico. Para ello requeriríamos conseguir las variables actuales y coincidentes. \\
+    \addlinespace
+    Comparación LiDAR contra RGB & 1--4 & Sin experimento & Es una pregunta tecnológica sin respuesta. Se requeriría una comparación controlada. \\
+    \addlinespace
+    Definir \enquote{Evento BCS} y verificar notas \enquote{fresca} & 2--3 & Está pendiente & Nos falta aclarar con el socio formador el significado de la variable \enquote{Evento BCS}. También hay que revisar la etiqueta \enquote{fresca}, la cual presenta inconsistencias. Dichas variables fueron excluidas del modelado para así evitar realizar interpretaciones incorrectas. \\
+    \addlinespace
+    Analizar etiquetas individuales de expertos & 2 y 4 & No consta en Modelado & Complementar la evaluación por vaca frente al promedio con el análisis por evaluador. \\
+    \addlinespace
+    Segunda anotación de vistas & 3 & Pendiente & Estimar errores de etiquetado y su posible efecto. \\
+    \addlinespace
+    Concluir con el entrenamiento de EVA02 & 4 & Fue interrumpido por su costo ($\sim$18 horas) & No permite realizar comparación. Es algo opcional que podríamos considerar en un ciclo posterior. \\
+    \addlinespace
+    Corregir sesgo a valores centrales & 4 & Identificado pero no resuelto & Prioridad de mejora por relevancia operativa. \\
+    \addlinespace
+    Recalcular con protocolo final y 76 vacas & 4 & Realizado & Usar solo métricas finales, no experimentos antiguos de 66 vacas. \\
+    \addlinespace
+    Reconstruir el historial del dataset & 2--4 & Por verificar con las versiones actualizadas & Para evitar mezclar cifras incompatibles en el informe final. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Es importante aclarar que no estamos afirmando la ausencia de validación frente a cada anotación individual como un hecho definitivo, sino que solamente son cosas que no vienen documentadas en la fase de Modelado. Así que lo más recomendable para solucionar esto sería revisar nuestros archivos y reportes antes de cerrar dicha observación.

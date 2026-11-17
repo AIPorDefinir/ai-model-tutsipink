@@ -1,0 +1,55 @@
+El propósito es establecer qué objetivos alcanzamos, con qué evidencia, cuáles quedan abiertos y qué restricciones condicionan la aprobación. La unidad de análisis y evaluación es la vaca, ya que las fotografías de una misma vaca no constituyen observaciones independientes. Por dicha razón es que las particiones de entrenamiento y validación se realizaron por vaca, evitando de esa forma que las imágenes del mismo animal aparecieran simultáneamente en ambos conjuntos. Agregamos las predicciones que obtuvimos de sus fotografías para generar una estimación final del BCS por vaca.
+
+\subsection{Evaluación de los resultados respecto a los objetivos y criterios de éxito del negocio}
+
+Según nuestra declaración de ON-1, buscamos estimar automáticamente el BCS a partir de imágenes. Dicho objetivo de estimación fue cubierto en el conjunto evaluado, pero eso no implica por sí mismo identificar situaciones metabólicas de riesgo, reemplazar a un especialista ni garantizar desempeño en otras fechas, hatos o condiciones de captura.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Evaluación del objetivo de negocio, sus etapas y las preguntas de negocio.}
+  \label{tab:objetivos}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.22\textwidth}}
+    \toprule
+    Criterio & Meta / alcance & Resultado & Veredicto \\
+    \midrule
+    ON-1 & Estimar BCS a partir de imágenes & Modelo 5 procesa fotos RGB y entrega un BCS numérico en una escala de 1 a 5, en incrementos de 0.25. & Cumplido como prototipo evaluado \\
+    \addlinespace
+    Etapa 1 & Desarrollar y validar estimador visual & 59/76 (77.6\,\%) en $\pm0.25$; MAE de 0.224; 94.7\,\% en $\pm0.50$ y una salida redondeada & Cumplida según los criterios que establecimos \\
+    \addlinespace
+    Etapa 2 & Interpretar BCS junto con los días en leche y producción & No hubo integración contextual validada debido a la escasez y desfase de datos productivos & No lo realizamos en este ciclo \\
+    \addlinespace
+    Pregunta de negocio: inspección humana & Determinar la utilidad del modelo como complemento o reemplazo & Obtuvimos métricas favorables en validación, pero nos hacen falta pruebas de uso con especialistas y un análisis robusto con los BCS extremos & Tenemos evidencia preliminar para complementar, pero aún no podemos demostrar si puede sustituir a un especialista \\
+    \addlinespace
+    Pregunta de negocio: LiDAR & Demostrar que hay una ventaja sobre RGB & No realizamos un experimento comparable de RGB contra RGB-D/LiDAR & No se evaluó \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Para CN-1.1, el MAE de 0.224 equivale a un error absoluto promedio inferior a un cuarto de punto en la salida de entrega, por lo que terminó siendo mejor que el objetivo numérico de 0.25--0.50 que planteamos previamente en CMD-1.1. Sin embargo, dicho promedio no garantiza que haya estabilidad en todos los rangos, ya que un promedio satisfactorio en valores frecuentes puede llegar a ocultar fallas sistemáticas en los valores más extremos.
+
+Para CN-1.2, 59 de 76 vacas evaluadas (77.6\,\%) tuvieron una diferencia absoluta menor o igual a 0.25 puntos con respecto al BCS de referencia, mientras que el 94.7\,\% quedó dentro del margen de $\pm0.50$, utilizando la salida redondeada del modelo. Dichos resultados superaron las metas de 70\,\% y 90\,\%, respectivamente. Sin embargo, con la salida continua, solamente 49 de las 76 vacas (64.5\,\%) cumplieron el margen de $\pm0.25$. Esta diferencia demuestra por qué es importante distinguir entre ambas formas de presentar las predicciones.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Cumplimiento de los criterios de éxito y del objetivo de minería de datos.}
+  \label{tab:criterios}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.22\textwidth}}
+    \toprule
+    Criterio & Meta / alcance & Resultado & Veredicto \\
+    \midrule
+    CN-1.1 / CMD-1.1 & Banda de 0.25--0.50 & MAE 0.224 (con salida redondeada) & Se cumple y mejora la banda \\
+    \addlinespace
+    CN-1.2 / CMD-1.2 de $\pm0.25$ & $\geq 70\,\%$ (al menos 54/76) & 77.6\,\% (59/76) redondeada; 64.5\,\% continua & Cumple solo en la versión redondeada \\
+    \addlinespace
+    CN-1.2 / CMD-1.2 de $\pm0.50$ & $\geq 90\,\%$ & 94.7\,\% redondeada; 90.8\,\% continua & Se cumple en ambas salidas \\
+    \addlinespace
+    OMD-1 & Estimar el BCS (escala 1.0 a 5.0) a partir de imágenes RGB & El Modelo 5 entrega un BCS numérico por clasificación con valor esperado y salida redondeada a 0.25; la técnica se desvió de la regresión inicial, con la modificación documentada en Modelado. & Cumplido como estimación numérica de BCS, con adaptación de técnica documentada \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Con respecto a OMD-1, originalmente formulamos trabajar con una regresión supervisada. El Modelo 5 utiliza una clasificación ordinal por cuartos de punto y calcula un valor esperado, el cual redondea posteriormente. Aunque la implementación se desvió de la técnica que propusimos inicialmente, mantuvo el producto que nos propusimos desarrollar: una estimación numérica de BCS; donde dicha modificación se encuentra justificada y documentada en la fase de Modelado.
+
+La comparación con especialistas también se debe tratar con cuidado, pues, según la sección 2.3.1 de Comprensión de los datos completo, tenemos diferencias medias de 0.125 entre evaluaciones de una misma sesión y 0.225 entre dos visitas a 15 vacas. Estas son referencias contextuales, no una comparación experimental directa de rendimiento humano y rendimiento automático, de modo que las visitas se dieron en fechas distintas y el BCS de las vacas podría haber cambiado.

@@ -31,7 +31,7 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ### 5. Evaluation
 
-Pendiente.
+- [Evaluation 1](reports/05-evaluation/evaluation-1/Evaluation.pdf)
 
 ### 6. Deployment
 
