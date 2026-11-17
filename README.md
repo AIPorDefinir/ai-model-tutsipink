@@ -10,32 +10,17 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 ## CRISP-DM
 
-### 1. Business Understanding
-
-- [Business Understanding 1](reports/01-business-understanding/business-understanding-1/) (7 de octubre)
-- [Business Understanding 2](reports/01-business-understanding/business-understanding-2/Business%20Understanding.pdf) (2 de noviembre)
-- [Business Understanding 3](reports/01-business-understanding/business-understanding-3/Business%20Understanding.pdf) (12 de noviembre)
-
-### 2. Data Understanding
-
-- [Data Understanding 1](reports/02-data-understanding/data-understanding-1/Data%20Understanding.pdf) (2 de noviembre)
-- [Data Understanding 2](reports/02-data-understanding/data-understanding-2/Data%20Understanding.pdf) (15 de noviembre)
-
-### 3. Data Preparation
-
-- [Data Preparation 1](reports/03-data-preparation/data-preparation-1/Data%20Preparation.pdf) (2 de noviembre)
-
-### 4. Modeling
-
-- [Modeling 1](reports/04-modeling/modeling-1/Modeling.pdf) (15 de noviembre)
-
-### 5. Evaluation
-
-Pendiente.
-
-### 6. Deployment
-
-Pendiente.
+| Fase | Documento | Fecha |
+|---|---|---|
+| 1. Business Understanding | [Versión 1](reports/01-business-understanding/business-understanding-1/) | 7 de octubre |
+|  | [Versión 2](reports/01-business-understanding/business-understanding-2/Business%20Understanding.pdf) | 2 de noviembre |
+|  | [Versión 3](reports/01-business-understanding/business-understanding-3/Business%20Understanding.pdf) | 12 de noviembre |
+| 2. Data Understanding | [Versión 1](reports/02-data-understanding/data-understanding-1/Data%20Understanding.pdf) | 2 de noviembre |
+|  | [Versión 2](reports/02-data-understanding/data-understanding-2/Data%20Understanding.pdf) | 15 de noviembre |
+| 3. Data Preparation | [Versión 1](reports/03-data-preparation/data-preparation-1/Data%20Preparation.pdf) | 2 de noviembre |
+| 4. Modeling | [Versión 1](reports/04-modeling/modeling-1/Modeling.pdf) | 15 de noviembre |
+| 5. Evaluation | Pendiente |  |
+| 6. Deployment | Pendiente |  |
 
 ## Contributors
 
