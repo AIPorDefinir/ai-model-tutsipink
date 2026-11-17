@@ -1098,7 +1098,7 @@
     },
     {
       "codigo": "4.6.3",
-      "nombre": "Quitar el Modelo 3 y reorganizar Modelado alrededor del clasificador",
+      "nombre": "Reestructurar Modelado: modelo base, mejoras y modelo elegido",
       "fase": "4. Modelado",
       "actividad": "4.6 Ajustar el modelado al clasificador",
       "definido": true,
