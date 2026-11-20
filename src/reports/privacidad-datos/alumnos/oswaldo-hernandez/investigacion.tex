@@ -1,0 +1,13 @@
+\section{Investigación}
+
+En el paper de Pakrashi et al. (2023) parte de un problema común en la industria lechera donde las granjas generan cada vez más datos de la producción, composición de la leche, salud de las vacas, entre otros más, pero esa información no se aprovecha de buena forma; tampoco existe una organización o algún estándar que pueda reunir esta información y los productores rechazan compartir esta misma información por miedo a perder el control de los datos o a que se comprometa su privacidad (Pakrashi et al., 2023, p. 1).
+
+Para resolver este problema proponen CowMesh que es una arquitectura en la que cada organización conserva la propiedad de sus datos pero todos comparten bajo cierto estándar el cual es tener un vocabulario que define cada feature (columna de los datos) y un protocolo único de acceso (Pakrashi et al., 2023, pp. 4–5).
+
+Lo más relevante para nuestro proyecto es justo esta arquitectura que propone un control de acceso y un registro a estos datos todo con el fin de poder rastrear cualquier uso que se le da a los datos y tener transparencia con los stakeholders (Pakrashi et al., 2023, pp. 6, 11).
+
+Algo que contiene el paper es lo que ocurre cuando los datos se manejan sin un estándar, en un caso de predicción de mastitis los datos llegaban como archivos adjuntos por correo electrónico, cada equipo tenía un nombre diferente para las mismas variables, los mismos datos se limpiaban por separado, las versiones estaban desactualizadas y nunca estuvo definido a quién pertenecen esos datos (Pakrashi et al., 2023, pp. 8–9)
+
+Por último es importante mencionar que CowMesh es una propuesta que no fue implementada, en el paper mencionan que falta un proyecto piloto (Pakrashi et al., 2023, p. 12), también recomiendan registrar accesos pero no especifica cómo hacerlos, como es ambiguo podemos decidir qué campos tener en la bitácora de accesos.
+
+\nocite{pakrashi2023}

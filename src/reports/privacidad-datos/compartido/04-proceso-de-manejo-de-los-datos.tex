@@ -1,0 +1,9 @@
+\section{Proceso de manejo de los datos}
+
+Al revisar los datos, encontramos que la forma en la que se comparten actualmente no es segura. Las fotos están compartidas con la opción “cualquier usuario de Internet con el enlace puede editar” y, además, con una cuenta personal de Gmail. Los archivos CSV los puede abrir cualquier persona del Tec que tenga el enlace. Por esta razón, definimos el siguiente proceso para trabajar con los datos.
+
+Los datos se guardarán en un bucket privado de Amazon S3 en la región de México, cifrado y con el acceso público bloqueado. No se guardarán en el repositorio, en drives personales, en chats ni en correos. Solo se podrá acceder desde redes de confianza, como la del Tec o redes domésticas con contraseña, y nunca desde redes públicas.
+
+Solo los seis integrantes del equipo podrán ver los datos. Cada uno tendrá su propio usuario de AWS con autenticación de dos factores, y las credenciales no se comparten. Antes de recibir acceso, cada integrante deberá firmar el acuerdo de confidencialidad del anexo A.
+
+Los datos solo se descargarán para procesarlos. En el repositorio únicamente se guardará el código y los resultados agregados, nunca los datos crudos. Al terminar el proyecto, los datos se borrarán del bucket y de cualquier copia local.

@@ -1,0 +1,88 @@
+\section{Normativa e investigación}
+
+En México, la ley que regula la privacidad de la información es la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, publicada el 20 de marzo de 2025. Esta ley solo protege datos de personas, por lo que aplica a los metadatos y a las fotos, pero no a los datos de las vacas. Para los datos de un establo no existe una ley específica, así que la industria se rige por acuerdos entre las partes y buenas prácticas. Cada integrante investigó una fuente distinta sobre estas prácticas:
+
+\subsection{Facundo Bautista Barbera}
+
+\minisec{Fuentes}
+\begin{itemize}
+  \item Barton et al. (2025), Animals
+\end{itemize}
+
+\minisec{Hallazgos principales}
+Los datos generados en el establo pertenecen al productor y solo se deben compartir con su permiso explícito y por escrito
+
+\subsection{Oswaldo Isaías Hernández Santes}
+
+\minisec{Fuentes}
+\begin{itemize}
+  \item Norma ISO/IEC 20889:2018
+  \item Pakrashi et al. (2023), Frontiers in Artificial Intelligence (CowMesh)
+\end{itemize}
+
+\minisec{Hallazgos principales}
+Define la terminología y clasifica técnicas de desidentificación de datos según sus características, se basa en los principios de privacidad de la ISO/IEC 29100.
+
+El paper CowMesh define una arquitectura para compartir datos de granjas lecheras donde cada productor conserva la propiedad de sus datos y todos acceden mediante un vocabulario común de datos (un diccionario de datos) y un solo protocolo de acceso, propone registrar cada acceso a los datos para documentarlos y que sea transparente el uso que se le da a estos mismos, además muestra los problemas que se tienen al manejar datos sin un estándar como pueden ser los archivos enviados por correo, versiones desactualizadas entre los miembros de equipo, features con diferentes nombres que pueden causar confusión entre las personas que controlan estos datos; esto sirve como base para definir un estándar con políticas y una bitácora de control de acceso para tener transparencia con los stakeholders y para evitar problemas con los datos dentro del equipo. Importante mencionar que CowMesh no se implementó y solo quedó como una propuesta pero es una buena base para implementarlo en nuestro proyecto.
+
+\subsection{Alfredo Alejandro Soto Herrera}
+
+\minisec{Fuentes}
+\begin{itemize}
+  \item Norma ISO/IEC 25012:2008.
+  \item Norma ISO/IEC 29100:2024.
+\end{itemize}
+
+\minisec{Hallazgos principales}
+La primera norma nos permite definir un modelo de la calidad de datos, nos sirve para poder establecer requisitos, definir medidas y evaluaciones de los datos que poseemos. Así podemos definir de mejor manera cómo nos funcionan las imágenes que tenemos, además de los datos de lactancia de las vacas. Por otro lado, en la segunda norma se toma en cuenta el uso y privacidad de los datos, en donde se trata el consentimiento de las personas involucradas, elección, limitación, etc. Esto ayuda a escoger aquellas imágenes en donde llegan a salir personas en segundo plano.
+
+\subsection{Emiliano Camacho Ponce}
+
+\minisec{Fuentes}
+\begin{itemize}
+  \item Norma ISO/IEC 27001:2022.
+  \item Barton et al. (2025): Data Ownership and Privacy in Dairy Farming: Insights from U.S. and Global Perspectives.
+  \item Kaur et al. (2022): Protecting farmers' data privacy and confidentiality: Recommendations and considerations.
+  \item Wilgenbusch et al. (2022): Big data promises and obstacles: Agricultural data ownership and privacy.
+\end{itemize}
+
+\minisec{Hallazgos principales}
+La ISO/IEC 27001:2022 permite proteger la información mediante controles de acceso, respaldos y gestión de riesgos. Las imágenes de las vacas pueden incluir elementos del entorno que revelen información sobre las instalaciones, la organización de la explotación o sus procedimientos de trabajo.
+
+\subsection{Iker Mejía Hernández}
+
+\minisec{Fuentes}
+\begin{itemize}
+  \item Estándares ICAR (Section 2/11 \& ISO 11784/11785).
+  \item Boletines IDF (466/504).
+  \item Regulaciones CANILEC/FEMELECHE (2022)
+\end{itemize}
+
+\minisec{Hallazgos principales}
+Los transpondedores de 15 dígitos son identificadores universales trazables que requieren enmascaramiento obligatorio, mientras que los datos sanitarios (RCS/MDI) y curvas de producción están protegidos como secreto comercial del establo según códigos de la industria láctea.
+
+\subsection{Jorge Manuel Oyoqui Aguilera}
+
+\minisec{Fuentes}
+\begin{itemize}
+  \item Cue et al. (2021), Animals: “Data governance in the dairy industry”.
+  \item Rocher et al. (2019), Nature Communications.
+  \item NIST SP 800-53 Rev. 5 (2020), familias AC (control de acceso) y AU (auditoría).
+  \item Sandhu et al. (1996), Computer: “Role-based access control models”.
+  \item Wilkinson et al. (2016), Scientific Data: principios FAIR.
+\end{itemize}
+
+\minisec{Hallazgos principales}
+Cue et al. comenta que la gobernanza de los datos lecheros debe dejar en claro quién es el dueño de los datos, quién puede acceder a ellos y para qué, y describe cómo es que se ha manejado esto frente a leyes como la de GDPR y CCPA. Estas leyes solo aplican cuando se trata de datos personales y no de datos agrícolas, por lo que sirven como referencia de buenas prácticas, más no como obligación para nuestros datos de vacas.
+
+Rocher et al. muestra que no basta con anonimizar los datos, pues con pocos atributos se puede reidentificar a casi cualquier persona incluso en datos incompletos. Es por eso que, además de quitar identificadores, conviene combinar medidas como no publicar los datos crudos, generalizar fechas y revisar las salidas antes de que las compartamos. Eso respalda nuestra práctica de nunca publicar los datos crudos y de limpiar los metadatos y las fotos.
+
+NIST SP 800-53 funciona como una lista de controles para el proceso del equipo. La familia AC pide que cada persona tenga solo el acceso que necesita, lo que implica tener usuarios individuales con permisos mínimos. La familia AU pide registrar y poder revisar quién hizo qué, lo que corresponde al registro de CloudTrail y a la bitácora de autorizaciones.
+
+Sandhu et al. propone que se den permisos por rol y no por persona, lo que justifica tener que definir roles claros en el equipo.
+
+Finalmente, Wilkinson et al. (FAIR) recomienda que los datos deben estar bien descritos y que el acceso a dichos datos debe exigir autenticación y autorización, lo que se cubre con la hoja de descripción de los datos, el usuario individual con doble factor y con la bitácora.
+
+\subsection{Prácticas adoptadas}
+
+Con base en estas investigaciones, el equipo decidió adoptar cuatro prácticas: contar con el permiso por escrito de quienes nos compartieron los datos, restringir el acceso a personas identificadas, registrar cada acceso a los datos y nunca publicar los datos crudos.

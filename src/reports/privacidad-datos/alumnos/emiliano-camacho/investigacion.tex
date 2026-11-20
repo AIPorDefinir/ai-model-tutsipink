@@ -1,0 +1,59 @@
+\section{Investigación de normativas y privacidad de los datos}
+
+\subsection{Introducción}
+
+El desarrollo de proyectos de ganadería de precisión implica la recopilación, el almacenamiento y el procesamiento de grandes cantidades de información para mejorar la toma de decisiones y optimizar las operaciones. Entre los datos que pueden utilizarse se encuentran imágenes de animales, registros de producción, información sobre su estado corporal y datos relacionados con sistemas automatizados. Debido a que esta información puede ser importante para las actividades de investigación y operación de una explotación ganadera, resulta necesario establecer medidas que protejan su confidencialidad, integridad y disponibilidad.
+
+En este contexto, la norma internacional ISO/IEC 27001:2022, titulada \emph{Information security, cybersecurity and privacy protection — Information security management systems — Requirements}, constituye una referencia para establecer, implementar, mantener y mejorar continuamente un Sistema de Gestión de Seguridad de la Información. Su enfoque se basa en identificar y evaluar los riesgos relacionados con la información y definir medidas para tratarlos, considerando las características y necesidades de cada organización
+
+Esta norma resulta relevante para el proyecto con el CAETEC, cuyo objetivo incluye estimar la condición corporal de bovinos mediante imágenes y analizar problemáticas operativas relacionadas con el acceso al sistema de ordeño automatizado. La información generada durante estas actividades debe almacenarse y gestionarse de manera que se reduzcan los riesgos de pérdida, alteración o acceso no autorizado. Por ello, esta investigación analiza los principios de la ISO/IEC 27001:2022 y su posible aplicación al manejo de datos en proyectos de este estilo.
+
+\subsection{Norma ISO/IEC 27001:2022}
+
+La ISO/IEC 27001:2022 establece los requisitos para implementar y mejorar continuamente un Sistema de Gestión de Seguridad de la Información. Es aplicable a organizaciones de cualquier tamaño o sector, ya que sus requisitos son generales y deben adaptarse al contexto, las actividades y los riesgos de cada organización. No se limita a proteger sistemas informáticos y contempla la gestión de la información y los riesgos asociados con las personas, los procesos y la tecnología
+
+La norma no establece un conjunto idéntico de controles para todas las organizaciones. En cambio, requiere comprender el contexto organizacional, identificar los riesgos de seguridad de la información y determinar cómo tratarlos. Su implementación permite establecer responsabilidades, procedimientos y controles para proteger los recursos de información. Además, una organización puede implementar la norma sin necesariamente solicitar una certificación.
+
+Principalmente esta norma busca proteger tres propiedades fundamentales de la información:
+
+\begin{itemize}
+  \item Confidencialidad: garantiza que la información solo sea accesible para las personas o sistemas autorizados. Por ejemplo, las imágenes de bovinos y los registros de producción del CAETEC podrían restringirse a los integrantes del proyecto que necesiten utilizarlos.
+  \item Integridad: busca preservar la exactitud y la integridad de los datos, evitando modificaciones o eliminaciones no autorizadas. En el proyecto, esto ayudaría a prevenir que las imágenes originales, las etiquetas de condición corporal o los registros de ordeño fueran alterados sin control.
+  \item Disponibilidad: procura que la información y los sistemas estén accesibles cuando se necesiten. Para el proyecto, esto implica mantener respaldos de las imágenes y los datos, así como mecanismos para recuperar la información ante fallas técnicas.
+\end{itemize}
+
+Estos tres principios son relevantes para asegurar que los datos utilizados en la investigación sean confiables y estén disponibles durante las etapas de entrenamiento, evaluación y uso de los modelos de inteligencia artificial.
+
+\subsection{Análisis de papers propiedad y privacidad de los datos en ambientes agrícolas y ganaderos}
+
+\subsubsection{Barton et al. (2025): Data Ownership and Privacy in Dairy Farming: Insights from U.S. and Global Perspectives.}
+
+Este artículo analiza los desafíos relacionados con la propiedad y la privacidad de los datos que se generan en las explotaciones lecheras. Los autores examinan el contexto estadounidense y perspectivas internacionales sobre el uso creciente de tecnologías digitales en la producción de leche.
+
+El trabajo destaca que los datos pueden ser generados mediante sensores, sistemas automatizados, plataformas digitales y herramientas analíticas. Aunque esta información puede mejorar la administración de las explotaciones, también plantea preguntas sobre quién puede acceder a ella, quién puede utilizarla y bajo qué condiciones puede compartirse.
+
+Una cuestión importante es la diferencia entre generar datos en una explotación y tener derechos claramente definidos sobre su utilización. El hecho de que una plataforma recopile información no resuelve automáticamente quién puede autorizar su reutilización o compartirla con terceros.
+
+\subsubsection{Kaur et al. (2022): Protecting farmers' data privacy and confidentiality: Recommendations and considerations.}
+
+En este artículo, analizan los desafíos de privacidad que surgen cuando la agricultura de precisión emplea sensores, drones y herramientas de análisis de datos.
+
+Los autores explican que las tecnologías agrícolas pueden producir grandes cantidades de información sobre las operaciones de una explotación. Aunque estos datos permiten mejorar las decisiones, también pueden revelar información comercial u operativa que el productor no desea divulgar.
+
+El artículo destaca la importancia de considerar la privacidad desde el proceso de recolección hasta el almacenamiento, análisis e intercambio de la información. También resalta el valor de establecer acuerdos transparentes sobre las finalidades de uso y las condiciones de acceso a los datos.
+
+En nuestro caso particular, las imágenes de las vacas pueden incluir elementos del entorno que revelen información sobre las instalaciones, la organización de la explotación o sus procedimientos de trabajo.
+
+\subsubsection{Wilgenbusch et al. (2022): Big data promises and obstacles: Agricultural data ownership and privacy.}
+
+Finalmente, este otro artículo, analiza las oportunidades y dificultades que acompañan el uso de grandes volúmenes de datos en la investigación y el desarrollo agrícola.
+
+Los autores explican que el ciclo de vida de los datos incluye su generación mediante instrumentos y sensores, el almacenamiento en plataformas digitales, el procesamiento computacional y la producción de información útil para la toma de decisiones.
+
+Entre los obstáculos identificados se encuentran la propiedad de los datos, la privacidad, la seguridad, la interoperabilidad y la confianza entre las organizaciones que participan en la investigación. Los autores destacan que compartir datos puede acelerar los avances científicos, pero requiere mecanismos que permitan gestionar los intereses de los diferentes participantes.
+
+El artículo también enfatiza que una gobernanza bien definida es importante para facilitar la reutilización de los datos y reducir las barreras que dificultan la colaboración entre investigadores, instituciones y actores privados.
+
+En nuestro caso, las imágenes utilizadas para entrenar la CNN podrían reutilizarse posteriormente para evaluar mejoras del modelo o desarrollar nuevas investigaciones. Para hacerlo de forma ordenada, conviene registrar su procedencia, las etiquetas asignadas, las transformaciones realizadas y las versiones de los conjuntos de datos.
+
+\nocite{iso27001,barton2025,kaur2022,wilgenbusch2022}
