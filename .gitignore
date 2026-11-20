@@ -43,3 +43,6 @@ results/
 spark-warehouse/
 metastore_db/
 derby.log
+
+# Big Data: las figuras del reporte son PDF y sí se versionan
+!src/reports/bigdata/figuras/**/*.pdf
