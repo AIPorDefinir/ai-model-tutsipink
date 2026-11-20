@@ -1,9 +1,0 @@
-# LaTeX: auxiliares y PDF intermedio; el PDF final se copia al root
-src/*.aux
-src/*.log
-src/*.out
-src/*.toc
-src/*.fls
-src/*.fdb_latexmk
-src/*.synctex.gz
-src/main.pdf
