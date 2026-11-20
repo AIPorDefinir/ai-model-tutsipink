@@ -1,0 +1,11 @@
+# Paquetes para correr los notebooks y los scripts fuera de Colab (Colab ya trae pandas, numpy y matplotlib).
+# PySpark 3.5 necesita Java 8, 11 o 17.
+boto3
+pandas
+numpy
+openpyxl
+matplotlib
+pillow
+pillow-heif
+psutil
+pyspark==3.5.3

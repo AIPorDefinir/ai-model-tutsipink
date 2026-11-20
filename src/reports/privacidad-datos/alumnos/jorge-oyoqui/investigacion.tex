@@ -1,0 +1,135 @@
+\section{Investigación}
+
+\subsection{Resumen y suposiciones}
+
+Se nos proporcionaron los archivos de ordeño de 34 vacas (donde cada una tuvo 35 columnas, habiendo 7,249 registros en total del 01/03/2025 al 18/07/2025), identificadas a través de su ID numérico. La columna de Usuario estuvo vacía para cada dataset, de modo que no parecieran contener datos de personas, aunque sigue siendo información de un tercero (del socio formador y del CAETEC), de modo que más adelante propondré reglas de acceso, anonimización y de registro para el manejo de estos datos. Me gustaría aclarar que el socio formador aún no ha respondido algunas dudas que tuve al querer realizar este reporte con respecto a los datos, por lo que estaré marcando mis supuestos conforme a lo que sé de los datos y los actualizaré en la siguiente entrega.
+
+Mis supuestos son:
+
+\begin{enumerate}
+  \item Los datos son del CAETEC y se nos dieron únicamente para realizar el reto; aparte del equipo, solo los profesores, el socio y el personal del CAETEC puede acceder a los datos y nadie más.
+  \item Desconozco si existe algún acuerdo de confidencialidad o de términos de uso.
+  \item Asumo que los IDs de las vacas no se pueden ligar a personas, pero desconozco si permitiría identificar el establo.
+  \item Hay copias de los datos en un Drive del equipo con acceso por permisos; desconozco si el socio permite que tengamos dichas copias.
+  \item Asumo que podemos usar los datos para entrenar modelos de machine learning, más desconozco que otra restricciones tenemos (por ejemplo, el uso de IA).
+\end{enumerate}
+
+\subsection{Riesgos y marco normativo}
+
+Considero que el riesgo principal no son los datos personales, sino la confidencialidad comercial y la identificación del establo. Los datos que veo más sensibles son:
+
+\begin{itemize}
+  \item ID de la vaca: podría permitir que se identifique el establo o cruzarse con otros sistemas.
+  \item Fecha y hora de cada ordeño: revelaría las rutinas del establo.
+  \item Producción, salud de la ubre y destino de la leche: es información comercial y sanitaria.
+  \item Operador: aunque hoy se encuentra vacío, si se llenara sería un dato personal.
+\end{itemize}
+
+Barton et al. [1] y Cue et al. [2] dicen que los datos generados en la granja pertenecen al productor y que compartirlos requeriría de permisos explícitos y usos claros. Esas serán las bases de las reglas que propongo. Estoy asumiendo que todos los datos pertenecen al CAETEC y que el acuerdo entre el Tec y el socio formador es la fuente de nuestras obligaciones.
+
+La Ley Federal de Protección de Datos Personales en Posesión de los Particulares (la cual fue publicada en el DOF el 20/03/2025 y entró en vigencia desde el 21/03/2025) exige que haya avisos de privacidad y consentimiento expreso o tácito, según el caso [3]. Protege a personas, así que solo aplicaría si los datos permitieran identificar a alguien (por ejemplo, a un operador). La uso como referencia. Padilla y Anguiano [4], la fuente mexicana más reciente que encontré, definen datos personales, consentimiento y disociación, y advierten que anonimizar no elimina el riesgo como tal (aunque aún me faltaría confirmar los artículos en el DOF). El GDPR y el CCPA también aplican solo a datos personales [2]. Para datos agrícolas, el Código de Conducta de la UE pide que haya un consentimiento explícito del titular para el acceso de terceros, anonimizar o seudonimizar y avisar de inmediato de cualquier brecha [5], aunque me gustaría aclarar que esto es voluntario [6]. Wiseman et al. [7] explican que la falta de claridad sobre propiedad, portabilidad y responsabilidad frena el intercambio de datos; por eso no asumo permisos implícitos.
+
+\subsection{Anonimización}
+
+Anonimizar solo reduce el riesgo, más no lo elimina. Rocher et al. [8] muestran que datos incompletos y anonimizados siguen siendo reidentificables, y De Montjoye et al. [9] que muy pocos puntos de lugar y hora bastan para identificar a una persona. Por analogía, fecha, hora y producción podrían identificar a una vaca o al establo. Sweeney [10] define el k-anonimato (cada registro debe ser indistinguible de al menos k-1 más según sus cuasi-identificadores); con solo 34 vacas, k sería pequeño. Por eso combino varias medidas:
+
+\begin{itemize}
+  \item Seudonimizar los IDs (V01–V34), con la tabla de equivalencias aparte y de acceso restringido.
+  \item Generalizar el tiempo: reportar por día o semana, no por hora exacta.
+  \item Tamaño mínimo de grupo: no compartir estadísticas de grupos de menos de 5 vacas (aunque el umbral sería ajustable según lo que diga el socio).
+  \item Campo Usuario: si llegara a contener nombres, quitarlo de cualquier salida.
+  \item No publicar datos crudos en repositorios públicos ni en plataformas como Kaggle.
+  \item Revisar tablas y gráficas antes de entregarlas, para detectar valores que identifiquen a una vaca o al establo.
+\end{itemize}
+
+\subsection{Proceso, políticas y estándares}
+
+Esta propuesta debe ser aprobada por mi equipo y por el socio formador.
+
+\minisec{Roles}
+
+\begin{itemize}
+  \item El socio formador es el titular y autoriza la finalidad y las altas y bajas de acceso.
+  \item Un responsable del equipo pide altas y bajas, mantiene la bitácora y revisa los accesos.
+  \item Todos los integrantes somos analistas que leen los datos y ejecutan notebooks, sin compartir ni descargar datos sin autorización.
+\end{itemize}
+
+\minisec{Reglas}
+
+\begin{enumerate}
+  \item Los datos se usan solo para el reto, salvo que haya autorización del socio para usarlos en algo más.
+  \item Solo las cuentas institucionales del equipo tienen rol de lector en la carpeta compartida, sin enlaces públicos (“cualquiera con el enlace”). Las altas y bajas las solicita el responsable y las autoriza el socio. Profesores, socio y personal del CAETEC tienen sus propios permisos como dueños o evaluadores.
+  \item Los datos se deben leer desde Colab o desde el Drive del socio; pero no se descargan a equipos personales ni se suben a repositorios públicos. Los resultados se guardan en una carpeta restringida del equipo, y las copias de datos crudos del Drive del equipo (supuesto 4) se eliminan.
+  \item Las únicas herramientas de terceros son Drive y Colab; no se cargan datos en otras (incluida la IA generativa) sin autorización escrita del socio.
+  \item Todo entregable aplica las medidas de anonimización.
+  \item Cada alta, baja, consulta relevante y modificación se anota en la bitácora cuando ocurre; el código se versiona en GitHub y los notebooks conservan su historial.
+  \item Los incidentes (datos compartidos por error, accesos no autorizados) se avisan al responsable en máximo 24 horas, quien avisa al socio; se documenta qué pasó y cómo se corrigió.
+  \item El responsable revisa quién tiene acceso cada una o dos semanas y al cierre del reto.
+  \item Al cierre se retiran los accesos y se borran las copias derivadas con datos crudos, salvo indicación del socio.
+\end{enumerate}
+
+El proceso compartido del equipo (bucket privado de S3 con CloudTrail) aplica los mismos principios; aquí describo la versión basada en Drive y Colab porque es con lo que trabajamos hasta ahora.
+
+Estos estándares sirven para validar las reglas:
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Estándar & Qué pide & Reglas & Evidencia \\
+    \midrule
+    NIST SP 800-53 Rev. 5 [11], familia AC & Acceso mínimo necesario & 2, 3 & Captura fechada de “Administrar acceso” \\
+    NIST SP 800-53 Rev. 5 [11], familia AU & Registrar y revisar quién hizo qué & 6 & Actividad de Drive, historial de Colab, commits \\
+    ISO/IEC 27002:2022 [12], controles 5.15, 5.18 y 8.15 & Control de acceso, alta y baja de derechos y registro & 2, 6, 8 & Bitácora y revisiones de permisos \\
+    Control de acceso por roles, Sandhu et al. [13] & Permisos por rol, no por persona & 2 & Tabla de roles del equipo \\
+    Principios FAIR, Wilkinson et al. [14] & Datos bien descritos, acceso con autenticación y autorización & 2, 6 & Reporte de descripción de los datos y bitácora \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Registros y autorizaciones}
+
+Las evidencias tendrán que obtenerse de herramientas que ya guarden su propio historial, no de una tabla armada al final, y no se podrá inventar ni falsificar ningún registro. Las evidencias que podemos recolectar son:
+
+\begin{itemize}
+  \item Correo o mensaje del socio donde autorice el acceso y la finalidad, con fecha y, de ser posible, firma.
+  \item Capturas fechadas de “Administrar acceso” de la carpeta compartida y de la del equipo, y de los permisos del notebook.
+  \item Panel de “Actividad” de Drive de las carpetas del equipo (muestra quién hizo qué y cuándo) e historial de versiones del notebook de Colab.
+  \item Repositorio de GitHub con commits, issues y pull requests, con los datos excluidos mediante .gitignore.
+  \item Acta o documento firmado que apruebe estas políticas, con fecha e involucrados.
+  \item Bitácora de acceso y cambios, abierta desde la semana 10 y con los accesos previos a esa fecha.
+\end{itemize}
+
+La carpeta del socio no la controlamos, así que solo podremos registrar la actividad de nuestras copias y salidas. Plantilla de la bitácora:
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabularx}{\textwidth}{XXXXXX}
+    \toprule
+    Fecha y hora & Persona & Acción & Recurso & Motivo & Evidencia \\
+    \midrule
+    DD-MM-AAAA hh:mm & Nombre & Alta o baja de acceso, lectura o cambio de código & Carpeta o notebook & Por qué o para qué & Enlace, captura o commit \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection*{Referencias Bibliográficas}
+
+\begin{enumerate}[label={[\arabic*]}]
+  \item Barton, R., Burchard, J., Cabrera, V. E., Cook, D., Cooley, W., Cue, R., Fadul, L., Mattison, J., \& Saha, A. (2025). “Data ownership and privacy in dairy farming: Insights from U.S. and global perspectives. Animals, 15(4), 524”. Recuperado de: \url{https://www.mdpi.com/2076-2615/15/4/524}
+  \item Cue, R., Doornink, M., George, R., Griffiths, B., Jorgensen, M. W., Rogers, R., Saha, A., Taysom, K., Cabrera, V. E., Wangen, S. R., \& Fadul-Pacheco, L. (2021). “Data governance in the dairy industry. Animals, 11(10), 2981”. Recuperado de: \url{https://www.mdpi.com/2076-2615/11/10/2981}
+  \item Garrigues. (S. F.). “México: nueva Ley Federal de Protección de Datos Personales en Posesión de los Particulares”. \url{https://www.garrigues.com/es_ES/noticia/mexico-nueva-ley-federal-proteccion-datos-personales-posesion-particulares-introduce}
+  \item Padilla, \& Anguiano. (2026). “Una revisión sobre la obtención y el manejo de datos desde una perspectiva ética y legal. Sincronía”. Recuperado de: \url{https://revistasincronia.cucsh.udg.mx/index.php/sincronia/article/view/1131/1273}
+  \item Ryan, M., Atik, C., Rijswijk, K., Bogaardt, M.-J., Maes, E., \& Deroo, E. (2024). “The future of agricultural data-sharing policy in Europe: Stakeholder insights on the EU Code of Conduct. Humanities and Social Sciences Communications”. Recuperado de: \url{https://www.nature.com/articles/s41599-024-03710-1}
+  \item van der Burg, S., Wiseman, L., \& Krkeljas, J. (2021). “Trust in farm data sharing: Reflections on the EU code of conduct for agricultural data sharing. Ethics and Information Technology, 23(3)”. Recuperado de: \url{https://link.springer.com/article/10.1007/s10676-020-09543-1}
+  \item Wiseman, L., Sanderson, J., Zhang, A., \& Jakku, E. (2019). “Farmers and their data: An examination of farmers’ reluctance to share their data through the lens of the laws impacting smart farming. NJAS – Wageningen Journal of Life Sciences”. Recuperado de: \url{https://research-repository.griffith.edu.au/items/9032bad4-5362-4dbd-9c7e-3d2b6cbaa50f}
+  \item Rocher, L., Hendrickx, J. M., \& de Montjoye, Y.-A. (2019). “Estimating the success of re-identifications in incomplete datasets using generative models. Nature Communications, 10(1)”. Recuperado de: \url{https://doi.org/10.1038/s41467-019-10933-3}
+  \item de Montjoye, Y.-A., Hidalgo, C. A., Verleysen, M., \& Blondel, V. D. (2013). “Unique in the crowd: The privacy bounds of human mobility. Scientific Reports, 3(1)”. Recuperado de: \url{https://doi.org/10.1038/srep01376}
+  \item Sweeney, L. (2002). “k-anonymity: A model for protecting privacy. International Journal of Uncertainty, Fuzziness and Knowledge-Based Systems, 10(5), 557–570”. Recuperado de: \url{https://www.hks.harvard.edu/publications/k-anonymity-model-protecting-privacy}
+  \item National Institute of Standards and Technology. (2020). “Security and privacy controls for information systems and organizations (NIST Special Publication 800-53, Rev. 5). U.S. Department of Commerce”. Recuperado de: \url{https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r5.pdf}
+  \item Instituto Nacional de Normalización. (2022). “Seguridad de la información, ciberseguridad y protección de la privacidad — Controles de seguridad de la información (NCh-ISO/IEC 27002:2022)”. Recuperado de: \url{https://www.trusttech.cl/docs/TRUSTTECH_NCh_27002_2022.pdf}
+  \item Sandhu, R. S., Coyne, E. J., Feinstein, H. L., \& Youman, C. E. (1996). “Role-based access control models. Computer, 29(2), 38–47”.
+  \item Wilkinson, M. D., Dumontier, M., Aalbersberg, I. J., et al. (2016). “The FAIR guiding principles for scientific data management and stewardship. Scientific Data, 3, Article 160018”. Recuperado de: \url{https://doi.org/10.1038/sdata.2016.18}
+\end{enumerate}

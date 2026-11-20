@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marcar vistas BCS</title>
+<style>
+  :root {
+    --fondo: #111315; --panel: #1b1e21; --borde: #2c3135; --texto: #e8eaed;
+    --tenue: #9aa0a6; --acento: #8ab4f8;
+    --posterior: #81c995; --lateral_izq: #fdd663; --lateral_der: #f6aea9; --descartada: #9aa0a6;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--fondo); color: var(--texto);
+    font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  button, input { font: inherit; }
+  button { background: var(--panel); color: var(--texto); border: 1px solid var(--borde);
+    border-radius: 6px; padding: 6px 10px; cursor: pointer; }
+  button:hover { border-color: var(--acento); }
+  button:disabled { opacity: .4; cursor: default; }
+  kbd { background: #2a2e33; border: 1px solid #3b4046; border-bottom-width: 2px; border-radius: 4px;
+    padding: 0 6px; font: 600 12px ui-monospace, monospace; }
+
+  #inicio { max-width: 640px; margin: 8vh auto; padding: 0 16px; }
+  #inicio h1 { font-size: 22px; margin: 0 0 8px; }
+  #inicio p, #inicio li { color: var(--tenue); }
+  #inicio label { display: block; margin: 18px 0 6px; color: var(--texto); }
+  #inicio input[type=text] { width: 100%; padding: 8px 10px; background: var(--panel); color: var(--texto);
+    border: 1px solid var(--borde); border-radius: 6px; }
+  .error { color: #f28b82; margin-top: 12px; min-height: 1.4em; }
+
+  #app { display: none; height: 100%; grid-template-columns: 1fr 300px; grid-template-rows: 100%; }
+  #visor { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0;
+    height: 100%; overflow: hidden; }
+  #barra { display: flex; gap: 12px; align-items: center; padding: 8px 12px; border-bottom: 1px solid var(--borde);
+    flex-wrap: wrap; }
+  #barra .id { font-size: 18px; font-weight: 700; }
+  #barra .meta { color: var(--tenue); }
+  #lienzo { flex: 1; min-height: 0; position: relative; }
+  #foto { position: absolute; inset: 8px; width: calc(100% - 16px); height: calc(100% - 16px);
+    object-fit: contain; display: block; }
+  #etiqueta { position: absolute; top: 56px; left: 16px; padding: 4px 10px; border-radius: 4px;
+    font-weight: 700; color: #111; display: none; z-index: 1; box-shadow: 0 1px 4px rgba(0,0,0,.5); }
+  #tiras { display: flex; gap: 6px; padding: 6px 12px 10px; overflow-x: auto; border-top: 1px solid var(--borde); }
+  .mini { position: relative; flex: 0 0 auto; width: 76px; height: 76px; border: 2px solid var(--borde);
+    border-radius: 4px; overflow: hidden; cursor: pointer; background: #000; }
+  .mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mini.actual { border-color: var(--acento); }
+  .mini .p { position: absolute; left: 0; right: 0; bottom: 0; height: 6px; }
+
+  #lado { border-left: 1px solid var(--borde); padding: 12px; overflow-y: auto; background: var(--panel); }
+  #lado h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .04em; color: var(--tenue); margin: 16px 0 8px; }
+  #lado h2:first-child { margin-top: 0; }
+  .tecla { display: flex; align-items: center; gap: 8px; width: 100%; margin-bottom: 6px; text-align: left; }
+  .tecla .c { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+  .tecla small { color: var(--tenue); display: block; }
+  #progreso { height: 8px; background: #2a2e33; border-radius: 4px; overflow: hidden; margin: 6px 0; }
+  #progreso div { height: 100%; background: var(--acento); width: 0; }
+  .conteo { display: flex; justify-content: space-between; color: var(--tenue); }
+  .fila-botones { display: flex; gap: 6px; flex-wrap: wrap; }
+  #aviso { color: var(--tenue); font-size: 12px; margin-top: 8px; min-height: 1.2em; }
+  .ayuda { color: var(--tenue); font-size: 12px; }
+  @media (max-width: 800px) { #app { grid-template-columns: 1fr; } #lado { border-left: 0; border-top: 1px solid var(--borde); } }
+</style>
+</head>
+<body>
+
+<section id="inicio">
+  <h1>Marcar vistas de las fotos (BCS)</h1>
+  <p>Las fotos se leen desde tu computadora; nada se sube a internet.</p>
+  <ol>
+    <li>Escribe tu nombre (queda registrado en cada foto que marques).</li>
+    <li>Elige la carpeta <code>intermedios</code> que crea el notebook de preparación
+        (la que tiene <code>fotos.csv</code> y <code>fotos_jpg/</code>).</li>
+  </ol>
+  <label for="nombre">Marcado por</label>
+  <input id="nombre" type="text" placeholder="Tu nombre" autocomplete="name">
+  <label for="carpeta">Carpeta <code>intermedios</code></label>
+  <input id="carpeta" type="file" webkitdirectory directory multiple>
+  <div class="error" id="errorInicio"></div>
+</section>
+
+<section id="app">
+  <div id="visor">
+    <div id="barra">
+      <span class="id" id="txtId">—</span>
+      <span class="meta" id="txtArchivo"></span>
+      <span class="meta" id="txtPos"></span>
+    </div>
+    <div id="etiqueta"></div>
+    <div id="lienzo"><img id="foto" alt="Foto actual"></div>
+    <div id="tiras"></div>
+  </div>
+
+  <aside id="lado">
+    <h2>Marcar (avanza solo)</h2>
+    <button class="tecla" data-v="posterior"><kbd>1</kbd><span class="c" style="background:var(--posterior)"></span>
+      <span>Posterior<small>parte de atrás de la vaca</small></span></button>
+    <button class="tecla" data-v="lateral_izq"><kbd>2</kbd><span class="c" style="background:var(--lateral_izq)"></span>
+      <span>Lateral izquierda<small>lado izquierdo de la vaca</small></span></button>
+    <button class="tecla" data-v="lateral_der"><kbd>3</kbd><span class="c" style="background:var(--lateral_der)"></span>
+      <span>Lateral derecha<small>lado derecho de la vaca</small></span></button>
+    <button class="tecla" data-v="descartada"><kbd>0</kbd><span class="c" style="background:var(--descartada)"></span>
+      <span>Descartar<small>borrosa, cortada, tapada o vista que no sirve</small></span></button>
+
+    <h2>Moverse</h2>
+    <p class="ayuda"><kbd>←</kbd> <kbd>→</kbd> anterior / siguiente &nbsp;·&nbsp; <kbd>N</kbd> siguiente sin marcar
+      &nbsp;·&nbsp; <kbd>Supr</kbd> borrar marca</p>
+
+    <h2>Avance</h2>
+    <div id="progreso"><div></div></div>
+    <div class="conteo"><span id="txtAvance">0 / 0</span><span id="txtFaltan"></span></div>
+    <div class="conteo"><span>Posterior</span><span id="cPost">0</span></div>
+    <div class="conteo"><span>Lateral izquierda</span><span id="cIzq">0</span></div>
+    <div class="conteo"><span>Lateral derecha</span><span id="cDer">0</span></div>
+    <div class="conteo"><span>Descartadas</span><span id="cDesc">0</span></div>
+
+    <h2>Archivo</h2>
+    <div class="fila-botones">
+      <button id="btnDescargar">Descargar vistas.csv</button>
+      <button id="btnCargar">Cargar vistas.csv previo</button>
+      <input id="archivoPrevio" type="file" accept=".csv" hidden>
+    </div>
+    <div id="aviso"></div>
+    <p class="ayuda">El avance se guarda en este navegador. Aun así, descarga
+      <code>vistas.csv</code> de vez en cuando como respaldo.</p>
+  </aside>
+</section>
+
+<script>
+"use strict";
+const VISTAS = {
+  posterior:   { tecla: "1", texto: "Posterior",          usable: "si" },
+  lateral_izq: { tecla: "2", texto: "Lateral izquierda",  usable: "si" },
+  lateral_der: { tecla: "3", texto: "Lateral derecha",    usable: "si" },
+  descartada:  { tecla: "0", texto: "Descartada",         usable: "no" },
+};
+const CLAVE = "vistas_bcs_v1";
+const $ = (id) => document.getElementById(id);
+
+let fotos = [];          // [{archivo_jpg, id_vaca, fecha_hora, file}]
+let porVaca = new Map(); // id -> [indices]
+let marcas = {};         // archivo_jpg -> {vista, usable, marcado_por, marcado_en}
+let i = 0, urlActual = null, nombre = "";
+const miniCache = new Map();
+
+// ---------- CSV ----------
+function parseCSV(txt) {
+  const filas = []; let fila = [], campo = "", comillas = false;
+  txt = txt.replace(/^﻿/, "");
+  for (let k = 0; k < txt.length; k++) {
+    const c = txt[k];
+    if (comillas) {
+      if (c === '"') { if (txt[k + 1] === '"') { campo += '"'; k++; } else comillas = false; }
+      else campo += c;
+    } else if (c === '"') comillas = true;
+    else if (c === ",") { fila.push(campo); campo = ""; }
+    else if (c === "\n" || c === "\r") {
+      if (c === "\r" && txt[k + 1] === "\n") k++;
+      fila.push(campo); filas.push(fila); fila = []; campo = "";
+    } else campo += c;
+  }
+  if (campo !== "" || fila.length) { fila.push(campo); filas.push(fila); }
+  const enc = filas.shift() || [];
+  return filas.filter(f => f.some(x => x !== "")).map(f => Object.fromEntries(enc.map((h, j) => [h, f[j] ?? ""])));
+}
+const esc = (v) => /[",\n\r]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v;
+function aCSV(filas, cols) {
+  return [cols.join(","), ...filas.map(f => cols.map(c => esc(String(f[c] ?? ""))).join(","))].join("\n") + "\n";
+}
+
+// ---------- guardado local ----------
+function guardar() {
+  try { localStorage.setItem(CLAVE, JSON.stringify({ marcas, nombre })); } catch (e) { /* sin almacenamiento */ }
+}
+function recuperar() {
+  try { const d = JSON.parse(localStorage.getItem(CLAVE) || "null"); return d || null; } catch (e) { return null; }
+}
+
+// ---------- carga de la carpeta ----------
+$("carpeta").addEventListener("change", async (ev) => {
+  const err = $("errorInicio"); err.textContent = "";
+  nombre = $("nombre").value.trim();
+  if (!nombre) { err.textContent = "Escribe tu nombre antes de elegir la carpeta."; ev.target.value = ""; return; }
+  const archivos = Array.from(ev.target.files || []);
+  const csv = archivos.find(f => /(^|\/)fotos\.csv$/.test(f.webkitRelativePath || f.name));
+  if (!csv) { err.textContent = "No encontré fotos.csv. Elige la carpeta 'intermedios' que crea el notebook de preparación."; return; }
+  const raiz = (csv.webkitRelativePath || "").replace(/fotos\.csv$/, "");
+  const mapa = new Map();
+  for (const f of archivos) {
+    const rel = (f.webkitRelativePath || f.name);
+    if (rel.startsWith(raiz)) mapa.set(rel.slice(raiz.length), f);
+  }
+  const filas = parseCSV(await csv.text());
+  const usar = filas.filter(r => r.excluida === "no" && r.archivo_jpg);
+  const faltan = [];
+  fotos = [];
+  for (const r of usar) {
+    const file = mapa.get(r.archivo_jpg);
+    if (file) fotos.push({ archivo_jpg: r.archivo_jpg, id_vaca: r.id_vaca, fecha_hora: r.fecha_hora || "", file });
+    else faltan.push(r.archivo_jpg);
+  }
+  if (!fotos.length) { err.textContent = "fotos.csv no tiene fotos disponibles en fotos_jpg/."; return; }
+  fotos.sort((a, b) => a.id_vaca.localeCompare(b.id_vaca, "es", { numeric: true })
+    || a.archivo_jpg.localeCompare(b.archivo_jpg, "es", { numeric: true }));
+  porVaca = new Map();
+  fotos.forEach((f, k) => { if (!porVaca.has(f.id_vaca)) porVaca.set(f.id_vaca, []); porVaca.get(f.id_vaca).push(k); });
+
+  const previo = recuperar();
+  if (previo && previo.marcas) {
+    const validas = new Set(fotos.map(f => f.archivo_jpg));
+    for (const [k, v] of Object.entries(previo.marcas)) if (validas.has(k)) marcas[k] = v;
+  }
+  $("inicio").style.display = "none";
+  $("app").style.display = "grid";
+  if (faltan.length) aviso(`Ojo: ${faltan.length} fotos de fotos.csv no están en fotos_jpg/ (no se muestran).`);
+  else if (Object.keys(marcas).length) aviso(`Recuperé ${Object.keys(marcas).length} marcas guardadas en este navegador.`);
+  i = siguienteSinMarcar(-1);
+  if (i < 0) i = 0;
+  mostrar();
+});
+
+// ---------- vista ----------
+function aviso(t) { $("aviso").textContent = t; }
+
+function mostrar() {
+  const f = fotos[i];
+  if (urlActual) URL.revokeObjectURL(urlActual);
+  urlActual = URL.createObjectURL(f.file);
+  $("foto").src = urlActual;
+  const m = marcas[f.archivo_jpg];
+  const et = $("etiqueta");
+  if (m) { et.style.display = "block"; et.style.background = `var(--${m.vista})`; et.textContent = VISTAS[m.vista].texto; }
+  else et.style.display = "none";
+  const grupo = porVaca.get(f.id_vaca);
+  $("txtId").textContent = `Vaca ${f.id_vaca}`;
+  $("txtArchivo").textContent = f.archivo_jpg.split("/").pop() + (f.fecha_hora ? ` · ${f.fecha_hora}` : "");
+  $("txtPos").textContent = `foto ${grupo.indexOf(i) + 1} de ${grupo.length} de esta vaca · ${i + 1}/${fotos.length}`;
+  pintarTira(grupo);
+  contar();
+  precargar(i + 1);
+}
+
+function precargar(k) {
+  if (k >= fotos.length) return;
+  const im = new Image(); const u = URL.createObjectURL(fotos[k].file);
+  im.onload = im.onerror = () => URL.revokeObjectURL(u); im.src = u;
+}
+
+async function miniatura(k) {
+  if (miniCache.has(k)) return miniCache.get(k);
+  let src = "";
+  try {
+    const bmp = await createImageBitmap(fotos[k].file, { resizeWidth: 152, resizeQuality: "medium" });
+    const cv = document.createElement("canvas"); cv.width = bmp.width; cv.height = bmp.height;
+    cv.getContext("2d").drawImage(bmp, 0, 0); bmp.close();
+    src = cv.toDataURL("image/jpeg", 0.7);
+  } catch (e) {
+    try {
+      const bmp = await createImageBitmap(fotos[k].file);
+      const s = 152 / bmp.width, cv = document.createElement("canvas");
+      cv.width = 152; cv.height = Math.round(bmp.height * s);
+      cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height); bmp.close();
+      src = cv.toDataURL("image/jpeg", 0.7);
+    } catch (e2) { src = ""; }
+  }
+  miniCache.set(k, src);
+  return src;
+}
+
+function pintarTira(grupo) {
+  const tira = $("tiras"); tira.innerHTML = "";
+  for (const k of grupo) {
+    const d = document.createElement("div");
+    d.className = "mini" + (k === i ? " actual" : "");
+    d.title = fotos[k].archivo_jpg.split("/").pop();
+    const img = document.createElement("img"); img.alt = d.title; d.appendChild(img);
+    const p = document.createElement("div"); p.className = "p";
+    const m = marcas[fotos[k].archivo_jpg]; if (m) p.style.background = `var(--${m.vista})`;
+    d.appendChild(p);
+    d.addEventListener("click", () => { i = k; mostrar(); });
+    tira.appendChild(d);
+    miniatura(k).then(src => { if (src) img.src = src; });
+  }
+}
+
+function contar() {
+  const total = fotos.length, vals = Object.values(marcas);
+  const n = (v) => vals.filter(m => m.vista === v).length;
+  $("txtAvance").textContent = `${vals.length} / ${total} marcadas`;
+  $("txtFaltan").textContent = vals.length < total ? `faltan ${total - vals.length}` : "¡completo!";
+  $("progreso").firstElementChild.style.width = (100 * vals.length / total) + "%";
+  $("cPost").textContent = n("posterior"); $("cIzq").textContent = n("lateral_izq");
+  $("cDer").textContent = n("lateral_der"); $("cDesc").textContent = n("descartada");
+}
+
+function siguienteSinMarcar(desde) {
+  for (let k = desde + 1; k < fotos.length; k++) if (!marcas[fotos[k].archivo_jpg]) return k;
+  for (let k = 0; k <= desde && k < fotos.length; k++) if (!marcas[fotos[k].archivo_jpg]) return k;
+  return -1;
+}
+
+function marcar(vista) {
+  const f = fotos[i];
+  marcas[f.archivo_jpg] = { vista, usable: VISTAS[vista].usable, marcado_por: nombre,
+                            marcado_en: new Date().toISOString() };
+  guardar();
+  const sig = siguienteSinMarcar(i);
+  if (sig < 0) { aviso("¡Listo! Todas las fotos están marcadas. Descarga vistas.csv."); mostrar(); return; }
+  i = sig; mostrar();
+}
+function borrar() {
+  delete marcas[fotos[i].archivo_jpg]; guardar(); mostrar();
+}
+
+// ---------- teclado y botones ----------
+document.addEventListener("keydown", (e) => {
+  if ($("app").style.display !== "grid" || e.ctrlKey || e.metaKey || e.altKey) return;
+  const porTecla = Object.entries(VISTAS).find(([, v]) => v.tecla === e.key);
+  if (porTecla) { e.preventDefault(); marcar(porTecla[0]); return; }
+  if (e.key === "ArrowRight") { e.preventDefault(); if (i < fotos.length - 1) { i++; mostrar(); } }
+  else if (e.key === "ArrowLeft") { e.preventDefault(); if (i > 0) { i--; mostrar(); } }
+  else if (e.key === "n" || e.key === "N") { const s = siguienteSinMarcar(i); if (s >= 0) { i = s; mostrar(); } }
+  else if (e.key === "Delete" || e.key === "Backspace") { e.preventDefault(); borrar(); }
+});
+document.querySelectorAll(".tecla").forEach(b => b.addEventListener("click", () => marcar(b.dataset.v)));
+
+$("btnDescargar").addEventListener("click", () => {
+  const filas = fotos.map(f => {
+    const m = marcas[f.archivo_jpg] || {};
+    return { archivo_jpg: f.archivo_jpg, id_vaca: f.id_vaca,
+             vista: m.vista === "descartada" ? "" : (m.vista || ""),
+             usable: m.usable || "", marcado_por: m.marcado_por || "", marcado_en: m.marcado_en || "" };
+  });
+  const csv = aCSV(filas, ["archivo_jpg", "id_vaca", "vista", "usable", "marcado_por", "marcado_en"]);
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8" }));
+  a.download = "vistas.csv"; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  const faltan = fotos.length - Object.keys(marcas).length;
+  aviso(faltan ? `Descargado (faltan ${faltan} fotos por marcar).` : "Descargado completo.");
+});
+
+$("btnCargar").addEventListener("click", () => $("archivoPrevio").click());
+$("archivoPrevio").addEventListener("change", async (ev) => {
+  const f = ev.target.files[0]; if (!f) return;
+  const filas = parseCSV(await f.text());
+  const validas = new Set(fotos.map(x => x.archivo_jpg));
+  let n = 0;
+  for (const r of filas) {
+    if (!validas.has(r.archivo_jpg) || !r.usable) continue;
+    const vista = r.usable === "no" ? "descartada" : r.vista;
+    if (!VISTAS[vista]) continue;
+    marcas[r.archivo_jpg] = { vista, usable: r.usable, marcado_por: r.marcado_por || nombre,
+                              marcado_en: r.marcado_en || new Date().toISOString() };
+    n++;
+  }
+  guardar(); ev.target.value = "";
+  aviso(`Cargué ${n} marcas de ${f.name}.`); mostrar();
+});
+
+// nombre recordado
+const prev = recuperar(); if (prev && prev.nombre) $("nombre").value = prev.nombre;
+</script>
+</body>
+</html>

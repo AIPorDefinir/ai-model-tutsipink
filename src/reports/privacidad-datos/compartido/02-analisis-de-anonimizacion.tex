@@ -1,0 +1,22 @@
+\section{Análisis de anonimización}
+
+Los datos tabulares no contienen datos personales: No hay nombres de trabajadores, operadores ni clientes. Solo se identifican vacas y grupos de manejo. No obstante, es información interna del CAETEC y no deben hacerse públicos.
+
+Donde sí encontramos datos personales es en los metadatos de los archivos y en las fotos. En Google Drive, cada archivo muestra a su dueño con su matrícula o correo, y las fotos pueden guardar la ubicación GPS y el modelo del teléfono con el que se tomaron. Además, en algunas fotos podrían aparecer trabajadores o estudiantes. En la siguiente tabla se describe cada atributo, si identifica a una persona y qué se hará con él.
+
+\begin{table}[htbp]
+  \centering
+  \small
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.14\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    Atributo & ¿Identifica a una persona? & Riesgo & Acción \\
+    \midrule
+    ID de vaca & No & Información productiva y reproductiva del CAETEC & Se conserva, pero no se publica \\
+    Grupo y robot (“Grupo 6”, “VMS 3”) & No & Bajo & Se conserva \\
+    Fechas y horas de ordeño & No & Bajo & Se conserva \\
+    Dueño de los archivos en Drive (matrícula, correo) & Sí & Datos personales de estudiantes y profesores & No se copia a los datos ni al repositorio \\
+    Metadatos de las fotos (GPS, dispositivo) & Posible & Ubicación del establo y teléfono de un estudiante & Se eliminan antes de subir las fotos \\
+    Personas en las fotos & Posible & Imagen de trabajadores o estudiantes & Se recorta o se descarta la foto \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
