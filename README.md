@@ -85,6 +85,8 @@ Cada corrección que salió de la retroalimentación se trabaja en un issue, y l
 
 ## Módulo de Big Data
 
+Antes estaba en el repositorio [Reto-Datos](https://github.com/AIPorDefinir/Reto-Datos), que se fusionó aquí con todo su historial de commits. Ese repositorio se archiva, así que el módulo solo se actualiza aquí.
+
 Entrega de datos del reto: la justificación del uso de herramientas de Big Data, el modelo de almacenamiento en AWS, los notebooks que extraen, limpian y cargan los datos, la validación cruzada k-fold y la medición de tiempos y recursos.
 
 Reporte: [Justificación del uso de herramientas de Big Data](reports/bigdata/justificacion-bigdata.pdf)
@@ -155,6 +157,8 @@ python3 config/bigdata/aws/exportar_config_aws.py --bucket <nombre-del-bucket> -
 ```
 
 ## Módulo de Privacidad y seguridad de datos
+
+Antes estaba en el repositorio [Reto-Privacidad-y-Seguridad-de-Datos](https://github.com/AIPorDefinir/Reto-Privacidad-y-Seguridad-de-Datos), que se fusionó aquí con todo su historial de commits. Ese repositorio se archiva, así que el módulo solo se actualiza aquí.
 
 Como parte de la actividad se encargó un reporte individual a cada integrante. Cada reporte tiene una investigación propia y una parte compartida por el equipo.
 
