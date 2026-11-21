@@ -112,7 +112,13 @@ Reporte: [Justificación del uso de herramientas de Big Data](reports/bigdata/ju
 | 5 | Separación en entrenamiento y prueba con k-fold | Asignación de pliegues en [preparacion_datos.ipynb](src/notebooks/bigdata/preparacion_datos.ipynb), ejecución en [validacion_cruzada.ipynb](src/notebooks/bigdata/validacion_cruzada.ipynb) y sus resultados en [reports/bigdata/resultados/](reports/bigdata/resultados/) |
 | 6 | ¿Hace falta un enfoque de Big Data? | [Reporte](reports/bigdata/justificacion-bigdata.pdf), [medicion_recursos.ipynb](src/notebooks/bigdata/medicion_recursos.ipynb) y [tiempos_recursos.csv](reports/bigdata/resultados/tiempos_recursos.csv) |
 
-Notebook individual: [a01199004_oswaldo_hernandez.ipynb](src/bigdata/visualizacion/a01199004_oswaldo_hernandez.ipynb) (A01199004 Oswaldo Hernández).
+Notebooks individuales:
+[a01199004_oswaldo_hernandez.ipynb](src/bigdata/visualizacion/a01199004_oswaldo_hernandez.ipynb) (A01199004 Oswaldo Hernández).
+[a01066843_facundo_bautista.ipynb](src/bigdata/visualizacion/a01066843_facundo_bautista.ipynb) (A01066843 Facundo Bautista).
+[a01711368_alfredo_soto.ipynb](src/bigdata/visualizacion/a01711368_alfredo_soto.ipynb) (A01711368 Alfredo Soto).
+[a01712408_emiliano_camacho.ipynb](src/bigdata/visualizacion/a01199004_oswaldo_hernandez.ipynb) (A01712408 Emiliano Camacho).
+[a01352358_iker_mejia.ipynb](src/bigdata/visualizacion/a01199004_oswaldo_hernandez.ipynb) (A01352358 Iker Mejía).
+[a01711783_jorge_oyoqui.ipynb](src/bigdata/visualizacion/a01199004_oswaldo_hernandez.ipynb) (A01711783 Jorge Oyoqui).
 
 ### Política de datos
 
