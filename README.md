@@ -12,6 +12,7 @@ Plan del proyecto: [PVG](https://aipordefinir.github.io/ai-model-tutsipink/)
 
 - [Estructura del repositorio](#estructura-del-repositorio)
 - [CRISP-DM](#crisp-dm)
+- [Correcciones por retroalimentación](#correcciones-por-retroalimentación)
 - [Módulo de Big Data](#módulo-de-big-data)
 - [Módulo de Privacidad y seguridad de datos](#módulo-de-privacidad-y-seguridad-de-datos)
 - [Contributors](#contributors)
@@ -66,6 +67,35 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 | 6. Deployment | Pendiente |  |
 
 Fuentes: LaTeX en [src/reports/](src/reports/), notebooks en [src/notebooks/](src/notebooks/) y código del modelado en [src/modeling/](src/modeling/).
+
+## Correcciones por retroalimentación
+
+Cada corrección que salió de la retroalimentación se trabaja en un issue y se refleja en el [PVG](https://aipordefinir.github.io/ai-model-tutsipink/). Cuando una fase ya no se está iterando, la corrección se hace sobre su última versión en lugar de crear una nueva.
+
+| Fase | Corrección | Issues | Estado |
+|---|---|---|---|
+| 1. Business Understanding | Alcance, objetivos y criterios de éxito 1 a 1, matriz de riesgos, plan del proyecto, índice de documentos, adaptaciones a CRISP-DM y ortografía | [#26](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/26), [#27](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/27), [#28](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/28), [#29](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/29), [#30](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/30), [#31](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/31), [#32](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/32) | Atendida |
+|  | Alcance reducido, objetivos de negocio y criterios de éxito modificados, e integración de los entregables | [#51](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/51), [#52](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/52), [#53](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/53), [#54](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/54) | Atendida |
+| 2. Data Understanding | Escala de calificación del BCS en la versión 2 | [#73](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/73) | Atendida |
+|  | Distribuciones de la base de datos y figuras autoexplicativas | [#81](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/81), [#82](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/82) | Pendiente |
+| 4. Modeling | Clasificación contra regresión, ajustes del Modelo 5, estructura del reporte y figuras autoexplicativas | [#83](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/83), [#84](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/84), [#85](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/85), [#86](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/86) | Pendiente |
+| 5. Evaluation | Métricas nuevas y criterio principal, petición de más métricas del socio, figuras y qué falta para mejorar el modelo | [#87](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/87), [#88](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/88), [#89](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/89), [#90](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/90), [#91](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/91), [#92](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/92), [#93](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/93) | Pendiente |
+| 6. Deployment | Despliegue en el celular contra la nube | [#94](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/94) | Pendiente |
+| Big Data | Correcciones al reporte de justificación | Sin issue | Pendiente hasta correr los notebooks en el clúster |
+
+### Coherencia con los documentos en Drive
+
+Los reportes de este repositorio se alinearon con los documentos en Drive.
+
+| Corrección | Issue | Estado |
+|---|---|---|
+| Repositorios unificados, rama fusionada con `main`, árbol con `05-evaluation` y liga del notebook individual | [#100](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/100) | En curso |
+| Business Understanding 3 sin el sensor LiDAR, con CMD-1.2 en porcentajes dentro de ±0.25 y ±0.50 y con los supuestos que coinciden con los datos | [#101](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/101) | En curso |
+| Data Understanding 2 con las dos visitas, la hoja manuscrita, los datos de ordeño y la escala de riesgos de Business Understanding | [#102](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/102) | En curso |
+| Notebooks vigentes en las carpetas de fase y los anteriores en `legacy/` | [#103](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/103) | En curso |
+| Data Preparation 1 con el dataset final (580 fotos de 77 vacas) y las rutas del repositorio unificado | [#104](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/104) | En curso |
+| Modeling y Evaluation con las cifras de la corrida final del Modelo 5 (57 de 76 vacas dentro de ±0.25, 70 de 76 dentro de ±0.50 y MAE de 0.224) | [#105](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/105), [#106](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/106) | En curso |
+| Esta sección del README | [#107](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/107) | En curso |
 
 ## Módulo de Big Data
 
