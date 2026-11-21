@@ -42,8 +42,8 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
     │   ├── herramientas/              página para marcar la vista de cada foto
     │   └── visualizacion/             notebook individual del módulo de Big Data
     ├── notebooks/
-    │   ├── 02-data-understanding/
-    │   ├── 03-data-preparation/
+    │   ├── 02-data-understanding/     notebook vigente y versión anterior en legacy/
+    │   ├── 03-data-preparation/       notebook vigente y versión anterior en legacy/
     │   └── bigdata/                   comprensión, preparación, validación cruzada y medición (Colab)
     └── reports/                       fuentes en LaTeX de los reportes
         ├── 01-business-understanding/ … 05-evaluation/
