@@ -1,0 +1,46 @@
+El propósito es establecer qué objetivos alcanzamos, con qué evidencia y qué restricciones condicionan la aprobación, la unidad de análisis y evaluación es la vaca, ya que las fotografías de una misma vaca no constituyen observaciones independientes, por dicha razón es que las particiones de entrenamiento y validación se realizaron por vaca para evitar que las imágenes del mismo animal aparecieran simultáneamente en ambos conjuntos, también agregamos las predicciones que obtuvimos de sus fotografías para generar una estimación final del BCS por vaca.
+
+\subsection{Evaluación de los resultados respecto a los objetivos y criterios de éxito del negocio y minería de datos}
+
+\textbf{Objetivo de negocio ON-1:} Estimar la condición corporal BCS de vacas productoras de leche de forma automatizada a partir de imágenes.
+
+\textbf{Objetivo de minería de datos OMD-1:} Desarrollar y evaluar un modelo supervisado de regresión que estime la condición corporal de las vacas (BCS escala 1.0 a 5.0) a partir de imágenes RGB.
+
+\textbf{Criterios de éxito de negocio con su traducción a minería de datos:}
+
+\begin{itemize}
+  \item CN-1.1: Lograr una estimación promedio consistente con la evaluación de los expertos clínicos del establo.
+  \item CMD-1.1: Lograr que la predicción de nuestro modelo estime el BCS con un margen de error MAE (error absoluto medio) de 0.25--0.50 en comparación con el BCS predicho por los expertos.
+  \item CN-1.2: Lograr que la mayoría de vacas evaluadas estén dentro del margen de tolerancia aceptado.
+  \item CMD-1.2: Alcanzar un porcentaje alto de predicciones cuya diferencia con el experto sea de máximo un cuarto (0.25) o media unidad (0.50) de BCS:
+  \begin{itemize}
+    \item Porcentaje de predicciones dentro de $\pm0.25$: 70\,\% de las vacas.
+    \item Porcentaje de predicciones dentro de $\pm0.50$: 90\,\% de las vacas.
+  \end{itemize}
+\end{itemize}
+
+Los resultados y métricas mencionados a continuación forman parte de los resultados obtenidos por nuestro mejor modelo que es el de clasificación con valor esperado. Este modelo se encuentra documentado más adelante en la sección 5.1.2 de Modelos aprobados.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Cumplimiento de los criterios de éxito de negocio y de minería de datos.}
+  \label{tab:criterios}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.22\textwidth}}
+    \toprule
+    Criterio & Meta / alcance & Resultado & Veredicto \\
+    \midrule
+    CN-1.1 / CMD 1.1 & Banda de 0.25--0.50 & MAE 0.224 (con salida redondeada) & Se cumple y mejora la banda \\
+    \addlinespace
+    CN-1.2 / CMD-1.2 de $\pm0.25$ & $\geq$ 70\,\% (al menos 54/76) & 77.6\,\% (59/76) redondeada; 65.8\,\% continua & Cumple solo en la versión redondeada \\
+    \addlinespace
+    CN-1.2 / CMD-1.2 de $\pm0.50$ & $\geq$ 90\,\% & 93.4\,\% redondeada; 90.8\,\% continua & Se cumple en ambas salidas \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Para CN-1.1, el MAE de 0.224 equivale a un error absoluto promedio inferior a 0.25 en la salida, por lo que terminó siendo mejor que el objetivo numérico de 0.25--0.50 que planteamos previamente en CMD-1.1. Sin embargo, dicho promedio no garantiza que haya estabilidad en todos los rangos, ya que un promedio satisfactorio en valores frecuentes puede llegar a ocultar fallas sistemáticas en los valores más extremos.
+
+Para CN-1.2, 59 de 76 vacas evaluadas (77.6\,\%) tuvieron una diferencia absoluta menor o igual a 0.25 puntos con respecto al BCS de referencia, mientras que el 93.4\,\% quedó dentro del margen de $\pm0.50$, utilizando la salida redondeada del modelo, dichos resultados superaron las metas de 70\,\% y 90\,\% respectivamente, sin embargo con la salida sin redondear, solamente 50 de las 76 vacas (65.8\,\%) cumplieron el margen de $\pm0.25$, esta diferencia demuestra por qué es importante distinguir entre ambas formas de presentar las predicciones.
+
+Finalmente, podemos declarar que nuestro mejor modelo con la salida redondeada cumple satisfactoriamente con los objetivos de negocio y minería de datos, y por ende, con sus respectivos criterios de éxito.
