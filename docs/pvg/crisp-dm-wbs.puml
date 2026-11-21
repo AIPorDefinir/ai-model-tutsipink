@@ -26,6 +26,10 @@
 **** 1.5.5 Índice de documentos
 **** 1.5.6 Adaptaciones a CRISP-DM
 **** 1.5.7 Revisión ortográfica
+*** 1.7 Alinear el repositorio con los documentos en Drive
+**** 1.7.1 Coherencia de Business Understanding con el documento en Drive (LiDAR, CMD-1.2, 1.4.2 y supuestos)
+**** 1.7.2 Correcciones por retroalimentación en el README
+**** 1.7.3 Unificar los repositorios y fusionar con main
 
 ** 2. Comprensión de los datos
 *** 2.1 Recolectar datos iniciales
@@ -43,6 +47,9 @@
 **** 2.6.1 Escala de calificación del BCS en Data Understanding 2
 **** 2.6.2 Distribuciones de la base de datos
 **** 2.6.3 Figuras autoexplicativas de Comprensión de los datos
+*** 2.7 Alinear Data Understanding con el documento en Drive
+**** 2.7.1 Coherencia de Data Understanding 2 con el documento en Drive (dos visitas, ordeño y escala de riesgos)
+**** 2.7.2 Notebooks vigentes en las carpetas de fase y anteriores en legacy
 
 ** 3. Preparación de los datos
 *** 3.1 Seleccionar los datos
@@ -57,6 +64,8 @@
 **** 3.5.1 Datos con formato final
 *** 3.6 Integrar al repositorio
 **** 3.6.1 Merge de la rama de data preparation
+*** 3.7 Alinear Data Preparation con el documento en Drive
+**** 3.7.1 Coherencia de Data Preparation con el documento en Drive
 
 ** 4. Modelado
 *** 4.1 Seleccionar la técnica de modelado
@@ -75,6 +84,8 @@
 **** 4.6.2 Ajustes de arquitectura del Modelo 5
 **** 4.6.3 Quitar el Modelo 3 y reorganizar Modelado alrededor del clasificador
 **** 4.6.4 Figuras autoexplicativas de Modelado
+*** 4.7 Alinear Modelado con el documento en Drive
+**** 4.7.1 Cifras de la corrida final del Modelo 5 en Modelado
 
 ** 5. Evaluación
 *** 5.1 Evaluar los resultados
@@ -91,6 +102,8 @@
 **** 5.4.5 Figuras autoexplicativas de Evaluación
 **** 5.4.6 Qué hace falta para mejorar el modelo
 **** 5.4.7 Presentación corta de métricas y criterio
+*** 5.5 Alinear Evaluación con el documento en Drive
+**** 5.5.1 Cifras de la corrida final del Modelo 5 en Evaluación
 
 ** 6. Despliegue
 *** 6.1 Planificar el despliegue

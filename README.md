@@ -32,19 +32,21 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 │   ├── 02-data-understanding/
 │   ├── 03-data-preparation/
 │   ├── 04-modeling/
+│   ├── 05-evaluation/
 │   ├── bigdata/                       reporte de Big Data y resultados de los notebooks
 │   └── privacidad-datos/              reportes individuales de privacidad
 └── src/                               fuentes
     ├── modeling/                      código del modelado
     ├── bigdata/
     │   ├── pyspark/                   integración con pandas y con PySpark, y medición
-    │   └── herramientas/              página para marcar la vista de cada foto
+    │   ├── herramientas/              página para marcar la vista de cada foto
+    │   └── visualizacion/             notebook individual del módulo de Big Data
     ├── notebooks/
     │   ├── 02-data-understanding/
     │   ├── 03-data-preparation/
     │   └── bigdata/                   comprensión, preparación, validación cruzada y medición (Colab)
     └── reports/                       fuentes en LaTeX de los reportes
-        ├── 01-business-understanding/ … 04-modeling/
+        ├── 01-business-understanding/ … 05-evaluation/
         ├── bigdata/
         └── privacidad-datos/
 ```
@@ -77,6 +79,7 @@ Reporte: [Justificación del uso de herramientas de Big Data](reports/bigdata/ju
 | [src/notebooks/bigdata/](src/notebooks/bigdata/) | Notebooks de comprensión, preparación, validación cruzada y medición (Colab) |
 | [src/bigdata/pyspark/](src/bigdata/pyspark/) | Integración con pandas y con PySpark, y medición de tiempo, CPU y memoria |
 | [src/bigdata/herramientas/](src/bigdata/herramientas/) | Página para marcar la vista de cada foto |
+| [src/bigdata/visualizacion/](src/bigdata/visualizacion/) | Notebook individual |
 | [src/reports/bigdata/](src/reports/bigdata/) | Fuentes en LaTeX del reporte |
 | [config/bigdata/](config/bigdata/) | Paquetes y configuración exportada de AWS |
 
@@ -91,7 +94,7 @@ Reporte: [Justificación del uso de herramientas de Big Data](reports/bigdata/ju
 | 5 | Separación en entrenamiento y prueba con k-fold | Asignación de pliegues en [preparacion_datos.ipynb](src/notebooks/bigdata/preparacion_datos.ipynb), ejecución en [validacion_cruzada.ipynb](src/notebooks/bigdata/validacion_cruzada.ipynb) y sus resultados en [reports/bigdata/resultados/](reports/bigdata/resultados/) |
 | 6 | ¿Hace falta un enfoque de Big Data? | [Reporte](reports/bigdata/justificacion-bigdata.pdf), [medicion_recursos.ipynb](src/notebooks/bigdata/medicion_recursos.ipynb) y [tiempos_recursos.csv](reports/bigdata/resultados/tiempos_recursos.csv) |
 
-Notebook individual: [ecobici_duration_pyspark.ipynb](src/notebooks/bigdata/ecobici_duration_pyspark.ipynb) (A01199004 Oswaldo Hernández).
+Notebook individual: [a01199004_oswaldo_hernandez.ipynb](src/bigdata/visualizacion/a01199004_oswaldo_hernandez.ipynb) (A01199004 Oswaldo Hernández).
 
 ### Política de datos
 
