@@ -30,17 +30,17 @@ Los resultados y métricas mencionados a continuación forman parte de los resul
     \toprule
     Criterio & Meta / alcance & Resultado & Veredicto \\
     \midrule
-    CN-1.1 / CMD 1.1 & Banda de 0.25--0.50 & MAE 0.224 (con salida redondeada) & Se cumple y mejora la banda \\
+    CN-1.1 / CMD 1.1 & Banda de 0.25--0.50 & MAE 0.224 (con la lectura elegida en la validación) & Se cumple y mejora la banda \\
     \addlinespace
-    CN-1.2 / CMD-1.2 de $\pm0.25$ & $\geq$ 70\,\% (al menos 54/76) & 77.6\,\% (59/76) redondeada; 65.8\,\% continua & Cumple solo en la versión redondeada \\
+    CN-1.2 / CMD-1.2 de $\pm0.25$ & $\geq$ 70\,\% (al menos 54/76) & 75.0\,\% (57/76) con la lectura elegida en la validación; 65.8\,\% continua & Cumple con la lectura elegida en la validación, no con la salida continua \\
     \addlinespace
-    CN-1.2 / CMD-1.2 de $\pm0.50$ & $\geq$ 90\,\% & 93.4\,\% redondeada; 90.8\,\% continua & Se cumple en ambas salidas \\
+    CN-1.2 / CMD-1.2 de $\pm0.50$ & $\geq$ 90\,\% & 92.1\,\% con la lectura elegida en la validación; 90.8\,\% continua & Se cumple en ambas salidas \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
 Para CN-1.1, el MAE de 0.224 equivale a un error absoluto promedio inferior a 0.25 en la salida, por lo que terminó siendo mejor que el objetivo numérico de 0.25--0.50 que planteamos previamente en CMD-1.1. Sin embargo, dicho promedio no garantiza que haya estabilidad en todos los rangos, ya que un promedio satisfactorio en valores frecuentes puede llegar a ocultar fallas sistemáticas en los valores más extremos.
 
-Para CN-1.2, 59 de 76 vacas evaluadas (77.6\,\%) tuvieron una diferencia absoluta menor o igual a 0.25 puntos con respecto al BCS de referencia, mientras que el 93.4\,\% quedó dentro del margen de $\pm0.50$, utilizando la salida redondeada del modelo, dichos resultados superaron las metas de 70\,\% y 90\,\% respectivamente, sin embargo con la salida sin redondear, solamente 50 de las 76 vacas (65.8\,\%) cumplieron el margen de $\pm0.25$, esta diferencia demuestra por qué es importante distinguir entre ambas formas de presentar las predicciones.
+Para CN-1.2, 57 de 76 vacas evaluadas (75.0\,\%) tuvieron una diferencia absoluta menor o igual a 0.25 puntos con respecto al BCS de referencia, mientras que el 92.1\,\% quedó dentro del margen de $\pm0.50$, utilizando la lectura elegida en la validación, dichos resultados superaron las metas de 70\,\% y 90\,\% respectivamente, sin embargo con la salida sin redondear, solamente 50 de las 76 vacas (65.8\,\%) cumplieron el margen de $\pm0.25$, esta diferencia demuestra por qué es importante distinguir entre ambas formas de presentar las predicciones.
 
-Finalmente, podemos declarar que nuestro mejor modelo con la salida redondeada cumple satisfactoriamente con los objetivos de negocio y minería de datos, y por ende, con sus respectivos criterios de éxito.
+Finalmente, podemos declarar que nuestro mejor modelo con la lectura elegida en la validación cumple satisfactoriamente con los objetivos de negocio y minería de datos, y por ende, con sus respectivos criterios de éxito.

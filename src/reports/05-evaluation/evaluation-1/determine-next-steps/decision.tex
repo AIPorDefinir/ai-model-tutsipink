@@ -1,13 +1,13 @@
 \subsection{Decisión}
 
-Después de comparar las tres alternativas, el equipo decidió avanzar a la fase de Despliegue con la alternativa A: un despliegue piloto, asistido y supervisado, del Modelo 5 con salida redondeada a 0.25.
+Después de comparar las tres alternativas, el equipo decidió avanzar a la fase de Despliegue con la alternativa A: un despliegue piloto, asistido y supervisado, del Modelo 5 con la lectura elegida en la validación.
 
-Tomamos esta decisión porque el Modelo 5 es el único que cumple al mismo tiempo los criterios CN-1.1/CMD-1.1 y CN-1.2/CMD-1.2: MAE de 0.224, 77.6\,\% de las vacas (59/76) dentro de $\pm0.25$ y 93.4\,\% dentro de $\pm0.50$. Además, el socio formador ya lo validó. Las alternativas B y C podrían mejorar el desempeño en los valores extremos, pero no garantizan resultados, tienen un costo computacional y retrasarían el proyecto sin asegurar una mejora sobre un modelo que ya cumple las metas. No podemos permitirnos retrasos a estas alturas de cierre de semestre.
+Tomamos esta decisión porque el Modelo 5 es el único que cumple al mismo tiempo los criterios CN-1.1/CMD-1.1 y CN-1.2/CMD-1.2: MAE de 0.224, 75.0\,\% de las vacas (57/76) dentro de $\pm0.25$ y 92.1\,\% dentro de $\pm0.50$. Además, el socio formador ya lo validó. Las alternativas B y C podrían mejorar el desempeño en los valores extremos, pero no garantizan resultados, tienen un costo computacional y retrasarían el proyecto sin asegurar una mejora sobre un modelo que ya cumple las metas. No podemos permitirnos retrasos a estas alturas de cierre de semestre.
 
 Como el modelo concentra sus predicciones en valores centrales y no hemos demostrado que pueda sustituir la inspección de los especialistas, el despliegue se hará con las siguientes condiciones:
 
 \begin{itemize}
   \item \textbf{Uso asistido:} el modelo sirve como apoyo a la evaluación. El BCS definitivo lo sigue validando un experto del establo, sobre todo en vacas con condición corporal baja o alta.
-  \item \textbf{Salida redondeada:} solo se entrega la predicción redondeada a 0.25, que es la versión que cumplió los criterios de éxito.
+  \item \textbf{Salida redondeada:} solo se entrega la predicción redondeada a 0.25, que es la lectura que se eligió en 4 de los 5 pliegues de la validación.
   \item \textbf{Protocolo de captura:} las fotografías deben tomarse con las mismas vistas y condiciones usadas en la preparación de los datos.
 \end{itemize}
