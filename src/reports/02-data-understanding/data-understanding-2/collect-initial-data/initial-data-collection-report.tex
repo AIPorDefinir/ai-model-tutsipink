@@ -1,0 +1,31 @@
+\subsection{Reporte de recolección inicial de datos}
+
+\subsubsection*{Datos de BCS}
+
+Los datos de BCS vienen de dos visitas de nuestros compañeros al CAETEC. En la primera, el 29 de septiembre de 2026, se tomaron fotos con un Apple iPhone 17 Pro Max, un Apple iPhone 14, un Apple iPhone Air y un Nothing Phone (2a). Ese día los expertos del CAETEC asignaron el BCS de 25 vacas en una hoja física y se nos compartió un conjunto de datos con 24 vacas del grupo VMS 3. Transcribimos la hoja al archivo \texttt{bitacora\_hoja\_manuscrita.csv}, con una fila por evaluación que guarda el ID, el BCS y la nota ``Fresca'' cuando venía.
+
+En la segunda visita, el 14 de octubre de 2026, se tomaron más fotos con un Apple iPhone 17 Pro Max, un Apple iPhone XR y un Samsung S22. Además, dos expertos del CAETEC asignaron el BCS y lo registraron en una lista tipo bitácora, el archivo \texttt{etiquetas\_bsc.xlsx}. Este archivo contiene una fila por evaluación con las columnas ID - VACA, Hora / minuto, BCS, Foto y Carpeta. Las dos últimas son ligas a las fotos de cada vaca en un Drive compartido, de donde las descargamos.
+
+Las fotos sirven para que el modelo aprenda la forma de las vacas y pueda predecir su BCS a partir de su figura. El conjunto de datos de VMS 3 aporta información de producción, días desde el parto, estado reproductivo y otras variables. Algunas fotos llegaron duplicadas o mal etiquetadas, e incluso hay vacas que comparten las mismas fotos (véase la sección 2.4).
+
+\subsubsection*{Cómo obtuvimos las cifras}
+
+Las cifras de BCS y de fotografías se calcularon en un notebook de Python que está en la ruta \nolinkurl{src/notebooks/02-data-understanding/} del repositorio:
+
+\begin{center}
+  \nolinkurl{01_du_bcs_problem.ipynb}
+\end{center}
+
+El notebook lee los datos desde el bucket de Amazon S3 del equipo y solo los lee, sin borrar, mover ni convertir nada. Las cifras se definen de la siguiente forma.
+
+\begin{itemize}
+  \item Dos archivos con la misma huella digital (SHA-256) cuentan como una sola foto aunque tengan nombres distintos, y así se obtienen las fotos sin copias.
+  \item Las fotos de cada vaca se cuentan sin repetirlas.
+  \item La distribución del BCS cuenta evaluaciones, así que una vaca con dos BCS aporta dos valores.
+  \item La cámara, la fecha y la resolución salen de los metadatos EXIF de cada foto.
+  \item La visita de cada foto sale del nombre de su carpeta, porque las carpetas del 14 de octubre traen el sufijo de descarga de Drive y las del 29 de septiembre no. Comprobamos que coincide con la fecha de captura de los metadatos en las 621 fotos únicas.
+\end{itemize}
+
+\subsubsection*{Datos de ordeño}
+
+Los datos de ordeño vienen de la carpeta compartida con el equipo llamada ``Vacas en establo Marzo - Junio 2025''. A pesar del nombre, hay fechas que llegan al 18 de julio de 2025. Se analizaron 34 vacas del CAETEC, registradas por los robots de ordeño voluntario (VMS). Cada archivo CSV pertenece a una vaca y todos tienen la misma estructura de 35 columnas. Las cifras se calcularon en el notebook \nolinkurl{02_du_queue_problem.ipynb}, en la misma carpeta. Los datos no se suben al repositorio.
