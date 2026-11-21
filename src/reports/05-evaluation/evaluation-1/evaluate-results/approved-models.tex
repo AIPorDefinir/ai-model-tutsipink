@@ -1,0 +1,37 @@
+\subsection{Modelos aprobados}
+
+De los cinco modelos que reportamos en la etapa de Modelado solo el Modelo 5 con salida redondeada superó conjuntamente las métricas establecidas, es importante distinguir entre aquellos modelos que no pudieron alcanzar los criterios de éxito y aquellos cuyo entrenamiento no terminó.
+
+Por ejemplo el modelo EVA02 con ajuste fino no cuenta con resultados suficientes como para realizar una comparación válida y lo consideramos como no evaluable en esta fase por ende no puede aprobarse ni descartarse por su desempeño predictivo.
+
+A continuación tenemos una tabla comparativa entre los mejores modelos:
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Comparación entre los mejores modelos sobre las 76 vacas.}
+  \label{tab:modelos}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xcccc}
+    \toprule
+    Modelo & MAE & $\pm0.25$ continua & $\pm0.50$ & $\pm0.25$ redondeada \\
+    \midrule
+    1. CNN propia & 0.341 & 42.1\,\% & 77.6\,\% & 52.6\,\% \\
+    \addlinespace
+    2. ConvNeXt-Tiny & 0.255 & 63.2\,\% & 86.8\,\% & 73.7\,\% \\
+    \addlinespace
+    3. EVA02 & --- & --- & --- & --- \\
+    \addlinespace
+    4. ResNet-50 & 0.260 & 61.8\,\% & 85.5\,\% & 75.0\,\% \\
+    \addlinespace
+    5. Clasificación con valor esperado & 0.226 & 65.8\,\% & 90.8\,\% & 77.6\,\% \\
+    \addlinespace
+    \textbf{5. Salida final redondeada} & \textbf{0.224} & \textbf{---} & \textbf{93.4\,\%} & \textbf{77.6\,\%} \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Las cifras de $\pm0.50$ para los modelos 1 a 5 antes del redondeo son de su salida sin redondear mientras que el 93.4\,\% del modelo final es de la salida redondeada, separamos las comparaciones entre las salidas sin redondear y las redondeadas para evitar que sean engañosas.
+
+Como el Modelo 5 con salida redondeada cumple con nuestros objetivos y criterios de éxito de negocio y minería de datos, y también fue validado por el socio formador, podemos darlo como aprobado.
+
+\todo{Las cifras de los modelos 1 a 4 no aparecen en el documento de métricas de la corrida final; se dejaron tal como están en el documento del equipo (y coinciden con la sección 4.4 de Modelado). En la fila \enquote{5.\ Salida final redondeada}, el MAE 0.224 es el de la lectura oficial, mientras que 93.4\,\% y 77.6\,\% son del valor esperado redondeado (MAE 0.214; oficial: 70/76, 92.1\,\% en $\pm0.50$, y 57/76, 75.0\,\% en $\pm0.25$).}
