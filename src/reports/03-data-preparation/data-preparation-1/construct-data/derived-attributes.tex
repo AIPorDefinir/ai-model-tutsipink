@@ -4,7 +4,7 @@ Los atributos derivados que construimos son la vista de cada foto, si la foto es
 
 \subsubsection*{Vista y foto usable}
 
-Ni los nombres ni los metadatos de las fotos dicen la vista, así que la marcamos a mano con la página \nolinkurl{marcar_vistas.html}. Con una tecla se marca 1 posterior, 2 lateral izquierda, 3 lateral derecha o 0 descartar (borrosa, cortada, tapada o en una vista que no sirve). Izquierda y derecha son del lado de la vaca y no de la foto. Cada marca guarda quién la hizo y cuándo. Las fotos descartadas no se borran: quedan en una carpeta aparte. Las que no se marquen quedarían en \nolinkurl{sin_marcar} y no se usarían; en nuestra corrida no quedó ninguna sin marcar. \textbf{Pendiente:} decidir si \nolinkurl{marcar_vistas.html} entra al repositorio o solo se menciona.
+Ni los nombres ni los metadatos de las fotos dicen la vista, así que la marcamos a mano con la página \nolinkurl{src/bigdata/herramientas/marcar_vistas.html} del repositorio. Con una tecla se marca 1 posterior, 2 lateral izquierda, 3 lateral derecha o 0 descartar (borrosa, cortada, tapada o en una vista que no sirve). Izquierda y derecha son del lado de la vaca y no de la foto. Cada marca guarda quién la hizo y cuándo. Las fotos descartadas no se borran y quedan en una carpeta aparte. Las que no se marquen quedarían en \nolinkurl{sin_marcar} y no se usarían, aunque en nuestra corrida no quedó ninguna sin marcar.
 
 \begin{table}[H]
   \centering
@@ -14,34 +14,35 @@ Ni los nombres ni los metadatos de las fotos dicen la vista, así que la marcamo
     \toprule
     Vista & Fotos & Vacas con al menos una foto usable \\
     \midrule
-    Posterior & 214 & 59 \\
-    Lateral izquierda & 58 & 26 \\
-    Lateral derecha & 53 & 22 \\
-    Descartadas & 8 & No aplica \\
+    Posterior & 257 & 68 \\
+    Lateral izquierda & 146 & 40 \\
+    Lateral derecha & 148 & 36 \\
+    Descartadas & 29 & No aplica \\
     \midrule
-    \textbf{Total} & \textbf{333} & \textbf{66 vacas con fotos usables} \\
+    Total & 580 & 76 vacas con fotos usables \\
     \bottomrule
   \end{tabular}
 \end{table}
 
 \begin{itemize}
-  \item De las 66 vacas con fotos usables, 22 no tienen ninguna foto lateral y 7 no tienen foto posterior. Solo 4 tienen las dos laterales.
-  \item La mediana es de 4 fotos usables por vaca, con un mínimo de 1 (6 vacas) y un máximo de 14.
-  \item Las 8 fotos descartadas son de las vacas 1507, 1516, 1517, 1536, 1554, 1578 (2 fotos) y 2114. La 1554 tenía una sola foto y por eso no tiene fotos usables.
+  \item Las fotos de la primera visita traen sobre todo laterales. De sus 247 fotos, 43 son posteriores, 88 laterales izquierdas, 95 laterales derechas y 21 descartadas, y con ellas las laterales pasan de 111 a 294.
+  \item De las 76 vacas con fotos usables, 18 no tienen ninguna foto lateral y 8 no tienen foto posterior. Además, 18 tienen las dos laterales y 17 tienen las tres vistas.
+  \item La mediana es de 6 fotos usables por vaca, con un mínimo de 1 y un máximo de 29.
+  \item Las 29 fotos descartadas son de 14 vacas, que son la 1507, 1516, 1517, 1536, 1554, 1561, 1564, 1569 (6 fotos), 1578 (2), 2114, 6137, 6226 (2), 8709 (2) y 91579 (8). La 1554 tenía una sola foto y por eso no tiene fotos usables.
 \end{itemize}
 
 \subsubsection*{Etiqueta de BCS}
 
-A algunas vacas las evaluaron dos veces y decidimos no elegir una evaluación sobre la otra, como acordamos en la tabla de riesgos de 2.4:
+A algunas vacas las evaluaron dos o tres veces, ya sea expertos distintos el mismo día o en las dos visitas. Como acordamos en la tabla de riesgos de 2.4, decidimos no elegir una evaluación sobre otra y armamos las siguientes columnas.
 
 \begin{itemize}
-  \item \texttt{bcs\_1} y \texttt{bcs\_2} son las dos evaluaciones en el orden de la bitácora. El orden no indica qué experto dio cada una.
+  \item \texttt{bcs\_1}, \texttt{bcs\_2} y \texttt{bcs\_3} guardan las evaluaciones en orden, primero las de la bitácora del 14 de octubre y después las de la hoja. El orden no indica qué experto dio cada una.
   \item \texttt{n\_eval} es el número de evaluaciones de la vaca.
-  \item \texttt{bcs\_entrenamiento} es el promedio de las evaluaciones y es la etiqueta con la que se entrena. Si solo hay una evaluación, es esa.
-  \item \texttt{dif\_evaluadores} es la diferencia entre las dos evaluaciones, cuando hay dos.
+  \item \texttt{bcs\_entrenamiento} es el promedio de todas las evaluaciones de la vaca en las dos visitas y es la etiqueta con la que se entrena. Si solo hay una evaluación, es esa. Todas las fotos de la vaca usan este valor, sin importar la fecha de la foto.
+  \item \texttt{dif\_evaluadores} es la diferencia entre la evaluación mayor y la menor, cuando hay dos o más.
 \end{itemize}
 
-Para evaluar el modelo se compara contra cada evaluación real (\nolinkurl{evaluaciones.csv}) y no contra el promedio. Las 13 vacas con dos evaluaciones que siguen en el dataset tienen una diferencia media de 0.115 y máxima de 0.25, y en 7 de ellas las dos evaluaciones son iguales.
+Para evaluar el modelo se compara contra cada evaluación real (\nolinkurl{evaluaciones.csv}) y no contra el promedio. Las 27 vacas con dos o más evaluaciones que siguen en el dataset tienen una diferencia media de 0.185 y máxima de 0.50, y en 11 de ellas todas las evaluaciones son iguales.
 
 \begin{table}[H]
   \centering
@@ -51,31 +52,32 @@ Para evaluar el modelo se compara contra cada evaluación real (\nolinkurl{evalu
     \toprule
     BCS de entrenamiento & Vacas \\
     \midrule
-    2.250 & 1 \\
+    2.000 & 1 \\
+    2.250 & 2 \\
     2.500 & 12 \\
-    2.625 & 1 \\
-    2.750 & 12 \\
-    3.000 & 12 \\
-    3.125 & 4 \\
-    3.250 & 9 \\
-    3.375 & 1 \\
+    2.625 & 3 \\
+    2.750 & 14 \\
+    3.000 & 13 \\
+    3.125 & 5 \\
+    3.250 & 8 \\
+    3.375 & 4 \\
     3.500 & 8 \\
     3.750 & 6 \\
     \midrule
-    \textbf{Total} & \textbf{66} \\
+    Total & 76 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Los valores como 2.625, 3.125 y 3.375 salen de promediar dos evaluaciones distintas.
+Los valores como 2.625, 3.125 y 3.375 salen de promediar evaluaciones distintas, y el 2.0 es de una sola vaca (1213).
 
 \subsubsection*{Pliegues de validación cruzada}
 
 Repartimos las vacas en 5 pliegues ($k = 5$). En CRISP-DM esto es la tarea 4.2 (diseño de prueba), pero lo hacemos aquí para que el dataset salga listo para entrenar.
 
 \begin{itemize}
-  \item La separación es por vaca y no por foto. Todas las fotos de una vaca quedan en el mismo pliegue. Si una vaca tuviera fotos en entrenamiento y en prueba, el modelo podría aprender a reconocerla en lugar de aprender su BCS y las métricas saldrían infladas (\textit{data leakage}).
-  \item Los pliegues no son aleatorios. Ordenamos las vacas por BCS de entrenamiento (y por ID cuando empatan) y las asignamos en rotación: 0, 1, 2, 3, 4, 0, 1 y así. De esta forma cada pliegue tiene BCS bajos, medios y altos, y el reparto sale igual en cada corrida.
+  \item La separación es por vaca y no por foto, así que todas las fotos de una vaca quedan en el mismo pliegue. Si una vaca tuviera fotos en entrenamiento y en prueba, el modelo podría aprender a reconocerla en lugar de aprender su BCS y las métricas saldrían infladas (\textit{data leakage}).
+  \item Los pliegues no son aleatorios. Ordenamos las vacas por BCS de entrenamiento (y por ID cuando empatan) y las asignamos en rotación (0, 1, 2, 3, 4, 0, 1 y así), de modo que cada pliegue tiene BCS bajos, medios y altos y el reparto sale igual en cada corrida.
   \item Una vaca recibe pliegue solo si tiene al menos una foto usable y BCS.
 \end{itemize}
 
@@ -87,20 +89,20 @@ Repartimos las vacas en 5 pliegues ($k = 5$). En CRISP-DM esto es la tarea 4.2 (
     \toprule
     Pliegue & Vacas & Fotos & Posterior & Lateral izq. & Lateral der. & BCS medio \\
     \midrule
-    0 & 14 & 72 & 56 & 14 & 2 & 3.01 \\
-    1 & 13 & 76 & 48 & 10 & 18 & 3.00 \\
-    2 & 13 & 60 & 38 & 8 & 14 & 3.02 \\
-    3 & 13 & 57 & 34 & 13 & 10 & 3.04 \\
-    4 & 13 & 60 & 38 & 13 & 9 & 3.05 \\
+    0 & 16 & 146 & 67 & 43 & 36 & 2.99 \\
+    1 & 15 & 69 & 42 & 16 & 11 & 2.96 \\
+    2 & 15 & 113 & 49 & 25 & 39 & 2.98 \\
+    3 & 15 & 138 & 61 & 39 & 38 & 3.02 \\
+    4 & 15 & 85 & 38 & 23 & 24 & 3.02 \\
     \bottomrule
   \end{tabular}
 \end{table}
 
-Los pliegues quedan parejos en BCS, pero no en vistas: el pliegue 0 tiene solo 2 laterales derechas y el 1 tiene 18. Esto puede afectar a los modelos que usen una sola vista.
+Los pliegues quedan parejos en vacas y en BCS, pero no en número de fotos, ya que el pliegue 1 tiene 69 y el 0 tiene 146. Esto pasa porque algunas vacas tienen muchas fotos, por ejemplo la 1569 tiene 29 usables y la 1561 tiene 26. Como la separación es por vaca, en el modelado conviene revisar que esas vacas no pesen de más en el entrenamiento y en la evaluación.
 
 \subsubsection*{Otras decisiones}
 
 \begin{itemize}
-  \item \textbf{Normalización:} en esta fase no cambiamos la resolución ni los valores de los píxeles. Las fotos se quedan a resolución completa y se reducen después, al entrenar.
-  \item \textbf{Profundidad:} las 70 fotos del dataset final cuyo HEIC traía mapa de profundidad del LiDAR solo se registran (columna \texttt{profundidad}). No se guardan los mapas.
+  \item En esta fase no normalizamos, es decir, no cambiamos la resolución ni los valores de los píxeles. Las fotos se quedan a resolución completa y se reducen después, al entrenar.
+  \item Las 73 fotos del dataset final cuyo HEIC traía mapa de profundidad del LiDAR solo se registran en la columna \texttt{profundidad}, y los mapas no se guardan.
 \end{itemize}

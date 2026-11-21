@@ -1,6 +1,6 @@
 \subsection{Resultados de los modelos significativos}
 
-Todas las cifras son sobre las 76 vacas, medidas una sola vez en la validación externa.
+Todas las cifras son sobre las 76 vacas, medidas una sola vez en la validación externa. Las del Modelo 5 son de la corrida final del 18 de noviembre de 2026, en la que se volvió a entrenar desde cero.
 
 \begin{table}[H]
   \centering
@@ -19,12 +19,14 @@ Todas las cifras son sobre las 76 vacas, medidas una sola vez en la validación 
     \addlinespace
     Modelo 4: ResNet-50 entrenada con fotos de vacas, congelada & 47/76 (61.8\,\%) & 0.260 & 85.5\,\% & 57/76 (75.0\,\%) \\
     \addlinespace
-    Modelo 5: clasificación del BCS con valor esperado & 49/76 (64.5\,\%) & 0.236 & 90.8\,\% & 59/76 (77.6\,\%) \\
+    Modelo 5: clasificación del BCS con valor esperado & 50/76 (65.8\,\%) & 0.226 & 90.8\,\% & 59/76 (77.6\,\%) \\
     \addlinespace
-    Modelo final: Modelo 5 con salida redondeada a 0.25 & 59/76 (77.6\,\%) & 0.224 & 94.7\,\% & --- \\
+    Modelo final: Modelo 5 con la lectura elegida en la validación & 57/76 (75.0\,\%) & 0.224 & 92.1\,\% & --- \\
     \bottomrule
   \end{tabularx}
 \end{table}
+
+La columna de salida redondeada aplica el redondeo a 0.25 en todos los pliegues, igual que en los demás modelos. El modelo final, en cambio, elige la lectura de la salida dentro de la validación de cada pliegue, sin mirar las vacas de prueba, y por eso su cifra de 57/76 es la que cuenta para los criterios de éxito.
 
 \subsection{Cumplimiento de criterios de éxito de minería de datos}
 
@@ -39,9 +41,9 @@ Todas las cifras son sobre las 76 vacas, medidas una sola vez en la validación 
     \midrule
     CMD-1.1 (MAE entre 0.25 y 0.50) & MAE 0.224: mejor que la banda (menos de un cuarto de punto de error promedio). \\
     \addlinespace
-    CMD-1.2 y criterio del negocio: al menos 70\,\% dentro de $\pm0.25$ (54/76) & Se cumple: 59/76 (77.6\,\%) con salida redondeada a 0.25. Con salida continua, el Modelo 5 llega a 49/76 (64.5\,\%). \\
+    CMD-1.2 y criterio del negocio: al menos 70\,\% dentro de $\pm0.25$ (54/76) & Se cumple con 57/76 (75.0\,\%) con la lectura elegida en la validación. Con salida continua, el Modelo 5 llega a 50/76 (65.8\,\%). \\
     \addlinespace
-    CMD-1.2 y criterio del negocio: al menos 90\,\% dentro de $\pm0.50$ & Se cumple: 94.7\,\% con salida redondeada a 0.25 y 90.8\,\% con salida continua. \\
+    CMD-1.2 y criterio del negocio: al menos 90\,\% dentro de $\pm0.50$ & Se cumple con 70/76 (92.1\,\%) con la lectura elegida en la validación y 69/76 (90.8\,\%) con salida continua. \\
     \bottomrule
   \end{tabularx}
 \end{table}

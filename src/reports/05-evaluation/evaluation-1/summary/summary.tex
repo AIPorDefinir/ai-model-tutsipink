@@ -3,7 +3,7 @@
 
 Comparamos los resultados que obtuvimos en la fase de modelado con lo que declaramos del objetivo de negocio ON-1, los criterios CN-1.1 y CN-1.2, el objetivo de minería de datos OMD-1 y los criterios CMD-1.1 y CMD-1.2. No realizamos un entrenamiento nuevo ya que la evaluación utilizó las métricas presentadas en la sección 4.4 de Modelado, calculadas a nivel de vaca sobre 76 vacas, con validación externa y selección interna de modelos.
 
-Aprobamos el Modelo 5 que es de clasificación del BCS con pasos de 0.25 puntos y salida redondeada a 0.25, su salida redondeada obtuvo 59/76 vacas (77.6\,\%) dentro de $\pm0.25$, MAE de 0.224 y 93.4\,\% dentro de $\pm0.50$, esto cumplió con los objetivos de negocio y minería de datos, y con sus respectivos criterios de éxito.
+Aprobamos el Modelo 5 que es de clasificación del BCS con pasos de 0.25 puntos y con la lectura de su salida elegida en la validación, en la corrida final obtuvo 57/76 vacas (75.0\,\%) dentro de $\pm0.25$, MAE de 0.224 y 92.1\,\% dentro de $\pm0.50$, esto cumplió con los objetivos de negocio y minería de datos, y con sus respectivos criterios de éxito.
 
 El alcance siguió siendo limitado porque el modelo concentra las predicciones en valores centrales y pierde la capacidad en vacas que poseen un BCS bajo o alto, tampoco hemos podido demostrar que dicho modelo puede sustituir la inspección de especialistas.
 

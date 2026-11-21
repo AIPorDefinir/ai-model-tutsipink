@@ -1,0 +1,47 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+\begin{document}
+
+\input{title}
+
+\section{Problema y datos del proyecto}
+
+El proyecto que estamos realizando con el CAETEC tiene como objetivo predecir la condición corporal (BCS) de las vacas productoras de leche de forma automatizada a partir de imágenes. Para ello desarrollamos un modelo supervisado de regresión que estime el BCS en una escala de 1.0 a 5.0 a partir de imágenes RGB tomadas con iPhone y, cuando aporte valor medible, de la profundidad del sensor LiDAR. El desempeño se mide contra la evaluación de los expertos con dos métricas, el MAE, donde buscamos un error de 0.25 a 0.50, y el Accuracy, es decir, el porcentaje de vacas cuya predicción queda a máximo 0.25 o 0.50 puntos del experto, con metas de 70\% y 90\% respectivamente.
+
+Los datos principales son las imágenes en formato .HEIC que se tomaron en la visita al CAETEC, con una vista posterior y laterales de lado izquierdo y derecho de cada vaca, junto con el BCS asignado por los expertos, que funciona como etiqueta. Cabe mencionar que el socioformador también nos compartió datos tabulares en .csv de los robots de ordeño DeLaval, como la producción de leche y el concentrado consumido, pero estos no entran en el modelo y solo los tomamos como contexto del establo. En total las imágenes suman 351 imágenes de 69 vacas, con un peso de 0.79 GB, cifras que tomamos directamente del bucket.
+
+\section{¿Es necesario un enfoque de Big Data?}
+
+Siendo honestos, con este volumen no es necesario. Las imágenes son pocas para lo que normalmente se usa en visión por computadora, tanto así que en nuestro análisis de riesgos el dataset chico o desbalanceado es el riesgo con mayor probabilidad de ocurrencia (85\%). La tabla de etiquetas, con una fila por imagen y su BCS, cabe sin problema en memoria, y el entrenamiento de las CNNs depende más de la GPU de la computadora con la que entrenamos que de una herramienta distribuida. Esto coincide con uno de los artículos que revisamos en el entendimiento del negocio, en el que se aplican las 4 V´s del Big Data a la ganadería bovina y se llega a la conclusión de que es más complicado obtener datos veraces que un volumen alto.
+
+\section{Almacenamiento y monitoreo en AWS}
+
+Donde sí encontramos una necesidad real es en el almacenamiento, pero no por el tamaño de los datos sino por su seguridad. Las fotos nos llegaron por carpetas compartidas de Google Drive con enlaces abiertos, por ello decidimos moverlas a un bucket privado de Amazon S3 en la región de México (mx-central-1), cifrado con SSE-S3, al que solo se puede acceder por HTTPS y con el acceso público bloqueado. Cada integrante entra con su propio usuario IAM con MFA y solo puede listar, subir y descargar archivos, sin permiso para borrarlos. Para saber quién tuvo acceso a los datos y cuándo, registramos las lecturas y escrituras del bucket con CloudTrail y usamos CloudWatch para monitorear la actividad y el gasto, con una alerta si el costo pasa de \$1 USD al mes. Además, S3 cobra solo por lo que se guarda y maneja bien archivos como las fotos, lo que nos da margen si se hacen más visitas.
+
+\input{figuras/arquitectura}
+
+\section{Uso de PySpark con fines educativos}
+
+Aun así, decidimos usar PySpark, y queremos dejar claro el porqué. No lo hacemos porque los datos lo necesiten, sino porque nos permite practicar un enfoque que sí sería necesario si el proyecto se implementara de manera formal en el CAETEC, con cámaras fijas y el BCS de todo el establo evaluado de forma frecuente. Con Spark armamos el índice de imágenes, es decir, la tabla que relaciona cada foto en S3 con su vaca, su vista y su BCS, y lo limpiamos ahí mismo, de forma que ese código podría correr en un clúster sin reescribirse.
+
+Por otro lado, también nos ayuda con la reproducibilidad. Al definir estas transformaciones como un pipeline y no como celdas sueltas en un notebook, cualquier integrante puede volver a correrlo y obtener los mismos resultados, incluida la separación en pliegues para la validación cruzada k-fold. Esta separación la hacemos por vaca y no por foto, ya que tener fotos de la misma vaca en Train y Test provocaría Data Leakage. Finalmente, corremos PySpark en modo local y lo comparamos contra pandas; esperamos que con este volumen Spark sea incluso más lento por el costo de iniciar la sesión, y eso también lo vamos a reportar.
+
+\section{Conclusión}
+
+Con base en la cantidad de datos que tenemos, concluimos que el proyecto no necesita un enfoque de Big Data y que pandas es suficiente. Lo que sí justificamos es un almacenamiento en la nube seguro, auditable y de bajo costo con S3, CloudTrail y CloudWatch, así como el uso de PySpark como ejercicio de aprendizaje y como preparación en caso de que el proyecto llegue a implementarse formalmente en el establo.
+
+\section*{Referencias}
+\addcontentsline{toc}{section}{Referencias}
+
+% Lista APA con sangría francesa
+\begin{list}{}{\setlength{\leftmargin}{2em}\setlength{\itemindent}{-2em}\setlength{\itemsep}{0.5ex}}
+\item Amazon Web Services. (s.~f.). \emph{What is Amazon S3?} \url{https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html}
+\item Amazon Web Services. (s.~f.). \emph{What is Amazon CloudWatch?} \url{https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html}
+\item Amazon Web Services. (s.~f.). \emph{What is AWS CloudTrail?} \url{https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html}
+\item Apache Software Foundation. (s.~f.). \emph{PySpark Overview}. \url{https://spark.apache.org/docs/latest/api/python/index.html}
+\item \emph{Using big data in cattle practice}. Web of Science, WOS:000454457600004. \url{https://www.webofscience.com/wos/woscc/full-record/WOS:000454457600004}
+\end{list}
+
+\end{document}
