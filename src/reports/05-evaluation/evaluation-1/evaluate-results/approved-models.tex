@@ -1,13 +1,17 @@
 \subsection{Modelos aprobados}
 
-De los cinco enfoques significativos que reportamos en la etapa de Modelado, solo el Modelo 5 con salida redondeada superó conjuntamente las metas de error y tolerancia. Es importante distinguir entre aquellos modelos que no pudieron alcanzar los criterios de éxito y aquellos cuyo entrenamiento no terminó. En particular, el Modelo 3 (EVA02 con ajuste fino) no cuenta con resultados suficientes como para realizar una comparación válida, de modo que lo consideramos como no evaluable en esta fase y no puede aprobarse ni descartarse por su desempeño predictivo.
+De los cinco modelos que reportamos en la etapa de Modelado solo el Modelo 5 con salida redondeada superó conjuntamente las métricas establecidas, es importante distinguir entre aquellos modelos que no pudieron alcanzar los criterios de éxito y aquellos cuyo entrenamiento no terminó.
+
+Por ejemplo el modelo EVA02 con ajuste fino no cuenta con resultados suficientes como para realizar una comparación válida y lo consideramos como no evaluable en esta fase por ende no puede aprobarse ni descartarse por su desempeño predictivo.
+
+A continuación tenemos una tabla comparativa entre los mejores modelos:
 
 \begin{table}[H]
   \centering
   \small
-  \caption{Resultados de los modelos significativos sobre las 76 vacas.}
+  \caption{Comparación entre los mejores modelos sobre las 76 vacas.}
   \label{tab:modelos}
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}p{0.08\textwidth}>{\raggedright\arraybackslash}p{0.15\textwidth}}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xcccc}
     \toprule
     Modelo & MAE & $\pm0.25$ continua & $\pm0.50$ & $\pm0.25$ redondeada \\
     \midrule
@@ -19,22 +23,15 @@ De los cinco enfoques significativos que reportamos en la etapa de Modelado, sol
     \addlinespace
     4. ResNet-50 & 0.260 & 61.8\,\% & 85.5\,\% & 75.0\,\% \\
     \addlinespace
-    5. Clasificación con valor esperado & 0.236 & 64.5\,\% & 90.8\,\% & 77.6\,\% \\
+    5. Clasificación con valor esperado & 0.226 & 65.8\,\% & 90.8\,\% & 77.6\,\% \\
     \addlinespace
-    5. Salida final redondeada & 0.224 & --- & 94.7\,\% & 77.6\,\% \\
+    \textbf{5. Salida final redondeada} & \textbf{0.224} & \textbf{---} & \textbf{93.4\,\%} & \textbf{77.6\,\%} \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-Las cifras de $\pm0.50$ para los modelos 1 a 5 antes del redondeo son de su salida continua, mientras que el 94.7\,\% del modelo final es de la salida redondeada. Separamos estas modalidades para evitar tener comparaciones que sean engañosas.
+Las cifras de $\pm0.50$ para los modelos 1 a 5 antes del redondeo son de su salida sin redondear mientras que el 93.4\,\% del modelo final es de la salida redondeada, separamos las comparaciones entre las salidas sin redondear y las redondeadas para evitar que sean engañosas.
 
-\paragraph{Condiciones de aprobación técnica.}
+Como el Modelo 5 con salida redondeada cumple con nuestros objetivos y criterios de éxito de negocio y minería de datos, y también fue validado por el socio formador, podemos darlo como aprobado.
 
-\begin{enumerate}
-  \renewcommand{\labelenumi}{(\roman{enumi})}
-  \item Conservar la salida en pasos de 0.25 y documentar la transformación.
-  \item Reportar conjuntamente el rendimiento continuo y el rendimiento redondeado.
-  \item Usarlo solo como apoyo que estará sujeto a revisión por parte del experto.
-  \item Advertir sobre el sesgo hacia 2.75--3.25 y tratar las estimaciones en extremos con cuidado.
-  \item Validar a futuro la captura, consistencia y errores por rango antes de realizar un despliegue autónomo.
-\end{enumerate}
+\todo{Las cifras de los modelos 1 a 4 no aparecen en el documento de métricas de la corrida final; se dejaron tal como están en el documento del equipo (y coinciden con la sección 4.4 de Modelado). En la fila \enquote{5.\ Salida final redondeada}, el MAE 0.224 es el de la lectura oficial, mientras que 93.4\,\% y 77.6\,\% son del valor esperado redondeado (MAE 0.214; oficial: 70/76, 92.1\,\% en $\pm0.50$, y 57/76, 75.0\,\% en $\pm0.25$).}

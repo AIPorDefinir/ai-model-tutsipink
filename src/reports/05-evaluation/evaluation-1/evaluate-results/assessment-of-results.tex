@@ -1,55 +1,134 @@
-El propósito es establecer qué objetivos alcanzamos, con qué evidencia, cuáles quedan abiertos y qué restricciones condicionan la aprobación. La unidad de análisis y evaluación es la vaca, ya que las fotografías de una misma vaca no constituyen observaciones independientes. Por dicha razón es que las particiones de entrenamiento y validación se realizaron por vaca, evitando de esa forma que las imágenes del mismo animal aparecieran simultáneamente en ambos conjuntos. Agregamos las predicciones que obtuvimos de sus fotografías para generar una estimación final del BCS por vaca.
+El propósito es establecer qué objetivos alcanzamos, con qué evidencia y qué restricciones condicionan la aprobación, la unidad de análisis y evaluación es la vaca, ya que las fotografías de una misma vaca no constituyen observaciones independientes, por dicha razón es que las particiones de entrenamiento y validación se realizaron por vaca para evitar que las imágenes del mismo animal aparecieran simultáneamente en ambos conjuntos, también agregamos las predicciones que obtuvimos de sus fotografías para generar una estimación final del BCS por vaca.
 
-\subsection{Evaluación de los resultados respecto a los objetivos y criterios de éxito del negocio}
+\subsection{Evaluación de los resultados respecto a los objetivos y criterios de éxito del negocio y minería de datos}
 
-Según nuestra declaración de ON-1, buscamos estimar automáticamente el BCS a partir de imágenes. Dicho objetivo de estimación fue cubierto en el conjunto evaluado, pero eso no implica por sí mismo identificar situaciones metabólicas de riesgo, reemplazar a un especialista ni garantizar desempeño en otras fechas, hatos o condiciones de captura.
+\textbf{Objetivo de negocio ON-1:} Estimar la condición corporal BCS de vacas productoras de leche de forma automatizada a partir de imágenes.
 
-\begin{table}[H]
-  \centering
-  \small
-  \caption{Evaluación del objetivo de negocio, sus etapas y las preguntas de negocio.}
-  \label{tab:objetivos}
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.22\textwidth}}
-    \toprule
-    Criterio & Meta / alcance & Resultado & Veredicto \\
-    \midrule
-    ON-1 & Estimar BCS a partir de imágenes & Modelo 5 procesa fotos RGB y entrega un BCS numérico en una escala de 1 a 5, en incrementos de 0.25. & Cumplido como prototipo evaluado \\
-    \addlinespace
-    Etapa 1 & Desarrollar y validar estimador visual & 59/76 (77.6\,\%) en $\pm0.25$; MAE de 0.224; 94.7\,\% en $\pm0.50$ y una salida redondeada & Cumplida según los criterios que establecimos \\
-    \addlinespace
-    Etapa 2 & Interpretar BCS junto con los días en leche y producción & No hubo integración contextual validada debido a la escasez y desfase de datos productivos & No lo realizamos en este ciclo \\
-    \addlinespace
-    Pregunta de negocio: inspección humana & Determinar la utilidad del modelo como complemento o reemplazo & Obtuvimos métricas favorables en validación, pero nos hacen falta pruebas de uso con especialistas y un análisis robusto con los BCS extremos & Tenemos evidencia preliminar para complementar, pero aún no podemos demostrar si puede sustituir a un especialista \\
-    \addlinespace
-    Pregunta de negocio: LiDAR & Demostrar que hay una ventaja sobre RGB & No realizamos un experimento comparable de RGB contra RGB-D/LiDAR & No se evaluó \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
+\textbf{Objetivo de minería de datos OMD-1:} Desarrollar y evaluar un modelo supervisado de regresión que estime la condición corporal de las vacas (BCS escala 1.0 a 5.0) a partir de imágenes RGB.
 
-Para CN-1.1, el MAE de 0.224 equivale a un error absoluto promedio inferior a un cuarto de punto en la salida de entrega, por lo que terminó siendo mejor que el objetivo numérico de 0.25--0.50 que planteamos previamente en CMD-1.1. Sin embargo, dicho promedio no garantiza que haya estabilidad en todos los rangos, ya que un promedio satisfactorio en valores frecuentes puede llegar a ocultar fallas sistemáticas en los valores más extremos.
+\textbf{Criterios de éxito de negocio con su traducción a minería de datos:}
 
-Para CN-1.2, 59 de 76 vacas evaluadas (77.6\,\%) tuvieron una diferencia absoluta menor o igual a 0.25 puntos con respecto al BCS de referencia, mientras que el 94.7\,\% quedó dentro del margen de $\pm0.50$, utilizando la salida redondeada del modelo. Dichos resultados superaron las metas de 70\,\% y 90\,\%, respectivamente. Sin embargo, con la salida continua, solamente 49 de las 76 vacas (64.5\,\%) cumplieron el margen de $\pm0.25$. Esta diferencia demuestra por qué es importante distinguir entre ambas formas de presentar las predicciones.
+\begin{itemize}
+  \item CN-1.1: Lograr una estimación promedio consistente con la evaluación de los expertos clínicos del establo.
+  \item CMD-1.1: Lograr que la predicción de nuestro modelo estime el BCS con un margen de error MAE (error absoluto medio) de 0.25--0.50 en comparación con el BCS predicho por los expertos.
+  \item CN-1.2: Lograr que la mayoría de vacas evaluadas estén dentro del margen de tolerancia aceptado.
+  \item CMD-1.2: Alcanzar un porcentaje alto de predicciones cuya diferencia con el experto sea de máximo un cuarto (0.25) o media unidad (0.50) de BCS:
+  \begin{itemize}
+    \item Porcentaje de predicciones dentro de $\pm0.25$: 70\,\% de las vacas.
+    \item Porcentaje de predicciones dentro de $\pm0.50$: 90\,\% de las vacas.
+  \end{itemize}
+\end{itemize}
+
+Los resultados y métricas mencionados a continuación forman parte de los resultados obtenidos por nuestro mejor modelo que es el de clasificación con valor esperado. Este modelo se encuentra documentado más adelante en la sección 5.1.2 de Modelos aprobados.
 
 \begin{table}[H]
   \centering
   \small
-  \caption{Cumplimiento de los criterios de éxito y del objetivo de minería de datos.}
+  \caption{Cumplimiento de los criterios de éxito de negocio y de minería de datos.}
   \label{tab:criterios}
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.22\textwidth}}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.22\textwidth}}
     \toprule
     Criterio & Meta / alcance & Resultado & Veredicto \\
     \midrule
-    CN-1.1 / CMD-1.1 & Banda de 0.25--0.50 & MAE 0.224 (con salida redondeada) & Se cumple y mejora la banda \\
+    CN-1.1 / CMD 1.1 & Banda de 0.25--0.50 & MAE 0.224 (con salida redondeada) & Se cumple y mejora la banda \\
     \addlinespace
-    CN-1.2 / CMD-1.2 de $\pm0.25$ & $\geq$ 70\,\% (al menos 54/76) & 77.6\,\% (59/76) redondeada; 64.5\,\% continua & Cumple solo en la versión redondeada \\
+    CN-1.2 / CMD-1.2 de $\pm0.25$ & $\geq$ 70\,\% (al menos 54/76) & 77.6\,\% (59/76) redondeada; 65.8\,\% continua & Cumple solo en la versión redondeada \\
     \addlinespace
-    CN-1.2 / CMD-1.2 de $\pm0.50$ & $\geq$ 90\,\% & 94.7\,\% redondeada; 90.8\,\% continua & Se cumple en ambas salidas \\
-    \addlinespace
-    OMD-1 & Estimar el BCS (escala 1.0 a 5.0) a partir de imágenes RGB & El Modelo 5 entrega un BCS numérico por clasificación con valor esperado y salida redondeada a 0.25; la técnica se desvió de la regresión inicial, con la modificación documentada en Modelado. & Cumplido como estimación numérica de BCS, con adaptación de técnica documentada \\
+    CN-1.2 / CMD-1.2 de $\pm0.50$ & $\geq$ 90\,\% & 93.4\,\% redondeada; 90.8\,\% continua & Se cumple en ambas salidas \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-Con respecto a OMD-1, originalmente formulamos trabajar con una regresión supervisada. El Modelo 5 utiliza una clasificación ordinal por cuartos de punto y calcula un valor esperado, el cual redondea posteriormente. Aunque la implementación se desvió de la técnica que propusimos inicialmente, mantuvo el producto que nos propusimos desarrollar: una estimación numérica de BCS; donde dicha modificación se encuentra justificada y documentada en la fase de Modelado.
+Para CN-1.1, el MAE de 0.224 equivale a un error absoluto promedio inferior a 0.25 en la salida, por lo que terminó siendo mejor que el objetivo numérico de 0.25--0.50 que planteamos previamente en CMD-1.1. Sin embargo, dicho promedio no garantiza que haya estabilidad en todos los rangos, ya que un promedio satisfactorio en valores frecuentes puede llegar a ocultar fallas sistemáticas en los valores más extremos.
 
-La comparación con especialistas también se debe tratar con cuidado, pues, según la sección 2.3.1 de Comprensión de los datos completo, tenemos diferencias medias de 0.125 entre evaluaciones de una misma sesión y 0.225 entre dos visitas a 15 vacas. Estas son referencias contextuales, no una comparación experimental directa de rendimiento humano y rendimiento automático, de modo que las visitas se dieron en fechas distintas y el BCS de las vacas podría haber cambiado.
+Para CN-1.2, 59 de 76 vacas evaluadas (77.6\,\%) tuvieron una diferencia absoluta menor o igual a 0.25 puntos con respecto al BCS de referencia, mientras que el 93.4\,\% quedó dentro del margen de $\pm0.50$, utilizando la salida redondeada del modelo, dichos resultados superaron las metas de 70\,\% y 90\,\% respectivamente, sin embargo con la salida sin redondear, solamente 50 de las 76 vacas (65.8\,\%) cumplieron el margen de $\pm0.25$, esta diferencia demuestra por qué es importante distinguir entre ambas formas de presentar las predicciones.
+
+Finalmente, podemos declarar que nuestro mejor modelo con la salida redondeada cumple satisfactoriamente con los objetivos de negocio y minería de datos, y por ende, con sus respectivos criterios de éxito.
+
+Modelo 5 (clasificación con valor esperado). Corrida final del 18 de noviembre de 2026.
+
+\textbf{Cómo se validó:} validación cruzada anidada de 5 pliegues por vaca (una vaca nunca está a la vez en entrenamiento y en prueba), sobre las 76 vacas con BCS (551 fotos usables). Todas las cifras son fuera de pliegue. Los intervalos del 95\,\% (IC) se calcularon por bootstrap sobre vacas. Para las métricas de clase, las 12 vacas con BCS terminado en .125 se redondearon a la clase de 0.25 con la misma regla que la salida.
+
+\textbf{Lecturas de la salida del modelo:}
+
+\begin{itemize}
+  \item \textbf{Oficial:} lectura elegida dentro de cada pliegue (salió el valor esperado redondeado en 4 de 5 pliegues). Es la cifra recomendada para el documento.
+  \item \textbf{VE redondeado:} valor esperado redondeado a 0.25 en todos los pliegues.
+  \item \textbf{VE continuo:} valor esperado sin redondear.
+  \item \textbf{Clase más probable:} la clase de BCS con mayor probabilidad.
+\end{itemize}
+
+\begin{table}[H]
+  \centering
+  \footnotesize
+  \caption{Error del Modelo 5 en la corrida final del 18 de noviembre de 2026.}
+  \label{tab:error-oficial}
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xcccc}
+    \toprule
+    Métrica & Oficial & VE redondeado & VE continuo & Clase más probable \\
+    \midrule
+    Vacas dentro de $\pm0.25$ & 57/76 (75.0\,\%) & 59/76 (77.6\,\%) & 50/76 (65.8\,\%) & 53/76 (69.7\,\%) \\
+    \addlinespace
+    IC 95\,\% de $\pm0.25$ & 65.8--84.2\,\% & 68.4--86.8\,\% & 55.3--76.3\,\% & 59.2--80.3\,\% \\
+    \addlinespace
+    Vacas dentro de $\pm0.50$ & 70/76 & 71/76 & 69/76 & 63/76 \\
+    \addlinespace
+    Vacas dentro de $\pm0.75$ & 76/76 & 76/76 & 73/76 & 73/76 \\
+    \addlinespace
+    MAE & 0.224 & 0.214 & 0.226 & 0.303 \\
+    \addlinespace
+    IC 95\,\% del MAE & 0.174--0.275 & 0.166--0.262 & 0.182--0.272 & 0.245--0.363 \\
+    \addlinespace
+    RMSE & 0.317 & 0.302 & 0.301 & 0.401 \\
+    \addlinespace
+    $R^{2}$ & 0.410 & 0.464 & 0.467 & 0.058 \\
+    \addlinespace
+    IC 95\,\% de $R^{2}$ & 0.185--0.574 & 0.306--0.597 & 0.311--0.598 & $-0.401$--0.349 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Métricas de clase de BCS del Modelo 5 en la corrida final del 18 de noviembre de 2026.}
+  \label{tab:clases-oficial}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xcccc}
+    \toprule
+    Métrica & Oficial & VE redondeado & VE continuo & Clase más probable \\
+    \midrule
+    Kappa cuadrático & 0.598 & 0.613 & 0.613 & 0.492 \\
+    \addlinespace
+    F1 macro & 0.241 & 0.257 & 0.257 & 0.192 \\
+    \addlinespace
+    F1 ponderado & 0.352 & 0.370 & 0.370 & 0.239 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Calibración de probabilidades del Modelo 5 en la corrida final del 18 de noviembre de 2026.}
+  \label{tab:calibracion-oficial}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}Xcccc}
+    \toprule
+    Métrica & Oficial & VE redondeado & VE continuo & Clase más probable \\
+    \midrule
+    Log loss & 2.308 & 2.296 & 2.296 & 2.319 \\
+    \addlinespace
+    Brier & 0.809 & 0.804 & 0.804 & 0.814 \\
+    \addlinespace
+    ECE & 0.225 & 0.210 & 0.210 & 0.228 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\textbf{Referencia humana:} dos evaluadores sobre 27 vacas coinciden con MAE 0.176, kappa 0.762 y correlación de Pearson 0.770.
+
+\textbf{Estabilidad entre particiones:} con 3 semillas de partición, la lectura oficial da 58.3 $\pm$ 1.5 vacas dentro de $\pm0.25$ y MAE 0.239 $\pm$ 0.013.
+
+\todo{Las cifras de 59/76 (77.6\,\%), MAE 0.224 y 93.4\,\% en $\pm0.50$, presentadas en el resumen, en las tablas y en la prosa de esta sección y de la 5.3 como \enquote{salida redondeada}, no corresponden a una sola lectura de la corrida final. En esa corrida, la lectura oficial es 57/76 (75.0\,\%) dentro de $\pm0.25$, MAE 0.224 y 70/76 (92.1\,\%) dentro de $\pm0.50$; el valor esperado redondeado a 0.25 es 59/76 (77.6\,\%), MAE 0.214 y 71/76 (93.4\,\%) dentro de $\pm0.50$. El reporte de Modelado cita 59/76, 72/76 (94.7\,\%) y MAE 0.224, de una corrida anterior. No se reescribió la prosa del equipo. Con la lectura oficial, el 75.0\,\% en $\pm0.25$ y el 92.1\,\% en $\pm0.50$ seguirían cumpliendo las metas del 70\,\% y del 90\,\%; el equipo debe decidir si actualiza la prosa.}
+
+\todo{El documento del equipo no incluye la sección 5.4 (issues 87 a 93: métricas nuevas pedidas por el socio formador, figuras autoexplicativas y revisión del criterio). En comentarios del documento, el equipo indica que esas métricas se mostrarán en la presentación como referencia y que no deben cambiar los criterios de éxito ya definidos. No se añadió un umbral de aprobación por RMSE ni se creó una sección 5.4. Tampoco hay figuras en el documento. Las métricas por pliegue, por clase y la matriz de confusión no se incluyeron: están en el manifiesto de la corrida, en la PC.}

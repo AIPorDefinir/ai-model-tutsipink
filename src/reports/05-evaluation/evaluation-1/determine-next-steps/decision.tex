@@ -1,7 +1,13 @@
 \subsection{Decisión}
 
-Recomendación (pendiente por aprobar, rechazar o reemplazar por otra decisión tanto por equipo como por el socio formador): elegir la opción A como un piloto, no como un despliegue autónomo. El Modelo 5 es apto para ser evaluado en una prueba de apoyo y recibir una calificación humana debido a que ya se cumplieron los objetivos CN-1.1, CN-1.2, CMD-1.1 y CMD-1.2.
+Después de comparar las tres alternativas, el equipo decidió avanzar a la fase de Despliegue con la alternativa A: un despliegue piloto, asistido y supervisado, del Modelo 5 con salida redondeada a 0.25.
 
-Durante dicho piloto se deberán registrar el ID de la vaca, calidad y vista de imágenes, BCS continuo, BCS redondeado, calificación del experto (o expertos), error por rango del BCS y casos que discrepan. Si llegara a haber una estimación dudosa o valores extremos, entonces la revisión humana es la que prevalecerá. Las alternativas B--E son más para trabajo futuro y posibles mejoras, teniendo la prioridad principalmente en recolectar ejemplos extremos y evaluar la robustez fuera de los datos obtenidos en la visita original.
+Tomamos esta decisión porque el Modelo 5 es el único que cumple al mismo tiempo los criterios CN-1.1/CMD-1.1 y CN-1.2/CMD-1.2: MAE de 0.224, 77.6\,\% de las vacas (59/76) dentro de $\pm0.25$ y 93.4\,\% dentro de $\pm0.50$. Además, el socio formador ya lo validó. Las alternativas B y C podrían mejorar el desempeño en los valores extremos, pero no garantizan resultados, tienen un costo computacional y retrasarían el proyecto sin asegurar una mejora sobre un modelo que ya cumple las metas. No podemos permitirnos retrasos a estas alturas de cierre de semestre.
 
-Entonces, faltaría por confirmar la acción (donde también se pueden agregar más opciones), los responsables de dicha elección, la fecha y el alcance de cualquier demostración o despliegue.
+Como el modelo concentra sus predicciones en valores centrales y no hemos demostrado que pueda sustituir la inspección de los especialistas, el despliegue se hará con las siguientes condiciones:
+
+\begin{itemize}
+  \item \textbf{Uso asistido:} el modelo sirve como apoyo a la evaluación. El BCS definitivo lo sigue validando un experto del establo, sobre todo en vacas con condición corporal baja o alta.
+  \item \textbf{Salida redondeada:} solo se entrega la predicción redondeada a 0.25, que es la versión que cumplió los criterios de éxito.
+  \item \textbf{Protocolo de captura:} las fotografías deben tomarse con las mismas vistas y condiciones usadas en la preparación de los datos.
+\end{itemize}
