@@ -2,15 +2,23 @@
 
 Hicimos la limpieza sobre los problemas que encontramos en 2.4. Para cada uno decidimos si lo corregimos, lo eliminamos o lo ignoramos, que son las tres estrategias del curso. Ningún archivo original se borra, ya que lo que se elimina solo deja de usarse y queda registrado en \nolinkurl{fotos.csv}, en las columnas \texttt{excluida} y \texttt{motivo}.
 
-\begin{table}[H]
-  \centering
-  \small
-  \caption{Problemas de calidad y cómo los tratamos.}
-  \label{tab:limpieza}
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.25\textwidth}}
+\begingroup
+\small
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}p{0.11\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.25\textwidth}}
+  \caption{Problemas de calidad y cómo los tratamos.}\label{tab:limpieza}\\
     \toprule
     Problema (2.4) & Estrategia & Qué hicimos & Resultado \\
     \midrule
+  \endfirsthead
+    \toprule
+    Problema (2.4) & Estrategia & Qué hicimos & Resultado \\
+    \midrule
+  \endhead
+    \midrule
+    \multicolumn{4}{r}{\footnotesize Continúa en la siguiente página} \\
+  \endfoot
+    \bottomrule
+  \endlastfoot
     Copias exactas dentro de una misma vaca (carpetas descargadas dos veces y nombres tipo \nolinkurl{IMG_0530(1).HEIC}) & Eliminar & Dejamos una sola copia por huella digital (SHA-256) dentro de cada vaca. Cuando hay varias, nos quedamos con la que no lleva ``(1)''. & De 761 archivos se quitaron 136 copias (122 de las carpetas del 14 de octubre y 14 de la vaca 91579) y quedaron 625 fotos únicas. \\
     \addlinespace
     Fotos idénticas en dos vacas (1548 y 2107) & Eliminar & Quitamos esas fotos de las dos vacas porque no sabemos a cuál pertenecen. & Se excluyeron 8 filas de fotos (4 fotos en 2 vacas). La 1548 conserva sus 3 fotos propias y la 2107 se queda sin fotos. \\
@@ -32,9 +40,8 @@ Hicimos la limpieza sobre los problemas que encontramos en 2.4. Para cada uno de
     28 vacas con dos o más evaluaciones de BCS & Ignorar, documentado & No eliminamos ninguna evaluación. Las guardamos todas y entrenamos con el promedio (véase 3.3.1). & 27 de esas vacas siguen en el dataset porque la 2123 se excluyó, y 3 tienen tres evaluaciones (1543, 1567 y 1569). \\
     \addlinespace
     Valores faltantes & Ignorar, documentado & No imputamos nada, porque no tenemos campos numéricos con faltantes que estimar. & No aplica. \\
-    \bottomrule
-  \end{tabularx}
-\end{table}
+\end{xltabular}
+\endgroup
 
 Con la limpieza, las cifras quedan de la siguiente forma.
 
