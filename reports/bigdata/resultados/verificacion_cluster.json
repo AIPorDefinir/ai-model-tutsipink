@@ -1,0 +1,15 @@
+{
+  "iguales": true,
+  "diferencias": [],
+  "repeticiones": 5,
+  "master": "spark://100.87.6.46:7077",
+  "igual_a_referencia": true,
+  "diferencias_con_referencia": [],
+  "maquina": {
+    "nucleos_logicos": 8,
+    "nucleos_fisicos": 8,
+    "memoria_total_gb": 16.37,
+    "python": "3.10.22"
+  },
+  "fecha_utc": "2026-11-22 18:15:01"
+}
