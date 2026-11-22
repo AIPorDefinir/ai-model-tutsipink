@@ -1,0 +1,20 @@
+{
+  "fecha_utc": "2026-11-22 18:39",
+  "prefijo": "bcs/",
+  "modo": "solo comparar",
+  "archivos_en_colab": 583,
+  "archivos_en_bucket": 587,
+  "gb_en_colab": 2.8,
+  "por_estado": {
+    "igual": 583
+  },
+  "subidos": 0,
+  "fotos_solo_en_bucket": 0,
+  "otros_archivos_solo_en_bucket": [
+    "intermedios/bitacora.csv",
+    "intermedios/fotos.csv",
+    "intermedios/vistas.csv",
+    "tiempos.csv"
+  ],
+  "carga_completa": true
+}

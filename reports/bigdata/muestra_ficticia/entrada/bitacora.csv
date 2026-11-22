@@ -1,0 +1,5 @@
+fila_excel,id_vaca,hora,hora_original,bcs,excluida,motivo
+2,ej01,10:00,10 00,3.0,no,
+3,ej02,10:05,10 05,2.75,no,
+4,ej02,10:20,10 20,3.0,no,
+,ej03,,,3.5,no,

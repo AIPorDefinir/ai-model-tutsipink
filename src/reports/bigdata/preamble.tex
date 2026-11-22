@@ -5,8 +5,14 @@
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{float}
-\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{hyperref}
+% Las ligas externas van en azul y las referencias internas (tablas, figuras y secciones) en negro
+\definecolor{liga}{HTML}{1A5FB4}
+\hypersetup{colorlinks=true, urlcolor=liga, linkcolor=black, citecolor=black, filecolor=black}
 \usepackage{csquotes}
+\usepackage{xltabular}
+\usepackage{fvextra}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,fit,backgrounds,calc}
 % Colores de la guía de iconos de AWS
@@ -14,3 +20,13 @@
 \definecolor{awsteal}{HTML}{00A4A6}
 \definecolor{awsrosa}{HTML}{E7157B}
 \usepackage{xurl}
+
+% Ligas al repositorio en la rama main. \archivo y \carpeta muestran la ruta completa;
+% \archivocorto muestra solo el texto del segundo argumento.
+\newcommand{\repo}{https://github.com/AIPorDefinir/ai-model-tutsipink}
+\newcommand{\archivo}[1]{\href{\repo/blob/main/#1}{\nolinkurl{#1}}}
+\newcommand{\carpeta}[1]{\href{\repo/tree/main/#1}{\nolinkurl{#1}}}
+\newcommand{\archivocorto}[2]{\href{\repo/blob/main/#1}{\nolinkurl{#2}}}
+
+% Viñeta para listas dentro de las celdas de una tabla
+\newcommand{\vineta}{\par\noindent\hangindent=0.9em\hangafter=1\makebox[0.9em][l]{\textbullet}}

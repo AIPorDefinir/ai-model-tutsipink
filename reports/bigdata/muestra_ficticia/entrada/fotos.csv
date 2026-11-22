@@ -1,0 +1,8 @@
+id_vaca,archivo_jpg,excluida,motivo,archivo_original,copias,formato_original,bytes_original,sha256,fecha_hora,camara,ancho,alto,profundidad,estado,error
+ej01,fotos_jpg/ej01/foto_01.jpg,no,,fotosextraidas/ejemplo/ej01/foto_01.HEIC,0,HEIC,1000000,33044d9eb1229b192f28eeb7fa556a229731c80ea283b141daf79ed8516bfa13,2026-01-01 10:00:00,Ejemplo Telefono,4284,5712,si,ok,
+ej01,fotos_jpg/ej01/foto_02.jpg,no,,fotosextraidas/ejemplo/ej01/foto_02.HEIC,0,HEIC,1000000,e53ba5440e8ec47ffdf5ba2d56f3cd610b73df02713a0d986532f5a9f1498786,2026-01-01 10:01:00,Ejemplo Telefono,4284,5712,no,ok,
+ej01,fotos_jpg/ej01/foto_03.jpg,no,,fotosextraidas/ejemplo/ej01/foto_03.JPG,0,JPG,1000000,a4eb3d87e42ce30eb1fea1249351e221398ffa0e529934423c6fd295a0188dc2,2026-01-01 10:02:00,Ejemplo Telefono,3024,4032,no,ok,
+ej02,fotos_jpg/ej02/foto_01.jpg,no,,fotosextraidas/ejemplo/ej02/foto_01.HEIC,0,HEIC,1000000,e8f1882f70d5f44a1d66d07c65fb89bc2a371e2d909b4fd8f77370b1ed2acb25,2026-01-01 10:03:00,Ejemplo Telefono,4284,5712,no,ok,
+ej02,fotos_jpg/ej02/foto_02.jpg,no,,fotosextraidas/ejemplo/ej02/foto_02.JPG,0,JPG,1000000,237ee7ddc577707d87c8e93cc8bcd088899a189ab6bf9deb479c9afb78d6bf8c,2026-01-01 10:04:00,Ejemplo Telefono,3024,4032,no,ok,
+ej03,fotos_jpg/ej03/foto_01.jpg,no,,fotosextraidas/ejemplo/ej03/foto_01.HEIC,0,HEIC,1000000,8c4f33dd056ff2a765572333ca83d431add73318bbbe92368860403c632555f4,2026-01-01 10:05:00,Ejemplo Telefono,4284,5712,no,ok,
+ej03,fotos_jpg/ej03/foto_02.jpg,no,,fotosextraidas/ejemplo/ej03/foto_02.HEIC,0,HEIC,1000000,3d8eeadf5bfb9c27dc648db01485cc786d5bb6d0fd17eb0a2eeb8de173c66214,2026-01-01 10:06:00,Ejemplo Telefono,4284,5712,no,ok,

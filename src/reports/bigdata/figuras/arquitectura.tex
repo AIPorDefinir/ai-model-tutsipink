@@ -1,62 +1,69 @@
 % Modelo de almacenamiento y flujo de los datos, con iconos oficiales de AWS
 % (Architecture Icons, paquete del 31/07/2026, convertidos de SVG a PDF)
-\begin{figure}[!t]
+\begin{figure}[H]
 \centering
 \footnotesize
 \begin{tikzpicture}[
   icono/.style={inner sep=0pt},
   etiqueta/.style={align=center, font=\scriptsize, below=2pt},
   titulo/.style={anchor=north west, font=\scriptsize\bfseries, inner sep=3pt},
+  caja/.style={draw=gray, rounded corners, fill=gray!8, align=center, font=\scriptsize, inner sep=4pt},
   flujo/.style={-{Latex[length=2mm]}, thick, color=awsoscuro},
   registro/.style={-{Latex[length=2mm]}, thick, dashed, color=awsrosa},
-  paso/.style={font=\scriptsize\itshape, fill=white, inner sep=1pt},
+  paso/.style={font=\scriptsize\itshape, fill=white, inner sep=1pt, align=center},
 ]
   % Origen y usuarios
-  \node[icono] (users) at (0,3.5) {\includegraphics[width=1cm]{figuras/aws/users.pdf}};
+  \node[icono] (users) at (-0.7,3.6) {\includegraphics[width=1cm]{figuras/aws/users.pdf}};
   \node[etiqueta] at (users.south) {\textbf{Integrantes}\\usuario IAM propio};
-  \node[draw=gray, rounded corners, fill=gray!8, align=center, minimum width=2.4cm, minimum height=1.3cm]
-    (drive) at (0,0) {\textbf{Google Drive}\\[1pt]{\scriptsize carpetas compartidas}\\{\scriptsize 351 imágenes .HEIC}};
+  \node[caja] (drive) at (-0.7,0) {\textbf{Google Drive}\\carpetas compartidas\\761 archivos HEIC y JPG\\bitácora, hoja y CSV};
 
   % Servicios de AWS
-  \node[icono] (iam) at (4.6,3.5) {\includegraphics[width=1.1cm]{figuras/aws/iam.pdf}};
+  \node[icono] (iam) at (4.6,3.6) {\includegraphics[width=1.1cm]{figuras/aws/iam.pdf}};
   \node[etiqueta] (iamlbl) at (iam.south) {\textbf{IAM + MFA}\\listar · subir · descargar\\sin permiso para borrar};
   \node[icono] (s3) at (4.6,0) {\includegraphics[width=1.1cm]{figuras/aws/s3.pdf}};
-  \node[etiqueta] (s3lbl) at (s3.south) {\textbf{Bucket S3}\\privado · SSE-S3\\solo HTTPS\\acceso público\\bloqueado};
-  \node[icono] (trail) at (8,1.6) {\includegraphics[width=1.1cm]{figuras/aws/cloudtrail.pdf}};
-  \node[etiqueta, below=0pt, anchor=south] (traillbl) at ([yshift=2pt]trail.north) {\textbf{CloudTrail}\\lecturas y escrituras\\del bucket};
-  \node[icono] (watch) at (8,-1.6) {\includegraphics[width=1.1cm]{figuras/aws/cloudwatch.pdf}};
-  \node[etiqueta] (watchlbl) at (watch.south) {\textbf{CloudWatch}\\actividad y gasto\\alerta si el costo\\pasa de \$1 USD/mes};
+  \node[etiqueta] (s3lbl) at (s3.south) {\textbf{Bucket S3}\\privado · SSE-S3 · solo HTTPS\\\texttt{data/fotosextraidas/} fotos crudas\\\texttt{data/csv/} etiquetas y VMS 3\\\texttt{ordenos/} CSV de ordeño\\\texttt{bcs/} dataset final\\\texttt{bcs/intermedios/} vistas y tablas};
+  \node[icono] (trail) at (3.2,-4.0) {\includegraphics[width=1.1cm]{figuras/aws/cloudtrail.pdf}};
+  \node[etiqueta] (traillbl) at (trail.south) {\textbf{CloudTrail}\\lecturas y escrituras\\del bucket};
+  \node[icono] (watch) at (6.0,-4.0) {\includegraphics[width=1.1cm]{figuras/aws/cloudwatch.pdf}};
+  \node[etiqueta] (watchlbl) at (watch.south) {\textbf{CloudWatch}\\actividad y gasto\\alerta si pasa\\de \$1 USD/mes};
 
-  % Procesamiento local
-  \node[icono] (spark) at (12.2,0) {\includegraphics[width=1.5cm]{figuras/aws/spark.png}};
-  \node[etiqueta] (sparklbl) at (spark.south) {\textbf{PySpark (modo local)}\\índice de imágenes\\y limpieza\\k-fold por vaca};
-  \node[icono] (cnn) at (12.2,-3) {\includegraphics[width=1.1cm]{figuras/aws/client.pdf}};
-  \node[etiqueta] (cnnlbl) at (cnn.south) {\textbf{Entrenamiento CNN}\\GPU del equipo\\MAE · Accuracy};
+  % Procesamiento
+  \node[caja] (colab) at (11.3,2.7) {\textbf{Google Colab}\\comprensión y preparación\\(pandas y Pillow)\\validación cruzada k-fold\\medición de recursos};
+  \node[icono] (spark) at (11.3,-0.2) {\includegraphics[width=1.4cm]{figuras/aws/spark.png}};
+  \node[etiqueta] (sparklbl) at (spark.south) {\textbf{PySpark}\\modo local y clúster\\de 3 máquinas};
+  \node[icono] (cnn) at (11.3,-3.3) {\includegraphics[width=1.1cm]{figuras/aws/client.pdf}};
+  \node[etiqueta] (cnnlbl) at (cnn.south) {\textbf{Entrenamiento CNN}\\GPU del equipo};
 
-  % Grupos: AWS Cloud > Región, y la computadora del equipo.
+  % Repositorio
+  \node[caja] (github) at (11.3,-7.0) {\textbf{GitHub}\\código, notebooks ejecutados,\\reportes y resultados agregados\\(sin fotos ni tablas del dataset)};
+
+  % Grupos: AWS Cloud > Región, y el procesamiento.
   % El margen superior extra deja espacio para el título de cada grupo.
   \begin{scope}[on background layer]
     \coordinate (regiontop) at ($(iam.north)+(0,0.55)$);
-    \node[draw=awsteal, dashed, thick, fit=(regiontop)(iamlbl)(s3lbl)(watchlbl), inner sep=8pt] (region) {};
+    \node[draw=awsteal, dashed, thick, fit=(regiontop)(iamlbl)(s3lbl)(traillbl)(watchlbl), inner sep=8pt] (region) {};
     \node[titulo, text=awsteal] at (region.north west) {\raisebox{-0.3\height}{\includegraphics[height=0.4cm]{figuras/aws/region.pdf}}\ Región mx-central-1 (México)};
     \coordinate (cloudtop) at ($(region.north)+(0,0.5)$);
     \node[draw=awsoscuro, thick, fit=(cloudtop)(region), inner sep=6pt] (cloud) {};
     \node[titulo, text=awsoscuro, inner sep=0pt] at (cloud.north west) {\raisebox{-0.3\height}{\includegraphics[height=0.5cm]{figuras/aws/aws-cloud.pdf}}\ AWS Cloud};
-    \coordinate (localtop) at ($(spark.north)+(0,0.45)$);
-    \node[draw=gray, thick, rounded corners, fit=(localtop)(sparklbl)(cnnlbl), inner sep=6pt] (local) {};
-    \node[titulo, text=gray!80!black] at (local.north west) {Computadora del equipo};
+    \coordinate (localtop) at ($(colab.north)+(0,0.45)$);
+    \node[draw=gray, thick, rounded corners, fit=(localtop)(colab)(sparklbl)(cnnlbl), inner sep=6pt] (local) {};
+    \node[titulo, text=gray!80!black] at (local.north west) {Procesamiento};
   \end{scope}
 
   % Flujos de datos
   \draw[flujo] (drive) -- node[paso, above=2pt] {migración} (s3);
   \draw[flujo] (users) -- node[paso, above=2pt] {inicio de sesión} (iam);
   \draw[flujo] (iamlbl.south) -- (s3.north);
-  \draw[flujo] (s3.east) -- node[paso, pos=0.5] {descarga} (spark.west);
-  \draw[flujo] (sparklbl) -- (cnn);
+  \draw[flujo] ($(s3.east)+(0,0.45)$) -- node[paso, pos=0.5, sloped, above=1pt] {1. extracción} ($(colab.west)+(0,0.1)$);
+  \draw[flujo] ($(colab.west)+(0,-0.45)$) -- node[paso, pos=0.5, sloped, below=1pt] {2. carga del dataset} ($(s3.east)+(0,0.15)$);
+  \draw[flujo] ($(s3.east)+(0,-0.15)$) -- node[paso, pos=0.62, above=1pt] {3. tablas del dataset} (spark.west);
+  \draw[flujo] ($(s3.east)+(0,-0.45)$) -- node[paso, pos=0.62, sloped, below=1pt] {4. dataset para entrenar} (cnn.west);
+  \draw[flujo] (local.south) -- node[paso, right=2pt] {5. resultados} (github.north);
 
   % Registro y monitoreo del bucket
-  \draw[registro] ($(s3.east)+(0,0.2)$) -- (trail.west);
-  \draw[registro] ($(s3.east)+(0,-0.2)$) -- (watch.west);
+  \draw[registro] ($(s3lbl.south)+(-0.4,0)$) -- (trail.north);
+  \draw[registro] ($(s3lbl.south)+(0.4,0)$) -- (watch.north);
 \end{tikzpicture}
 \caption{Modelo de almacenamiento y flujo de los datos del reto.}
 \label{fig:arquitectura}

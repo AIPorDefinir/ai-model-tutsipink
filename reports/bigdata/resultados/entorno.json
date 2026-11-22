@@ -1,0 +1,11 @@
+{
+  "nucleos_logicos": 2,
+  "nucleos_fisicos": 1,
+  "memoria_total_gb": 13.61,
+  "python": "3.13.18",
+  "pandas": "2.2.3",
+  "pyspark": "3.5.3",
+  "java": "openjdk version \"17.0.21.1\" 2026-11-17",
+  "maquina": "Google Colab",
+  "fecha_utc": "2026-11-22 18:55"
+}

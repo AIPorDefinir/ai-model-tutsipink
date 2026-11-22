@@ -1,0 +1,5 @@
+fila_excel,id_vaca,hora,bcs,orden_evaluacion,n_eval,fold,en_entrenamiento
+2,ej01,10:00,3.0,1,1,1,si
+3,ej02,10:05,2.75,1,2,0,si
+4,ej02,10:20,3.0,2,2,0,si
+,ej03,,3.5,1,1,2,si
