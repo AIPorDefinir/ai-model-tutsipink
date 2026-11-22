@@ -26,7 +26,7 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 ├── LICENSE
 ├── requirements.txt                   paquetes del modelado
 ├── config/
-│   └── bigdata/                       paquetes y configuración exportada de AWS del módulo de Big Data
+│   └── bigdata/                       paquetes y script para exportar la configuración de AWS del módulo de Big Data
 ├── docs/                              PVG e imágenes del README
 ├── reports/                           documentos que se entregan (PDF)
 │   ├── 01-business-understanding/
@@ -34,7 +34,7 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 │   ├── 03-data-preparation/
 │   ├── 04-modeling/
 │   ├── 05-evaluation/
-│   ├── bigdata/                       reporte de Big Data y resultados de los notebooks
+│   ├── bigdata/                       reporte de Big Data, resultados de los notebooks y muestra ficticia
 │   └── privacidad-datos/              reportes individuales de privacidad
 └── src/                               fuentes
     ├── modeling/                      código del modelado
@@ -93,22 +93,22 @@ Reporte: [Justificación del uso de herramientas de Big Data](reports/bigdata/ju
 
 | Carpeta | Contenido |
 |---|---|
-| [reports/bigdata/](reports/bigdata/) | Reporte y [resultados](reports/bigdata/resultados/) de los notebooks |
+| [reports/bigdata/](reports/bigdata/) | Reporte, [resultados](reports/bigdata/resultados/) de los notebooks y [muestra ficticia](reports/bigdata/muestra_ficticia/) |
 | [src/notebooks/bigdata/](src/notebooks/bigdata/) | Notebooks de comprensión, preparación, validación cruzada y medición (Colab) |
 | [src/bigdata/pyspark/](src/bigdata/pyspark/) | Integración con pandas y con PySpark, y medición de tiempo, CPU y memoria |
 | [src/bigdata/herramientas/](src/bigdata/herramientas/) | Página para marcar la vista de cada foto |
 | [src/bigdata/visualizacion/](src/bigdata/visualizacion/) | Notebook individual |
 | [src/reports/bigdata/](src/reports/bigdata/) | Fuentes en LaTeX del reporte |
-| [config/bigdata/](config/bigdata/) | Paquetes y configuración exportada de AWS |
+| [config/bigdata/](config/bigdata/) | Paquetes y script para exportar la configuración de AWS |
 
 ### Entregable
 
 | # | Instrucción | Dónde está |
 |---|---|---|
 | 1 | Herramientas y tecnologías para trabajar con los datos, y por qué | [Reporte](reports/bigdata/justificacion-bigdata.pdf) |
-| 2 | Modelo de almacenamiento de los datos del reto | [Reporte](reports/bigdata/justificacion-bigdata.pdf) y la configuración exportada de AWS en [config/bigdata/aws/](config/bigdata/aws/) |
+| 2 | Modelo de almacenamiento de los datos del reto | [Reporte](reports/bigdata/justificacion-bigdata.pdf) y el script para exportar la configuración de AWS en [config/bigdata/aws/](config/bigdata/aws/) |
 | 3 | Extraer, limpiar y cargar el conjunto de datos | [comprension_datos.ipynb](src/notebooks/bigdata/comprension_datos.ipynb), [preparacion_datos.ipynb](src/notebooks/bigdata/preparacion_datos.ipynb) (incluye la carga a S3) y [carga_resumen.json](reports/bigdata/resultados/carga_resumen.json) |
-| 4 | Scripts de configuración y evidencia de que la carga funciona | [config/bigdata/](config/bigdata/), [src/bigdata/pyspark/](src/bigdata/pyspark/), [src/bigdata/herramientas/](src/bigdata/herramientas/) y la sección de carga del notebook de preparación. No hay muestra de datos, ver [Política de datos](#política-de-datos) |
+| 4 | Scripts de configuración y evidencia de que la carga funciona | [config/bigdata/](config/bigdata/), [src/bigdata/pyspark/](src/bigdata/pyspark/), [src/bigdata/herramientas/](src/bigdata/herramientas/) y la sección de carga del notebook de preparación. La muestra es ficticia, en [reports/bigdata/muestra_ficticia/](reports/bigdata/muestra_ficticia/), ver [Política de datos](#política-de-datos) |
 | 5 | Separación en entrenamiento y prueba con k-fold | Asignación de pliegues en [preparacion_datos.ipynb](src/notebooks/bigdata/preparacion_datos.ipynb), ejecución en [validacion_cruzada.ipynb](src/notebooks/bigdata/validacion_cruzada.ipynb) y sus resultados en [reports/bigdata/resultados/](reports/bigdata/resultados/) |
 | 6 | ¿Hace falta un enfoque de Big Data? | [Reporte](reports/bigdata/justificacion-bigdata.pdf), [medicion_recursos.ipynb](src/notebooks/bigdata/medicion_recursos.ipynb) y [tiempos_recursos.csv](reports/bigdata/resultados/tiempos_recursos.csv) |
 
@@ -123,6 +123,8 @@ Notebooks individuales:
 ### Política de datos
 
 Los datos del CAETEC (fotos, bitácora de los expertos, hoja manuscrita y tablas del dataset) solo se guardan en el bucket privado de S3 del equipo, como lo define la política de datos del equipo. Por eso este repositorio no incluye los archivos de datos ni una muestra de ellos, y el nombre del bucket y las llaves de AWS no aparecen en ningún archivo.
+
+En su lugar, [reports/bigdata/muestra_ficticia/](reports/bigdata/muestra_ficticia/) tiene una muestra ficticia de lo que se carga. En `entrada/` hay tres entradas inventadas para tres vacas de ejemplo, y en `dataset/` están las tres tablas que genera con ellas `indice_pandas.py`, con las mismas columnas que el dataset del bucket. Ninguna fila viene de los datos reales.
 
 La evidencia de que la carga funciona es la sección de carga del notebook de preparación. Esa sección compara cada archivo que genera el notebook con el que está en el bucket (por tamaño y por su huella MD5) y guarda un resumen con conteos en [carga_resumen.json](reports/bigdata/resultados/carga_resumen.json). La primera carga del dataset se hizo a mano desde la consola de S3, y la sección reproduce esa carga y la verifica.
 
@@ -154,6 +156,13 @@ cd src/bigdata/pyspark
 python3 preparar_entradas.py --dataset <carpeta con los CSV del dataset> --vistas <vistas.csv> --salida entrada
 python3 comparar_tiempos.py --entrada entrada --salida salida --referencia <carpeta con los CSV del dataset>
 python3 comparar_tiempos.py --entrada entrada --salida salida_cluster --master spark://<ip-del-master>:7077
+```
+
+Sin acceso al bucket, el script de pandas se puede probar con la muestra ficticia. Las tablas que deja en `salida_ficticia/` son iguales a las de `reports/bigdata/muestra_ficticia/dataset/`:
+
+```bash
+cd src/bigdata/pyspark
+python3 indice_pandas.py --entrada ../../../reports/bigdata/muestra_ficticia/entrada --salida salida_ficticia
 ```
 
 Para exportar la configuración de AWS (solo lectura y sin datos de la cuenta), quien tenga permisos sobre la cuenta corre [exportar_config_aws.py](config/bigdata/aws/exportar_config_aws.py):

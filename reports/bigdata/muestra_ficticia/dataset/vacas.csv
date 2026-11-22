@@ -1,0 +1,4 @@
+id_vaca,en_entrenamiento,fold,bcs_entrenamiento,bcs_1,bcs_2,bcs_3,n_eval,dif_evaluadores,n_fotos,n_usables,n_posterior,n_lateral_izq,n_lateral_der
+ej01,si,1,3.0,3.0,,,1,,3,2,1,1,0
+ej02,si,0,2.875,2.75,3.0,,2,0.25,2,2,1,0,1
+ej03,si,2,3.5,3.5,,,1,,2,2,1,1,0

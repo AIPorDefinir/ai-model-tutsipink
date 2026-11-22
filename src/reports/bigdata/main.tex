@@ -42,7 +42,7 @@ En resumen, solo la variedad y la veracidad representan un reto real, y los dos 
 
 \section{Mediciones de tiempo, CPU y memoria}\label{sec:mediciones}
 
-Para no quedarnos solo con el argumento, medimos cada etapa del procesamiento con los datos reales del bucket. La medición se corrió en el notebook \nolinkurl{src/notebooks/bigdata/medicion_recursos.ipynb}, en una máquina de Google Colab con 2 núcleos lógicos y 13.6 GB de RAM, Python 3.13, pandas 2.2.3, PySpark 3.5.3 y Java 17. De cada etapa registramos el tiempo, el tiempo de CPU (100\% equivale a un núcleo ocupado todo el tiempo) y la memoria máxima, que en PySpark incluye la de la JVM. La integración se corrió 5 veces con cada implementación y 3 veces con el volumen simulado, y reportamos la mediana.
+Para no quedarnos solo con el argumento, medimos cada etapa del procesamiento con los datos reales del bucket. La medición se corrió en el notebook \archivo{src/notebooks/bigdata/medicion_recursos.ipynb}, en una máquina de Google Colab con 2 núcleos lógicos y 13.6 GB de RAM, Python 3.13, pandas 2.2.3, PySpark 3.5.3 y Java 17. De cada etapa registramos el tiempo, el tiempo de CPU (100\% equivale a un núcleo ocupado todo el tiempo) y la memoria máxima, que en PySpark incluye la de la JVM. La integración se corrió 5 veces con cada implementación y 3 veces con el volumen simulado, y reportamos la mediana.
 
 \begin{table}[H]
   \centering
@@ -96,50 +96,176 @@ De estas mediciones sacamos tres conclusiones.
   \item Al crecer el volumen, la diferencia se reduce de 37 a 18 veces, ya que el costo fijo de Spark pesa menos. Aun así, con 100 veces los datos pandas sigue tardando menos de 3 segundos, así que el volumen tendría que crecer mucho más para que Spark convenga.
 \end{itemize}
 
-\section{Tecnologías y fases de CRISP-DM}
+\section{Tecnologías y fases de CRISP-DM}\label{sec:tecnologias}
 
-La tabla~\ref{tab:crisp} relaciona cada tecnología con la fase de CRISP-DM donde la usamos y con lo que aporta en ella.
+La tabla~\ref{tab:fases} resume qué hicimos en cada fase de CRISP-DM y con qué herramientas, con el motivo de cada una entre paréntesis. Las herramientas de Despliegue son una propuesta, porque esa fase todavía no empieza y se confirman en ella.
+
+{\footnotesize
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}p{0.33\textwidth}>{\raggedright\arraybackslash}X}
+  \caption{Actividades y herramientas de cada fase de CRISP-DM.}\label{tab:fases} \\
+  \toprule
+  Fase de CRISP-DM & Actividades del proyecto & Herramientas \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Fase de CRISP-DM & Actividades del proyecto & Herramientas \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+  1. Comprensión del negocio &
+  \vineta Visitas y reuniones con el CAETEC y sus expertos.
+  \vineta Revisión de artículos sobre el BCS y su estimación con visión por computadora.
+  \vineta Objetivos de negocio y de minería de datos, con sus criterios de éxito.
+  \vineta Riesgos, costos y beneficios, y plan del proyecto. &
+  \vineta Web of Science (artículos arbitrados sobre el BCS y la visión por computadora).
+  \vineta Google Drive (redacción del reporte entre los seis integrantes).
+  \vineta GitHub y GitHub Pages (repositorio del proyecto y plan publicado como página).
+  \vineta LaTeX (versión final de los reportes en el repositorio). \\
+  \addlinespace
+  2. Comprensión de los datos &
+  \vineta Recolección de las fotos de las dos visitas, la bitácora de los expertos, la hoja manuscrita, el archivo de VMS 3 y los CSV de ordeño.
+  \vineta Transcripción de la hoja a CSV y migración de todo al bucket.
+  \vineta Inventario de las fotos por su huella SHA-256 y sus metadatos EXIF.
+  \vineta Distribución del BCS, cruce entre fuentes, calidad de los datos y riesgos de la etiqueta. &
+  \vineta Teléfonos de las visitas (captura de las fotos en el establo).
+  \vineta Amazon S3 (única copia de los datos, en un bucket privado).
+  \vineta Google Colab con boto3 (baja los datos del bucket sin instalar nada en las computadoras).
+  \vineta pandas y openpyxl (lectura de la bitácora en Excel y tablas de la exploración).
+  \vineta Pillow con pillow-heif (abre las fotos HEIC y lee cámara, fecha y resolución).
+  \vineta hashlib (huellas SHA-256 para encontrar copias).
+  \vineta Matplotlib (gráficas de la distribución del BCS). \\
+  \addlinespace
+  3. Preparación de los datos &
+  \vineta Quitar copias y exclusiones.
+  \vineta Convertir las fotos a JPG y enderezarlas.
+  \vineta Marcar la vista de cada foto.
+  \vineta Construir la etiqueta de BCS y los 5 pliegues por vaca.
+  \vineta Integrar las tres tablas del dataset.
+  \vineta Cargar el dataset al bucket y verificar la carga. &
+  \vineta Google Colab y pandas (limpieza e integración, ya que el volumen cabe en memoria).
+  \vineta Pillow con varios hilos (conversión de las 580 fotos en paralelo).
+  \vineta \archivocorto{src/bigdata/herramientas/marcar_vistas.html}{marcar_vistas.html} (la vista no viene en los metadatos y se marca a mano en el navegador).
+  \vineta PySpark (la misma integración que pandas, para comparar tiempos y correrla en el clúster).
+  \vineta boto3 y S3 (carga del dataset y comparación por huella MD5).
+  \vineta psutil (medición de CPU y memoria). \\
+  \addlinespace
+  4. Modelado &
+  \vineta Quitar el fondo de las fotos.
+  \vineta Extraer características con redes preentrenadas.
+  \vineta Entrenar y comparar los cinco modelos.
+  \vineta Validación cruzada interna y externa por vaca. &
+  \vineta Computadora del equipo con GPU RTX 4070 Ti (entrenamiento de las redes).
+  \vineta TensorFlow y Keras (CNN propia, ConvNeXt-Tiny y Mask R-CNN para quitar el fondo).
+  \vineta PyTorch con timm (ResNet-50 entrenada con fotos de vacas y EVA02).
+  \vineta PySpark en modo local (reparte las fotos por pliegue al quitar el fondo y al extraer sus características, y corre en paralelo las tareas de cada pliegue con cada modelo).
+  \vineta Parquet (guarda las fotos y sus características por lotes).
+  \vineta SciPy (ajuste del clasificador por cuartos de punto del Modelo 5).
+  \vineta Archivos YAML (una configuración por modelo para repetir cada corrida). \\
+  \addlinespace
+  5. Evaluación &
+  \vineta Comparar los resultados con los objetivos y los criterios de éxito.
+  \vineta Revisar el proceso.
+  \vineta Decidir el siguiente paso, un piloto asistido, y validarlo con el socio formador. &
+  \vineta Métricas por vaca del código de Modelado (las cifras de la validación externa, sin entrenar de nuevo).
+  \vineta Google Drive y LaTeX (reporte de la fase). \\
+  \addlinespace
+  6. Despliegue (planeado) &
+  \vineta Planear un piloto asistido y supervisado del Modelo 5, en el que un experto del establo valide el BCS final, sobre todo en las vacas de BCS bajo o alto.
+  \vineta Definir el monitoreo, que compara la predicción redondeada con la calificación del experto en cada vaca del piloto, y en qué casos se reentrena el modelo.
+  \vineta Elaborar el informe y la presentación finales y documentar las lecciones del proyecto. &
+  Propuesta, que se confirma en esa fase.
+  \vineta El celular con el que se toman las fotos o la nube de AWS junto al bucket (estamos comparando dónde correr el modelo por la conexión, el costo, el tamaño del modelo y el mantenimiento).
+  \vineta Amazon S3 (pesos del modelo, fotos nuevas del piloto y registro de las calificaciones del experto, bajo la misma política del bucket).
+  \vineta CloudTrail y CloudWatch (auditar quién usa los datos del piloto y vigilar el gasto).
+  \vineta Una página en el navegador como la de marcar vistas (el experto ve la predicción y registra su calificación).
+  \vineta Si el proyecto se implementa formalmente en el CAETEC, la estimación de costos de Negocio contempla la instalación y la red, un equipo de cómputo para inferencia en el establo y su mantenimiento, y con un flujo continuo de fotos ahí sí convendría Spark en un clúster. \\
+\end{xltabular}
+}
+
+La tabla~\ref{tab:tecnologias} explica para qué usamos cada tecnología principal y por qué la elegimos.
+
+{\small
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}p{0.17\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+  \caption{Para qué usamos cada tecnología y por qué la elegimos.}\label{tab:tecnologias} \\
+  \toprule
+  Tecnología & Para qué la usamos & Por qué la elegimos \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Tecnología & Para qué la usamos & Por qué la elegimos \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+  Amazon S3 (bucket privado en mx-central-1) & Guarda los datos crudos, las vistas marcadas y el dataset final. Es la única fuente de datos del equipo. & Las fotos llegaron por carpetas de Drive con enlaces abiertos. El bucket es privado, está cifrado, se accede con un usuario por integrante y cobra solo por lo que se guarda. \\
+  \addlinespace
+  IAM con MFA, CloudTrail y CloudWatch & Controlan quién entra al bucket, registran cada lectura y escritura y vigilan la actividad y el gasto. & Cada integrante entra con MFA y sin permiso para borrar, queda registro de quién usó los datos y cuándo, y hay una alerta si el gasto pasa de \$1 USD al mes. \\
+  \addlinespace
+  Google Colab con boto3 & Los notebooks bajan los datos del bucket, los describen, los limpian, arman el dataset y documentan la validación cruzada. & No hay que instalar nada, cada integrante usa sus propias llaves como secretos y lo que se procesa se borra al cerrar la sesión. \\
+  \addlinespace
+  pandas & Limpieza e integración de las tablas del dataset. & Las tablas tienen cientos de filas y, aun con 100 veces los datos, la integración tarda menos de 3 segundos (sección~\ref{sec:mediciones}). \\
+  \addlinespace
+  Pillow y pillow-heif & Convierten las fotos HEIC a JPG y enderezan las fotos giradas. & Las fotos vienen en HEIC y JPG con orientaciones distintas, y el navegador donde se marcan las vistas no muestra HEIC. \\
+  \addlinespace
+  \archivocorto{src/bigdata/herramientas/marcar_vistas.html}{marcar_vistas.html} & Página para marcar a mano la vista de cada foto. & La vista no viene en los nombres ni en los metadatos. Con una tecla por foto se marca la vista y queda registrado quién la marcó y cuándo, con las fotos en la computadora de quien marca. \\
+  \addlinespace
+  PySpark (modo local y clúster standalone) & Arma el índice de imágenes, la etiqueta de BCS y los pliegues, y en Modelado reparte las fotos y las tareas por pliegue. & El mismo código corre en modo local o en un clúster sin reescribirse, así que el proyecto queda listo si el volumen crece. Con este volumen es más lento que pandas, y lo medimos. \\
+  \addlinespace
+  TensorFlow, Keras y PyTorch con GPU & Entrenan la CNN propia y extraen las características con las redes preentrenadas. & ConvNeXt-Tiny viene en Keras, y la ResNet-50 de vacas (Nagy et al., 2023) y EVA02 están publicadas para PyTorch, así que cada red se usa con su librería. El entrenamiento depende de la GPU y no de una herramienta distribuida. \\
+  \addlinespace
+  GitHub & Guarda el código, los notebooks ejecutados, los reportes y los resultados de las mediciones. & Deja evidencia que cualquiera puede revisar sin subir datos, ya que las fotos y las tablas del dataset nunca se suben. \\
+\end{xltabular}
+}
+
+Elegimos estas herramientas porque se complementan. S3 guarda la única copia de los datos y, con IAM, CloudTrail y CloudWatch, controla y registra quién los usa. Colab baja esos datos a una sesión temporal y ahí pandas hace la limpieza y la integración, que con este volumen tardan menos de un segundo. PySpark repite la misma integración y reparte el trabajo por pliegue en Modelado, así que, si el volumen crece, el código ya está listo para un clúster. Por último, GitHub guarda el código, los notebooks ejecutados y los resultados como evidencia, sin fotos ni tablas del dataset.
+
+\section{Proceso ETL y evidencia en GitHub}\label{sec:etl}
+
+El proceso de extracción, transformación y carga está en el repositorio \url{https://github.com/AIPorDefinir/ai-model-tutsipink}, y el anexo~\ref{sec:anexo} lista cada archivo con su liga. Los notebooks se subieron ya ejecutados, con sus salidas, para que se pueda revisar cada paso sin volver a correrlos. Las fotos y las tablas del dataset no están en el repositorio, ya que, por la política de datos del equipo, solo viven en el bucket.
+
+\begin{itemize}
+  \item En la extracción, \archivo{src/notebooks/bigdata/comprension_datos.ipynb} baja de S3 las fotos crudas, la bitácora, la hoja manuscrita, el archivo de VMS 3 y los CSV de ordeño, y los describe sin modificarlos.
+  \item En la transformación, \archivo{src/notebooks/bigdata/preparacion_datos.ipynb} quita 136 copias exactas por su huella SHA-256 y excluye 45 fotos (14 de la vaca 2123, 8 repetidas entre dos vacas, 20 de vacas sin BCS y 3 que muestran dos vacas). También convierte 475 fotos a JPG y copia sin cambios 105, une las vistas marcadas a mano, calcula la etiqueta de BCS de cada vaca y asigna los 5 pliegues.
+  \item La integración también está programada como scripts en \carpeta{src/bigdata/pyspark/}, con una versión en pandas y otra en PySpark que corre en modo local o en un clúster. El script \archivocorto{src/bigdata/pyspark/comparar_tiempos.py}{comparar_tiempos.py} verifica que las dos versiones generen las mismas tablas y que sean iguales al dataset del bucket.
+  \item En la carga, la sección final del notebook de preparación compara cada archivo del dataset generado con el del bucket, por tamaño y por su huella MD5. La primera carga se hizo a mano desde la consola de S3, y el notebook la reproduce y la verifica.
+\end{itemize}
+
+Los scripts de configuración están en \carpeta{config/bigdata/}. El archivo \archivocorto{config/bigdata/requirements.txt}{requirements.txt} lista los paquetes y las versiones para correr los notebooks y los scripts fuera de Colab, y \archivocorto{config/bigdata/aws/exportar_config_aws.py}{exportar_config_aws.py} lee la configuración del bucket, de IAM, de CloudTrail, de CloudWatch y del presupuesto, solo con llamadas de lectura, y la guarda en JSON. Antes de guardarla reemplaza el ID de la cuenta, el nombre del bucket y los nombres de los usuarios, para que no se publiquen. La configuración de AWS se hizo desde la consola, y el script sirve para dejarla como archivo a quien tenga permisos de lectura sobre la cuenta.
+
+El resultado de la verificación de la carga está en \archivo{reports/bigdata/resultados/carga_resumen.json}, y la figura~\ref{fig:carga} reproduce, sin cambios, lo que imprimió el notebook en esa sección. Los 583 archivos que genera el notebook (580 fotos y 3 tablas) son iguales a los del bucket en el prefijo \nolinkurl{bcs/}, y en el bucket solo hay 4 archivos más, que son las tablas intermedias y \nolinkurl{tiempos.csv}. Los demás resultados de los notebooks y del clúster están en la misma carpeta, y ninguno trae fotos ni IDs de vacas.
+
+\begin{figure}[H]
+  \centering
+\begin{Verbatim}[frame=single, fontsize=\small, breaklines=true]
+        archivos
+igual       583
+Modo: solo comparar | subidos ahora: 0 | fotos del bucket que no están en Colab: 0 | otros archivos solo en el bucket: ['intermedios/bitacora.csv', 'intermedios/fotos.csv', 'intermedios/vistas.csv', 'tiempos.csv']
+El bucket tiene el mismo dataset que generó este notebook.
+\end{Verbatim}
+  \caption{Salida de la sección de carga de \archivocorto{src/notebooks/bigdata/preparacion_datos.ipynb}{preparacion_datos.ipynb}, que compara el dataset de Colab con el del bucket.}
+  \label{fig:carga}
+\end{figure}
+
+Como el repositorio no puede tener datos del CAETEC, en \carpeta{reports/bigdata/muestra_ficticia/} dejamos una muestra ficticia de lo que se carga. La carpeta \nolinkurl{entrada/} tiene tres entradas inventadas (\nolinkurl{fotos.csv}, \nolinkurl{bitacora.csv} y \nolinkurl{vistas.csv}) para tres vacas de ejemplo, y la carpeta \nolinkurl{dataset/} tiene las tres tablas que genera con ellas \archivocorto{src/bigdata/pyspark/indice_pandas.py}{indice_pandas.py}, con las mismas columnas que el dataset del bucket. Ninguna fila viene de los datos reales, pero se ve la estructura de lo que se carga y se puede volver a correr el script para comprobar que genera las mismas tablas. La tabla~\ref{tab:muestra} muestra algunas columnas de \nolinkurl{vacas.csv} de esa muestra.
 
 \begin{table}[H]
   \centering
   \small
-  \caption{Tecnologías del proyecto y fase de CRISP-DM donde se usan.}
-  \label{tab:crisp}
-  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X}
+  \caption{Algunas columnas de \nolinkurl{vacas.csv} en la muestra ficticia (datos inventados).}
+  \label{tab:muestra}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabular}{lrrrrrrr}
     \toprule
-    Tecnología & Fase de CRISP-DM & Para qué la usamos \\
+    \nolinkurl{id_vaca} & \nolinkurl{fold} & \nolinkurl{bcs_entrenamiento} & \nolinkurl{n_eval} & \nolinkurl{n_usables} & \nolinkurl{n_posterior} & \nolinkurl{n_lateral_izq} & \nolinkurl{n_lateral_der} \\
     \midrule
-    Amazon S3 (bucket privado en mx-central-1) & 2. Comprensión de los datos y 3. Preparación de los datos & Guarda los datos crudos, las vistas marcadas y el dataset final. Es la única fuente de datos del equipo. \\
-    \addlinespace
-    IAM con MFA, CloudTrail y CloudWatch & Todas las fases que tocan datos & Controlan quién entra al bucket, registran cada lectura y escritura y vigilan la actividad y el gasto. \\
-    \addlinespace
-    Google Colab, boto3 y pandas & 2. Comprensión, 3. Preparación y 4.2 Diseño de pruebas & Los notebooks bajan los datos del bucket, los describen, los limpian, arman el dataset y documentan la validación cruzada. \\
-    \addlinespace
-    Pillow y pillow-heif & 3.5 Formatear los datos & Convierten las fotos HEIC a JPG y enderezan las fotos giradas. \\
-    \addlinespace
-    \nolinkurl{marcar_vistas.html} & 3.3 Construir los datos & Página para marcar a mano la vista de cada foto, que no viene en los metadatos. \\
-    \addlinespace
-    PySpark (modo local y clúster standalone) & 3.3 Construir, 3.4 Integrar y 4.2 Diseño de pruebas & Arma el índice de imágenes, la etiqueta de BCS y los pliegues, con la misma lógica que pandas, para comparar tiempos y practicar un enfoque escalable. \\
-    \addlinespace
-    TensorFlow y Keras con GPU & 4. Modelado & Entrenan las CNN con el dataset y los pliegues que deja la preparación. \\
-    \addlinespace
-    GitHub & Todas las fases & Guarda el código, los notebooks ejecutados, los reportes y los resultados de las mediciones. Las fotos y las tablas del dataset nunca se suben. \\
+    ej01 & 1 & 3.000 & 1 & 2 & 1 & 1 & 0 \\
+    ej02 & 0 & 2.875 & 2 & 2 & 1 & 0 & 1 \\
+    ej03 & 2 & 3.500 & 1 & 2 & 1 & 1 & 0 \\
     \bottomrule
-  \end{tabularx}
+  \end{tabular}
 \end{table}
-
-\section{Proceso ETL y evidencia en GitHub}
-
-El proceso de extracción, transformación y carga está en el repositorio \url{https://github.com/AIPorDefinir/ai-model-tutsipink}. Los notebooks se subieron ya ejecutados, con sus salidas, para que se pueda revisar cada paso sin volver a correrlos. Las fotos y las tablas del dataset no están en el repositorio, ya que, por la política de datos del equipo, solo viven en el bucket.
-
-\begin{itemize}
-  \item En la extracción, \nolinkurl{src/notebooks/bigdata/comprension_datos.ipynb} baja de S3 las fotos crudas, la bitácora, la hoja manuscrita, el archivo de VMS 3 y los CSV de ordeño, y los describe sin modificarlos.
-  \item En la transformación, \nolinkurl{src/notebooks/bigdata/preparacion_datos.ipynb} quita 136 copias exactas por su huella SHA-256 y excluye 45 fotos (14 de la vaca 2123, 8 repetidas entre dos vacas, 20 de vacas sin BCS y 3 que muestran dos vacas). También convierte 475 fotos a JPG y copia sin cambios 105, une las vistas marcadas a mano, calcula la etiqueta de BCS de cada vaca y asigna los 5 pliegues.
-  \item La integración también está programada como scripts en \nolinkurl{src/bigdata/pyspark/}, con una versión en pandas y otra en PySpark que corre en modo local o en un clúster. El script \nolinkurl{comparar_tiempos.py} verifica que las dos versiones generen las mismas tablas y que sean iguales al dataset del bucket.
-  \item En la carga, la sección final del notebook de preparación compara cada archivo del dataset generado con el del bucket, por tamaño y por su huella MD5. La primera carga se hizo a mano desde la consola de S3, y el notebook la reproduce y la verifica.
-\end{itemize}
-
-El resultado de esa verificación está en \nolinkurl{reports/bigdata/resultados/carga_resumen.json}. Los 583 archivos que genera el notebook (580 fotos y 3 tablas) son iguales a los del bucket en el prefijo \nolinkurl{bcs/}, y en el bucket solo hay 4 archivos más, que son las tablas intermedias y \nolinkurl{tiempos.csv}. Los demás resultados de los notebooks y del clúster están en la misma carpeta, y ninguno trae fotos ni IDs de vacas.
 
 \section{Validación cruzada k-fold}
 
@@ -165,7 +291,7 @@ La separación en entrenamiento y validación se hace con validación cruzada de
   \end{tabular}
 \end{table}
 
-La ejecución está documentada en \nolinkurl{src/notebooks/bigdata/validacion_cruzada.ipynb}, con el mismo esquema de la fase de Modelado. En la rotación $k$, el pliegue $k$ no se usa, el pliegue $(k + 1) \bmod 5$ es la validación y los otros tres son el entrenamiento. Al juntar las 5 rotaciones, cada vaca queda exactamente una vez en validación. El notebook comprueba que cada vaca tenga un solo pliegue, que ninguna foto idéntica quede en dos pliegues, que en ninguna rotación se compartan vacas entre conjuntos y que cada vaca se valide una sola vez, y en nuestra corrida no encontró ninguna fuga.
+La ejecución está documentada en \archivo{src/notebooks/bigdata/validacion_cruzada.ipynb}, con el mismo esquema de la fase de Modelado. En la rotación $k$, el pliegue $k$ no se usa, el pliegue $(k + 1) \bmod 5$ es la validación y los otros tres son el entrenamiento. Al juntar las 5 rotaciones, cada vaca queda exactamente una vez en validación. El notebook comprueba que cada vaca tenga un solo pliegue, que ninguna foto idéntica quede en dos pliegues, que en ninguna rotación se compartan vacas entre conjuntos y que cada vaca se valide una sola vez, y en nuestra corrida no encontró ninguna fuga.
 
 Para probar el esquema de principio a fin corrimos un modelo base que no mira las fotos. A todas las vacas de validación les asigna la mediana del BCS de las vacas de entrenamiento, que salió 3.0 en las 5 rotaciones.
 
@@ -189,7 +315,7 @@ Para probar el esquema de principio a fin corrimos un modelo base que no mira la
   \end{tabular}
 \end{table}
 
-Contra cada evaluación real de los expertos (106 evaluaciones), el modelo base tiene un MAE de 0.321, con 58.5\% dentro de $\pm0.25$ y 89.6\% dentro de $\pm0.50$. Este es el piso con el que comparamos los modelos de la fase de Modelado, y el modelo final lo supera con 57 de 76 vacas dentro de $\pm0.25$. Los resultados por pliegue y por rotación están en \nolinkurl{resumen_pliegues.csv} y \nolinkurl{rotaciones_modelo_base.csv}, en la carpeta de resultados.
+Contra cada evaluación real de los expertos (106 evaluaciones), el modelo base tiene un MAE de 0.321, con 58.5\% dentro de $\pm0.25$ y 89.6\% dentro de $\pm0.50$. Este es el piso con el que comparamos los modelos de la fase de Modelado, y el modelo final lo supera con 57 de 76 vacas dentro de $\pm0.25$. Los resultados por pliegue y por rotación están en \archivocorto{reports/bigdata/resultados/resumen_pliegues.csv}{resumen_pliegues.csv} y \archivocorto{reports/bigdata/resultados/rotaciones_modelo_base.csv}{rotaciones_modelo_base.csv}, en la carpeta \carpeta{reports/bigdata/resultados/}.
 
 \section{Almacenamiento y flujo de los datos}
 
@@ -218,7 +344,7 @@ Los datos pasan por las siguientes etapas, y la tabla~\ref{tab:flujo} indica qu�
     \addlinespace
     Fotos JPG, vistas y etiquetas & Integrar, calcular la etiqueta de BCS y asignar los pliegues, con pandas o PySpark & Dataset con las fotos por vista y tres tablas (\nolinkurl{indice_imagenes.csv}, \nolinkurl{vacas.csv} y \nolinkurl{evaluaciones.csv}) & S3, \nolinkurl{bcs/}, y las tablas de trabajo en \nolinkurl{bcs/intermedios/} \\
     \addlinespace
-    Dataset & Verificación de la carga, validación cruzada y mediciones & Resultados agregados, sin fotos ni IDs de vacas & GitHub, \nolinkurl{reports/bigdata/resultados/} \\
+    Dataset & Verificación de la carga, validación cruzada y mediciones & Resultados agregados, sin fotos ni IDs de vacas & GitHub, \carpeta{reports/bigdata/resultados/} \\
     \addlinespace
     Dataset & Entrenamiento de las CNN & Modelos y métricas & Computadora del equipo y reporte de Modelado \\
     \bottomrule
@@ -234,6 +360,8 @@ Lo que se procesa en Colab vive en \nolinkurl{/content} y se borra al cerrar la 
 \section{Uso de PySpark con fines educativos}
 
 Aun así, decidimos usar PySpark, y queremos dejar claro el porqué. No lo hacemos porque los datos lo necesiten, sino porque nos permite practicar un enfoque que sí sería necesario si el proyecto se implementara de manera formal en el CAETEC, con cámaras fijas y el BCS de todo el establo evaluado de forma frecuente. Con Spark armamos el índice de imágenes, es decir, la tabla que relaciona cada foto con su vaca, su vista y su BCS, junto con la etiqueta y los pliegues, y el mismo código corre en modo local o en un clúster sin reescribirse, como lo probamos con el clúster de tres máquinas.
+
+En Modelado también usamos Spark, en modo local y con cada uno de los modelos que probamos. Al quitar el fondo de las fotos y al extraer sus características con las redes preentrenadas, Spark reparte las fotos por pliegue y aplica la red a cada grupo, y después corre en paralelo las tareas de cada pliegue externo, que devuelven las predicciones por vaca. Ese código está en \carpeta{src/modeling/}.
 
 Por otro lado, también nos ayuda con la reproducibilidad. Al definir estas transformaciones como scripts y no como celdas sueltas en un notebook, cualquier integrante puede volver a correrlos y obtener los mismos resultados, incluida la separación en pliegues para la validación cruzada. Como esperábamos, con este volumen Spark es más lento que pandas por el costo de iniciar la sesión, y las mediciones de la sección~\ref{sec:mediciones} lo confirman.
 
@@ -251,7 +379,62 @@ Con base en las cinco V y en las mediciones, concluimos que el proyecto no neces
 \item Amazon Web Services. (s.~f.). \emph{What is AWS CloudTrail?} \url{https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html}
 \item Apache Software Foundation. (s.~f.). \emph{PySpark Overview}. \url{https://spark.apache.org/docs/latest/api/python/index.html}
 \item Apache Software Foundation. (s.~f.). \emph{Spark Standalone Mode}. \url{https://spark.apache.org/docs/latest/spark-standalone.html}
+\item Nagy, S. Á., Kilim, O., Csabai, I., Gábor, G., y Solymosi, N. (2023). Impact evaluation of score classes and annotation regions in deep learning-based dairy cow body condition prediction. \emph{Animals}, \emph{13}(2), 194. \url{https://doi.org/10.3390/ani13020194}
 \item \emph{Using big data in cattle practice}. Web of Science, WOS:000454457600004. \url{https://www.webofscience.com/wos/woscc/full-record/WOS:000454457600004}
 \end{list}
+
+\appendix
+\section{Archivos en GitHub}\label{sec:anexo}
+
+Cada ruta de la tabla~\ref{tab:archivos} es una liga al archivo o a la carpeta en la rama principal del repositorio.
+
+{\small
+\begin{xltabular}{\textwidth}{>{\raggedright\arraybackslash}p{0.47\textwidth}>{\raggedright\arraybackslash}X}
+  \caption{Archivos del módulo de Big Data en el repositorio.}\label{tab:archivos} \\
+  \toprule
+  Archivo o carpeta & Qué hace \\
+  \midrule
+  \endfirsthead
+  \toprule
+  Archivo o carpeta & Qué hace \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endlastfoot
+  \multicolumn{2}{l}{\textit{Notebooks (Google Colab)}} \\
+  \archivo{src/notebooks/bigdata/comprension_datos.ipynb} & Extrae los datos crudos del bucket y los describe sin modificarlos. \\
+  \archivo{src/notebooks/bigdata/preparacion_datos.ipynb} & Limpia y convierte las fotos, integra las tablas, asigna los pliegues y carga y verifica el dataset. \\
+  \archivo{src/notebooks/bigdata/validacion_cruzada.ipynb} & Documenta la ejecución de la validación cruzada k-fold con un modelo base. \\
+  \archivo{src/notebooks/bigdata/medicion_recursos.ipynb} & Mide tiempo, CPU y memoria de cada etapa y compara pandas con PySpark. \\
+  \addlinespace
+  \multicolumn{2}{l}{\textit{Scripts de pandas y PySpark}} \\
+  \archivo{src/bigdata/pyspark/preparar_entradas.py} & Arma las entradas de los scripts a partir del dataset del bucket. \\
+  \archivo{src/bigdata/pyspark/indice_pandas.py} & Construye las tres tablas del dataset con pandas. \\
+  \archivo{src/bigdata/pyspark/indice_spark.py} & Construye las mismas tablas con PySpark, en modo local o en un clúster. \\
+  \archivo{src/bigdata/pyspark/comparar_tiempos.py} & Corre las dos versiones varias veces, mide tiempo, CPU y memoria y verifica que generen las mismas tablas. \\
+  \archivo{src/bigdata/pyspark/medicion.py} & Mide tiempo, CPU y memoria de una etapa. \\
+  \archivo{src/bigdata/pyspark/reglas.py} & Columnas y constantes que comparten los scripts. \\
+  \archivo{src/bigdata/herramientas/marcar_vistas.html} & Página para marcar a mano la vista de cada foto. \\
+  \carpeta{src/modeling/} & Código de los modelos, con PySpark, TensorFlow y PyTorch. \\
+  \addlinespace
+  \multicolumn{2}{l}{\textit{Configuración}} \\
+  \archivo{config/bigdata/requirements.txt} & Paquetes para correr los notebooks y los scripts fuera de Colab. \\
+  \archivo{config/bigdata/aws/exportar_config_aws.py} & Exporta la configuración de AWS a JSON, solo con lecturas y sin datos de la cuenta. \\
+  \addlinespace
+  \multicolumn{2}{l}{\textit{Resultados y muestra}} \\
+  \archivo{reports/bigdata/resultados/carga_resumen.json} & Comparación del dataset generado con el del bucket. \\
+  \archivo{reports/bigdata/resultados/resumen_pliegues.csv} & Vacas, fotos por vista, BCS y evaluaciones de cada pliegue. \\
+  \archivo{reports/bigdata/resultados/rotaciones_modelo_base.csv} & Conjuntos de cada rotación y métricas del modelo base. \\
+  \archivo{reports/bigdata/resultados/tiempos_recursos.csv} & Tiempo, CPU y memoria de cada etapa y corrida en Colab. \\
+  \archivo{reports/bigdata/resultados/entorno.json} & Núcleos, memoria y versiones de la máquina de Colab. \\
+  \archivo{reports/bigdata/resultados/tiempos_cluster.csv} & Tiempo, CPU y memoria de pandas y de Spark en el clúster. \\
+  \archivo{reports/bigdata/resultados/verificacion_cluster.json} & Si pandas y Spark coinciden entre sí y con el bucket. \\
+  \carpeta{reports/bigdata/muestra_ficticia/} & Entradas inventadas y las tablas que genera con ellas \nolinkurl{indice_pandas.py}. \\
+  \addlinespace
+  \multicolumn{2}{l}{\textit{Reporte}} \\
+  \archivo{reports/bigdata/justificacion-bigdata.pdf} & Este reporte. \\
+  \carpeta{src/reports/bigdata/} & Fuentes en LaTeX del reporte y del diagrama. \\
+\end{xltabular}
+}
 
 \end{document}
