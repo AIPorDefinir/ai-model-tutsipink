@@ -1,0 +1,21 @@
+\section{Investigación}
+
+Para esta parte investigué el artículo de Barton et al. (2025), que analiza la propiedad y la privacidad de los datos en la industria lechera. Lo elegí porque su contexto es muy parecido al nuestro: un establo lechero donde los datos se generan con sensores y sistemas automatizados, como los robots de ordeño del CAETEC. El artículo es el resultado de discusiones entre académicos, consultores, desarrolladores de tecnología y representantes de la industria, realizadas entre junio y diciembre de 2024 (Barton et al., 2025).
+
+El primer hallazgo importante es que se creó un consenso en que los datos generados en una granja pertenecen al productor. Sin embargo, los autores señalan que esa propiedad se pierde en la práctica cuando los datos pasan a terceros, porque deja de ser claro quién es el dueño de los datos ya procesados y para qué se usan. Los productores suelen aceptar los términos de uso de las tecnologías sin entender sus implicaciones, por lo que pierden el control de su información sin darse cuenta (Barton et al., 2025).
+
+Para evitarlo, el artículo recomienda que cualquier uso de los datos tenga un permiso explícito y por escrito, y que se explique claramente a dónde va la información. También propone separar los datos en tres niveles:
+
+\begin{itemize}
+  \item \textbf{Datos crudos:} le pertenecen al productor.
+  \item \textbf{Datos intermedios:} resultan de un primer procesamiento.
+  \item \textbf{Datos procesados:} como análisis y modelos.
+\end{itemize}
+
+Cada nivel debe tener sus propias reglas para evitar usos no autorizados. Además, los autores sugieren acuerdos cortos y fáciles de leer que definan los derechos de uso, y ponen como ejemplo plataformas como JOIN DATA y DJUSTCONNECT, donde los datos solo se comparten con permiso. En cuanto a la seguridad, recomiendan transferencias seguras y restringir el acceso a los datos (Barton et al., 2025).
+
+Estas recomendaciones aplican directamente a nuestro proyecto. Los datos que generan los robots DeLaval VMS pertenecen al CAETEC, y nosotros solo los usamos porque nos los compartieron para el reto. Por eso, el proceso que definimos como equipo pide el permiso por escrito de quienes nos compartieron los datos, guarda los datos crudos en un bucket privado al que solo entran los seis integrantes y registra cada acceso con CloudTrail. Los tres niveles también nos sirven para decidir qué puede salir del bucket: los datos crudos nunca se suben al repositorio, mientras que los resultados agregados y los modelos sí se pueden compartir.
+
+Por último, el artículo tiene una limitación importante para nuestro caso: se enfoca en Estados Unidos, Europa e India, y no menciona México ni los sistemas de ordeño automático. Por eso lo complementamos con la Ley Federal de Protección de Datos Personales en Posesión de los Particulares, que aplica a los datos de personas que aparecen en los metadatos y en las fotos, pero no a los datos de las vacas.
+
+\nocite{barton2025}

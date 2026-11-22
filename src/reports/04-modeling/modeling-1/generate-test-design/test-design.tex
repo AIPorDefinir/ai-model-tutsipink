@@ -1,0 +1,51 @@
+Queremos saber cómo calificaría el modelo a vacas que nunca vio. Para eso separamos a las vacas, no a las fotos. Todas las fotos de una vaca están siempre del mismo lado.
+
+\subsection{Partición}
+
+\begin{itemize}
+  \item 76 vacas con BCS repartidas en 5 pliegues fijos por vaca (16/15/15/15/15), de la columna \texttt{fold} del índice. Las vacas se ordenan por BCS e id y se reparten en round-robin. Semilla principal 2026.
+  \item En cada rotación, un pliegue es la validación externa. Solo mide, una sola vez, al final. Los demás pliegues forman el entrenamiento, según la tabla.
+  \item Juntando las 5 validaciones externas se obtiene una calificación para cada una de las 76 vacas; de ahí sale el n/76.
+\end{itemize}
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Papel de cada pliegue en las cinco rotaciones.}
+  \label{tab:rotaciones}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.12\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    Rotación $k$ & No se usa (prueba original) & Validación externa (solo mide) & Entrenamiento \\
+    \midrule
+    0 & 0 & 1 & 2, 3, 4 \\
+    1 & 1 & 2 & 0, 3, 4 \\
+    2 & 2 & 3 & 0, 1, 4 \\
+    3 & 3 & 4 & 0, 1, 2 \\
+    4 & 4 & 0 & 1, 2, 3 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Al inicio se trabajó con una copia de 66 vacas. Cuando el bucket de datos se actualizó el 5 de noviembre, todas las cifras finales de este documento se recalcularon con las 76 vacas. Las cifras sobre 66 vacas ya no se usan.
+
+Todas las decisiones (receta de la cabeza, regularización, estiramiento de la salida, tasa de aprendizaje, época de paro, pesos y candidato) se toman con validación cruzada interna, solo dentro de los pliegues de entrenamiento. Gana la opción que deja más vacas del entrenamiento dentro de $\pm0.25$ (desempate: menor MAE y opción más simple). Luego se reajusta con todo el entrenamiento y predice la validación una sola vez.
+
+\subsection{Métricas}
+
+La métrica principal es el porcentaje de vacas dentro de $\pm0.25$ de la calificación del experto, reportado como n/76 (una vaca = 1.3 puntos porcentuales). Nuestra meta principal es acertar el BCS de al menos 70\,\% de las vacas, es decir, 54/76.
+
+También ocupamos las siguientes métricas como apoyo:
+
+\begin{itemize}
+  \item MAE por vaca y porcentaje de vacas dentro de $\pm0.50$ (meta: al menos 90\,\%).
+  \item Desglose por extremos (vacas de BCS bajo, centro y BCS alto) para ver dónde falla el modelo.
+  \item Dos lecturas, siempre juntas. Salida continua y salida redondeada a 0.25.
+\end{itemize}
+
+\subsection{¿Por qué se redondea la salida a 0.25?}
+
+El BCS de vacas Holstein se califica en una escala de 1 a 5 con incrementos de 0.25. \textcite{edmonson1989} describe cada zona del cuerpo en esa escala de cuartos de punto, y \textcite{ferguson1994} confirman que los evaluadores asignan el BCS en pasos de 0.25. Un experto nunca emite un valor intermedio como 3.13, emite 3.00 o 3.25. Por eso el sistema entrega la calificación en la misma escala.
+
+Los estudios de calificación automática del BCS reportan sus resultados de la misma forma, como el porcentaje de vacas con coincidencia exacta, dentro de 0.25 y dentro de 0.50 de la calificación del experto: \textcite{yukun2019} y \textcite{nagy2023}, que además trabajan directamente con clases de cuarto de punto.
+
+La regla no tiene parámetros que ajustar y se aplica igual a todos los modelos. Pero redondear amplía la ventana efectiva de acierto. Para una vaca calificada en la rejilla de cuartos de punto, una predicción continua a menos de unos 0.375 del valor real termina contando como acierto. Por eso reportamos siempre las dos cifras, la continua y la redondeada.

@@ -1,0 +1,13 @@
+\section*{Adaptaciones a CRISP-DM}
+\addcontentsline{toc}{section}{Adaptaciones a CRISP-DM}
+
+En esta fase hicimos los siguientes ajustes a CRISP-DM.
+
+\begin{itemize}
+  \item Juntamos los cuatro entregables de la fase 2 (reporte de recolección inicial, de descripción, de exploración y de calidad de los datos) en este documento, en secciones separadas.
+  \item Ordenamos el reporte alrededor del BCS, que es el único objetivo del proyecto.
+  \item Los datos de ordeño se quedan como contexto, porque solo 12 de las 79 vacas con BCS tienen datos de ordeño. Se resumen dentro de este mismo documento.
+  \item Analizamos los datos de BCS y las fotografías en un notebook de Python que se llama \nolinkurl{01_du_bcs_problem.ipynb} y está en la carpeta \nolinkurl{src/notebooks/02-data-understanding/} del repositorio.
+  \item El reto académico pide evidenciar el uso de PySpark y AWS en el procesamiento de los datos. Como el volumen real de los datos es pequeño (las fotos originales pesan 2.18 GB con copias y 1.80 GB sin copias), documentamos y justificamos la decisión en el módulo de Big Data del repositorio, cuyo reporte está en la carpeta \nolinkurl{reports/bigdata/}.
+  \item Los riesgos que encontramos en los datos se evalúan con probabilidad, impacto y magnitud, con la misma escala del plan de riesgos de la fase 1.
+\end{itemize}

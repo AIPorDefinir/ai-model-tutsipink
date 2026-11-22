@@ -1,0 +1,51 @@
+\documentclass[11pt,letterpaper,DIV=12]{scrartcl}
+
+\input{preamble}
+
+% Numeración igual a la del WBS: 3.1 tarea, 3.1.1 entregable
+\renewcommand{\thesection}{3.\arabic{section}}
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\RedeclareSectionCommand[tocnumwidth=2.3em]{section}
+\RedeclareSectionCommand[afterskip=1ex]{paragraph}
+
+\begin{document}
+
+\input{title}
+
+\tableofcontents
+\clearpage
+
+\input{summary/summary}
+\input{summary/crisp-dm-adaptations}
+
+\section{Seleccionar los datos}
+
+\input{select-data/rationale-for-inclusion-exclusion}
+
+\section{Limpiar los datos}
+
+\input{clean-data/data-cleaning-report}
+
+\section{Construir los datos}
+
+\input{construct-data/derived-attributes}
+\input{construct-data/generated-records}
+
+\section{Integrar los datos}
+
+\input{integrate-data/merged-data}
+
+\section{Formatear los datos}
+
+\input{format-data/reformatted-data}
+
+\section{Entregables de la fase}
+
+\input{deliverables/dataset}
+\input{deliverables/dataset-description}
+\input{deliverables/open-items}
+
+\printbibliography
+
+\end{document}

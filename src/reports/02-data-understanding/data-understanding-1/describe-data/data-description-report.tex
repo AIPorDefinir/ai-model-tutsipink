@@ -1,0 +1,147 @@
+\subsection{Reporte de descripción de los datos}
+
+\subsubsection*{BCS asignado por expertos}
+
+La lista de los expertos tiene 83 evaluaciones para 69 vacas distintas. El BCS va de 2.25 a 3.75 en pasos de 0.25, con un promedio de 3.03 y una mediana de 3.0. La escala se tomó de una fotografía con los valores de BCS que nos compartió parte del grupo que tomó las fotos de las vacas.
+
+A algunas vacas se les dio la etiqueta ``fresca'', que quiere decir que están recién paridas. En ese momento empieza su curva de lactancia, por lo que se espera que su BCS baje.
+
+Hay 14 vacas que aparecen dos veces en la lista: 1221, 1507, 1510, 1516, 1543, 1567, 1634, 2076, 2101, 2115, 2123, 2150, 5704 y 8758.
+
+La hora viene en formato ``HH MM'' (por ejemplo, ``13 00'') en 67 filas. En 14 filas dice ``x'', ya sea porque no se registró o por un error de captura. Las filas 44 y 50 tienen otro formato.
+
+\subsubsection*{Fotografías}
+
+\begin{itemize}
+  \item Hay una carpeta de fotos por cada fila de la bitácora, 83 en total, con imágenes en formato HEIC y JPG. El número de fotos por vaca varía.
+  \item Descargamos 477 archivos. Sin contar copias quedan 355 fotos que corresponden a 69 vacas, de 1 a 14 fotos por vaca, con una mediana de 4 y un promedio de 5.1.
+  \item Hay 351 fotos únicas, con un peso aproximado de 0.79 GB. Son 351 y no 355 porque 4 fotos están asignadas a dos vacas (véase la sección 2.4). De las 351, 327 están en formato HEIC y 24 en JPG.
+  \item Todas se tomaron el 14 de octubre de 2026: 302 con el iPhone 17 Pro Max, 25 con el iPhone XR y 24 con el Samsung S22 (modelo SM-S901U1).
+  \item 74 de las fotos traen mapa de profundidad del sensor LiDAR del iPhone.
+\end{itemize}
+
+La mayoría de las fotos tiene una resolución grande. La tabla~\ref{tab:resoluciones} muestra las resoluciones que encontramos.
+
+\begin{table}[H]
+  \centering
+  \caption{Resoluciones de las 351 fotos únicas.}
+  \label{tab:resoluciones}
+  \begin{tabular}{lr}
+    \toprule
+    Resolución (px) & Fotos únicas \\
+    \midrule
+    4284 $\times$ 5712 & 287 \\
+    3024 $\times$ 4032 & 40 \\
+    4000 $\times$ 3000 & 20 \\
+    2984 $\times$ 4000 & 1 \\
+    2911 $\times$ 4000 & 1 \\
+    1599 $\times$ 2132 & 1 \\
+    1458 $\times$ 1945 & 1 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+La tabla~\ref{tab:fotos-por-vaca} muestra cuántas fotos únicas tiene cada vaca y la tabla~\ref{tab:fotos-stats} resume esos valores.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Fotos únicas por vaca.}
+  \label{tab:fotos-por-vaca}
+  \begin{tabular}{rr@{\hspace{2em}}rr@{\hspace{2em}}rr@{\hspace{2em}}rr}
+    \toprule
+    ID vaca & Fotos & ID vaca & Fotos & ID vaca & Fotos & ID vaca & Fotos \\
+    \midrule
+    1204 & 8 & 1560 & 7 & 2123 & 14 & 8709 & 6 \\
+    1221 & 9 & 1564 & 7 & 2140 & 3 & 8729 & 3 \\
+    1234 & 3 & 1567 & 6 & 2142 & 3 & 8737 & 1 \\
+    1240 & 1 & 1569 & 3 & 2144 & 8 & 8741 & 4 \\
+    1507 & 9 & 1576 & 1 & 2150 & 14 & 8744 & 3 \\
+    1510 & 13 & 1578 & 3 & 5704 & 6 & 8758 & 4 \\
+    1513 & 3 & 1590 & 5 & 5709 & 3 & 8765 & 3 \\
+    1516 & 9 & 1624 & 2 & 6038 & 8 & 8767 & 3 \\
+    1517 & 6 & 1634 & 7 & 6054 & 7 & 8768 & 2 \\
+    1526 & 6 & 2076 & 3 & 6137 & 3 & 8775 & 3 \\
+    1532 & 6 & 2082 & 3 & 6154 & 7 & 8781 & 7 \\
+    1536 & 2 & 2085 & 3 & 6157 & 2 & 8799 & 7 \\
+    1543 & 11 & 2087 & 2 & 6178 & 2 & 91549 & 3 \\
+    1547 & 3 & 2101 & 6 & 6225 & 7 & 91552 & 2 \\
+    1548 & 7 & 2107 & 4 & 6248 & 7 & 91561 & 3 \\
+    1552 & 8 & 2114 & 7 & 7348 & 8 &  &  \\
+    1554 & 1 & 2115 & 4 & 8706 & 8 &  &  \\
+    1557 & 1 & 2117 & 4 & 8707 & 8 &  &  \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\begin{table}[H]
+  \centering
+  \caption{Estadística de las fotos únicas por vaca.}
+  \label{tab:fotos-stats}
+  \begin{tabular}{lr}
+    \toprule
+    Total de vacas & 69 \\
+    Mínimo & 1 \\
+    Primer cuartil & 3 \\
+    Mediana & 4 \\
+    Promedio & 5.1 \\
+    Tercer cuartil & 7 \\
+    Máximo & 14 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsubsection*{Conjunto de datos de condición corporal (VMS 3)}
+
+El archivo tiene 24 vacas (una fila por vaca) y 16 columnas. Todas son atendidas por VMS 3. En estado reproductivo hay 11 preñadas, 7 frescas y 6 inseminadas. La tabla~\ref{tab:vms3} describe cada columna.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Columnas del conjunto de datos VMS 3.}
+  \label{tab:vms3}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    Columna & Qué representa & Observación en los datos \\
+    \midrule
+    Número del animal & ID de la vaca. & Hay 24 IDs distintos, algunos de cinco dígitos (como 91549, 91561, 91576 y 91578). \\
+    \addlinespace
+    Nombre del grupo & Grupo de manejo. & Todas son ``VMS 3''. \\
+    \addlinespace
+    Número(s) de selección de animal & Número de selección. & Es 6 en todas. Falta confirmar qué significa. \\
+    \addlinespace
+    Estado de la reproducción & Estado reproductivo actual de la vaca. & Preñada (11), fresca (7) e inseminada (6). \\
+    \addlinespace
+    Días en ordeño & Días desde que inició su lactancia actual. & De 2 a 391, con mediana de 209.5. \\
+    \addlinespace
+    Nº Lactación & Número de lactancia. & De 1 a 5, con mediana de 2. \\
+    \addlinespace
+    Días preñada & Días de gestación. & Solo en las 11 vacas preñadas. Va de 80 a 203 días. \\
+    \addlinespace
+    Fecha de parto esperada & Fecha esperada del siguiente parto. & Solo en las 11 vacas preñadas. Va del 25/12/2026 al 27/04/2027. \\
+    \addlinespace
+    Producción media diaria últimos 7 días & Producción diaria promedio reciente (kg). & De 14.89 a 46.44, con mediana de 26.13. \\
+    \addlinespace
+    Producción TOTAL en lactación & Leche acumulada en la lactancia (kg). & De 23.61 a 17080.62. \\
+    \addlinespace
+    Fecha de nacimiento & Fecha de nacimiento de la vaca. & Del 06/06/2019 al 31/07/2024. \\
+    \addlinespace
+    Fecha de último BCS & Fecha de la última medición de BCS. & Vacía en 9 de 24 vacas. Las fechas van del 04/09/2025 al 02/10/2026. \\
+    \addlinespace
+    Producción ayer en la sesión 1 & Producción de la sesión 1 del día anterior (kg). & De 4.44 a 23.61. No sabemos a qué día se refiere ``ayer''. \\
+    \addlinespace
+    BCS ayer & BCS del día anterior. & Vacía en las 24 vacas. \\
+    \addlinespace
+    Tendencia BCS últimas 2 sem. & Cambio del BCS en las últimas 2 semanas. & Solo tiene valor en 7 vacas y va de $-0.5$ a 0.5. \\
+    \addlinespace
+    Evento BCS & Sus valores parecen ser BCS. & Tiene valor en 19 vacas, de 2.98 a 4.17. Falta confirmar qué mide. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection*{Datos de ordeño (contexto)}
+
+Los datos de ordeño describen a 34 vacas registradas por los robots de ordeño voluntario (VMS) entre el 01/03/2025 y el 18/07/2025 (140 días). Hay 7249 registros: 7016 son ordeños, 172 son visitas rechazadas por la máquina y 61 son vacas que se echaron sin ser ordeñadas.
+
+Cada fila representa un evento en el robot, no necesariamente un ordeño. Las 233 filas que no son ordeños coinciden exactamente con las 233 filas que no tienen destino de la leche ni estado AMD de ubre, por lo que se excluyen de las estadísticas de producción. Los 34 archivos tienen el mismo esquema de columnas. Varias columnas se repiten una vez por cuarto de la ubre: delantero derecho (DD), delantero izquierdo (DI), trasero derecho (TD) y trasero izquierdo (TI).
+
+Las columnas que más nos importan son la producción, la duración, el número de ordeño del día, los incidentes (patada, incompleto y pezones no encontrados), el estado AMD de detección de mastitis, los flujos, la sangre y la conductividad por cuarto, y el destino de la leche. En la conductividad, el rango común es de 3.0 a 5.0 mS/cm, que se sacó del propio conjunto de datos. Usamos 6.0 mS/cm como umbral de valor alto, que puede ajustarse cuando el socio defina el suyo.

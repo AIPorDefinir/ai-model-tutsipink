@@ -1,0 +1,42 @@
+\subsection{Base lógica para la inclusión y exclusión}
+
+Decidimos qué datos entran con los tres criterios que pide el curso, que son la relevancia para el objetivo del proyecto (predecir el BCS), la calidad de los datos y las restricciones técnicas.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Fuentes que entran y que no entran a la preparación.}
+  \label{tab:seleccion}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.34\textwidth}l>{\raggedright\arraybackslash}X}
+    \toprule
+    Fuente & ¿Entra? & Razón \\
+    \midrule
+    Fotos de las visitas al CAETEC del 29/09/2026 y del 14/10/2026 & Sí & Son la entrada del modelo de visión. Son 625 fotos de 81 vacas sin contar copias. \\
+    \addlinespace
+    Bitácora, columnas ID, hora y BCS & Sí & El BCS de los expertos es la etiqueta. \\
+    \addlinespace
+    Hoja manuscrita de la primera visita, ID y BCS & Sí & Es el BCS de los expertos de las vacas fotografiadas el 29/09/2026. No usamos la nota ``Fresca''. \\
+    \addlinespace
+    Bitácora, columnas Foto y Carpeta & No & Son ligas de Drive. La relación entre foto y vaca ya viene en las carpetas. \\
+    \addlinespace
+    Conjunto de datos de VMS 3 (\nolinkurl{vms-3.csv}) & No & Solo 20 de las 79 vacas con BCS están en este conjunto y no es entrada del modelo de imágenes. \\
+    \addlinespace
+    Columna ``Evento BCS'' de VMS 3 & No & No coincide con el BCS de los expertos y todavía no sabemos qué mide (véase 2.4). \\
+    \addlinespace
+    CSV de ordeño & No & Solo 12 vacas con BCS tienen datos de ordeño y son de marzo a julio de 2025, más de un año antes de las fotos. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+En esta tarea también tomamos las siguientes decisiones.
+
+\begin{itemize}
+  \item No hicimos pruebas de significancia ni de correlación entre campos, porque la entrada del modelo son imágenes y no una tabla de atributos.
+  \item No hicimos muestreo ni pesos de atributos. Tenemos pocas vacas y las fotos únicas pesan cerca de 1.80 GB, así que usamos todas las fotos disponibles.
+  \item No recolectamos datos adicionales en esta fase.
+  \item Si el socio formador responde qué mide ``Evento BCS'', volvemos a evaluar si se usa.
+\end{itemize}
+
+\subsubsection*{Cómo obtuvimos las cifras}
+
+Todas las cifras de esta fase salen de correr completo el notebook \nolinkurl{01_dp_bcs_problem.ipynb} sobre las fotos originales (761 archivos), la bitácora (\nolinkurl{etiquetas_bsc.xlsx}), la hoja manuscrita (\nolinkurl{bitacora_hoja_manuscrita.csv}) y el archivo \nolinkurl{vistas.csv} con las vistas marcadas a mano. El notebook baja estos datos del bucket de S3 del equipo y lee las llaves de AWS y el nombre del bucket de los secretos de Colab, para que no queden escritos en el notebook. La corrida terminó sin errores y el índice que generó coincide con el índice de referencia que ya estaba en el bucket (580 filas, mismas columnas y ninguna diferencia), así que el notebook reproduce exactamente el dataset del bucket.

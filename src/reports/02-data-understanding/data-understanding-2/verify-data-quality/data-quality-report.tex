@@ -1,0 +1,60 @@
+\subsection{Reporte de calidad de los datos}
+
+\subsubsection*{Calidad de los datos de BCS}
+
+\begin{itemize}
+  \item De 761 archivos, 136 son copias dentro de la misma vaca, 122 en las carpetas del 14 de octubre y 14 en la carpeta de la vaca 91579 de la primera visita. En las carpetas del 14 de octubre, 13 vacas se descargaron dos veces con exactamente las mismas fotos y hay 18 archivos con nombre tipo ``IMG\_0530(1).HEIC''. En la primera visita hay 53 nombres con ``(1)'' y muchos de ellos son tomas distintas y no copias, por eso las copias se cuentan por huella y no por nombre. Ninguna foto del 29 de septiembre repite una foto del 14 de octubre.
+  \item Las vacas 1548 y 2107 tienen 4 fotos iguales y no se sabe a cuál de las dos corresponde cada una. La 2107 no tiene más fotos.
+  \item La vaca 2123 aparece dos veces en la bitácora con dos carpetas de fotos distintas, así que no se sabe qué fotos van con cada evaluación.
+  \item Tres fotos de la carpeta de la vaca 1538 se llaman ``1538 y 8744\_atras'', por lo que no se sabe a cuál de las dos vacas corresponden.
+  \item La carpeta de la vaca 1578 de la primera visita está vacía, aunque la vaca sí tiene fotos del 14 de octubre.
+  \item De las 182 fotos JPG, 70 vienen con una orientación EXIF distinta de 1 y se verían giradas si el programa ignora esa etiqueta. Son 20 de las 24 fotos del Samsung S22 y 50 de las 117 fotos JPEG del iPhone 17 Pro Max de la primera visita.
+  \item Hay dos formatos de imagen (HEIC y JPG) y 12 resoluciones distintas, y varias fotos de la primera visita son horizontales.
+  \item La bitácora tiene 14 horas marcadas con ``x'' y 2 con otro formato, y la hoja no registra la hora. La hora no se usará en el modelo.
+  \item Solo 20 de las 79 vacas con BCS están en el conjunto de datos de VMS 3.
+  \item ``BCS ayer'' está vacía en las 24 vacas, mientras que ``Evento BCS'' tiene valores parecidos a un BCS. No sabemos si se relacionan ni qué significan.
+  \item ``Evento BCS'' no coincide con el BCS de los expertos. De 12 vacas con ambos valores en la bitácora, el conjunto de datos es mayor en 9, igual en 2 y menor en 1. Las mayores diferencias son la vaca 8744 (3.0 contra 4.17), la 8799 (2.5 contra 3.5) y la 1547 (3.25 contra 3.98). No lo usaremos como etiqueta hasta aclarar qué mide y de qué fecha es.
+  \item Dos vacas de la primera visita (1549 y 1572) tienen fotos pero no tienen BCS ni en la bitácora ni en la hoja.
+  \item En la hoja, tres vacas tienen la nota ``Fresca'' pero VMS 3 las marca como preñada o inseminada, que son la 1565, la 8744 y la 91576.
+  \item 15 vacas tienen BCS de las dos fechas y en 4 de ellas la diferencia es mayor a 0.25.
+  \item Todas las filas de la bitácora tienen carpeta de fotos del 14 de octubre y todas esas carpetas tienen registro en la bitácora. De las vacas de la hoja, la 1578 y la 91561 no tienen fotos de la primera visita, aunque sí del 14 de octubre. No hay BCS vacíos, fuera del rango de 1 a 5 ni fuera de los pasos de 0.25 en ninguna de las dos fuentes.
+\end{itemize}
+
+\subsubsection*{Calidad de los datos de ordeño}
+
+\begin{itemize}
+  \item 233 filas tienen una acción distinta de ordeño (172 rechazadas y 61 echadas sin ordeñar). Se excluyen de las estadísticas de producción, incidentes y destino.
+  \item 25 registros comparten vaca y hora de inicio con otro registro, así que pueden ser duplicados. De momento no se eliminan, por lo que los conteos pueden estar inflados hasta en 25 filas.
+  \item Las columnas RCS y Usuario están vacías en las 34 vacas. No interpretamos el vacío de RCS como ausencia de mastitis, sino como que no se registró.
+  \item La vaca 6211 (cuarto TI) y la 6232 (cuarto TD) no tienen lecturas en un cuarto. Según el socio formador, son cuartos que no se ordeñan por un problema de salud. Se mantienen como faltantes y no se imputan.
+  \item Hay vacas con pocos datos, ya que la 1497 tuvo un ordeño, la 8771 tuvo 7 y la 8775 tuvo 10. Se excluyen de las comparaciones entre vacas.
+  \item Hay ordeños con 0 kg en las vacas 1554, 2078, 6232 y 8782, y con 0.08 kg en la 8712. Falta revisar si son ordeños fallidos antes de modelar.
+  \item Las columnas de patada, incompleto, pezones no encontrados y AMD de pezón están vacías entre el 82\% y el 89\% de las filas. No se tratan como faltantes, sino como ausencia del evento.
+  \item En la conductividad, el rango común es de 3.0 a 5.0 mS/cm y usamos 6.0 mS/cm como valor alto.
+\end{itemize}
+
+\subsubsection*{Riesgos de las decisiones de etiqueta}
+
+Evaluamos los riesgos con la misma escala del plan de riesgos de la fase 1. La probabilidad va de 0 a 100\%, el impacto de 1 a 5 y la magnitud es la probabilidad por el impacto. Con una magnitud de 1.5 o más mitigamos el riesgo, y con una menor lo aceptamos y lo monitoreamos.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Riesgos de las decisiones de etiqueta.}
+  \label{tab:riesgos}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.33\textwidth}rrr>{\raggedright\arraybackslash}X}
+    \toprule
+    Riesgo & P & I & M & Decisión \\
+    \midrule
+    BCS distinto para la misma vaca (28 vacas con dos o más evaluaciones) & 90\% & 3 & 2.7 & Mitigar conservando las evaluaciones, entrenando con el promedio y evaluando contra cada una. \\
+    \addlinespace
+    Usar ``Evento BCS'' como etiqueta sin saber qué mide & 60\% & 5 & 3.0 & Mitigar usando solo el BCS de los expertos hasta que el socio confirme qué mide la columna. \\
+    \addlinespace
+    Nota ``Fresca'' contradictoria entre la hoja y el conjunto de datos & 75\% & 3 & 2.25 & Mitigar auditando con el CAETEC las 3 vacas en conflicto (1565, 8744 y 91576). \\
+    \addlinespace
+    Pocas vacas por clase de BCS, lo que vuelve inestables el MAE y los porcentajes dentro de $\pm0.25$ y $\pm0.50$ & 90\% & 4 & 3.6 & Mitigar separando entrenamiento y prueba por vaca y repartiendo las clases de BCS en los pliegues. \\
+    \addlinespace
+    Fotos duplicadas o asignadas a la vaca equivocada & 90\% & 4 & 3.6 & Mitigar detectando duplicados por contenido y excluyendo las fotos y vacas dudosas. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}

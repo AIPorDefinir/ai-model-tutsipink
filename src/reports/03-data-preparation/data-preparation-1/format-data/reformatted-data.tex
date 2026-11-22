@@ -1,0 +1,10 @@
+\subsection{Datos reformateados}\label{sec:reformateados}
+
+\begin{itemize}
+  \item Todas las fotos pasan a JPG con calidad 95 y a resolución completa. De las 580 fotos finales, 418 venían en HEIC y 162 en JPG. Se convirtieron 475 (los 418 HEIC y los 57 JPG que había que enderezar) y se copiaron sin cambios 105, que son los JPG que ya venían derechos, para no perder calidad. Ninguna foto dio error.
+  \item Conservamos el nombre original sin el ``(1)''. Si dos fotos distintas de una vaca quedan con el mismo nombre, se agregan 8 caracteres de la huella.
+  \item No cambiamos la resolución. Cada JPG conserva la de su foto original, ya enderezada cuando hizo falta, y su tamaño queda en las columnas \texttt{ancho} y \texttt{alto} del índice.
+  \item La conversión escribe primero un archivo \nolinkurl{.tmp} y luego lo renombra, y si el JPG ya existe no lo vuelve a convertir. Así se puede volver a correr el notebook sin duplicar trabajo.
+  \item Las fotos se organizan como \nolinkurl{imagenes/<vista>/<id_vaca>/<foto>.jpg}, y las tres tablas se ordenan por ID de vaca como número. Las columnas tienen el mismo orden y los mismos nombres en pandas y en PySpark.
+  \item Las fotos se copian a \nolinkurl{dataset_bcs/} en lugar de moverse, para que la carpeta \nolinkurl{intermedios/} quede completa y el proceso se pueda reproducir. Al final se revisa que cada ruta del índice exista, y en nuestra corrida faltaron 0 rutas y sobraron 0 archivos.
+\end{itemize}

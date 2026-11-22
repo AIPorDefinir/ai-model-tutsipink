@@ -5,9 +5,13 @@ on:
     branches: [main]
     paths: [docs/pvg/**, .github/workflows/pages.yml]
   workflow_dispatch:
+  # Todos los días a las 9:00 (hora de CDMX)
+  schedule:
+    - cron: "0 15 * * *"
 
 permissions:
   contents: read
+  issues: read
   pages: write
   id-token: write
 
@@ -23,6 +27,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v7
+      # Regenera data.json con los issues y el Project; no se hace commit, solo se publica
+      - name: Actualizar los datos del PVG
+        run: python3 docs/pvg/build_data.py
+        env:
+          GH_TOKEN: ${{ secrets.PVG_TOKEN || github.token }}
       # Solo los archivos de la página; las fuentes del PVG se quedan en el repo
       - run: mkdir _site && cp docs/pvg/{index.html,app.js,style.css,data.json} _site/
       - uses: actions/configure-pages@v6

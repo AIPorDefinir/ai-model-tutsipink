@@ -1,0 +1,4 @@
+model,rmse,mae,r2,test_rows
+Línea base de ruta,9.3641,5.7438,0.6059,3451535
+Regresión lineal,8.1931,5.3829,0.6983,3451535
+GBT (max_depth=8),6.7765,4.1894,0.7936,3451535

@@ -1,0 +1,58 @@
+\subsection{Dataset}\label{sec:dataset}
+
+El dataset es la carpeta \nolinkurl{dataset_bcs/}, que está en el bucket de S3 del equipo con la siguiente estructura.
+
+\begin{verbatim}
+dataset_bcs/
+    imagenes/
+        posterior/<id_vaca>/<foto>.jpg
+        lateral_izq/<id_vaca>/<foto>.jpg
+        lateral_der/<id_vaca>/<foto>.jpg
+        descartadas/<id_vaca>/<foto>.jpg
+    indice_imagenes.csv
+    vacas.csv
+    evaluaciones.csv
+    tiempos.csv
+    LEEME.md
+\end{verbatim}
+
+\begin{table}[H]
+  \centering
+  \caption{Resumen del dataset.}
+  \label{tab:dataset}
+  \begin{tabular}{ll}
+    \toprule
+    Concepto & Valor \\
+    \midrule
+    Fotos & 580 de 77 vacas \\
+    Fotos para entrenar & 551 de 76 vacas \\
+    Evaluaciones de BCS & 108 (106 de vacas que entran al entrenamiento) \\
+    Pliegues & 5, separados por vaca \\
+    Tamaño & 2.80 GB \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Las rutas de los CSV son relativas a \nolinkurl{dataset_bcs/}, así que al descargar el dataset hay que conservar esta estructura. El nombre del bucket no se escribe en el repositorio, porque los notebooks lo leen del secreto de Colab \texttt{S3\_BUCKET}, y en el bucket el contenido de \nolinkurl{dataset_bcs/} está bajo el prefijo \nolinkurl{bcs/}. La primera carga del dataset se hizo a mano desde la consola de S3, subiendo la carpeta completa. La sección de carga del notebook reproduce esa carga y la verifica, comparando cada archivo con el del bucket, y en nuestra corrida los 583 archivos que genera el notebook son iguales a los del bucket.
+
+\subsubsection*{Comparación entre pandas y PySpark}
+
+El paso de integración, el diseño de prueba y la construcción de la etiqueta también los programamos con PySpark, en un contenedor Docker con Java 11 y Spark 3.5.0. Lo hicimos para practicar un enfoque que serviría si el volumen creciera. Los scripts de esa versión están en la carpeta \nolinkurl{src/bigdata/pyspark/} del repositorio.
+
+Las dos versiones generaron exactamente el mismo índice. Con este volumen, PySpark tardó unas 40 veces más en total, por el costo de arrancar Spark (mediana de 5 corridas, \nolinkurl{tiempos.csv} del bucket).
+
+\begin{table}[H]
+  \centering
+  \caption{Tiempos de pandas y PySpark (mediana de 5 corridas).}
+  \label{tab:tiempos}
+  \begin{tabular}{lrrr}
+    \toprule
+    Versión & Total (s) & Arranque de sesión (s) & Procesamiento (s) \\
+    \midrule
+    pandas & 0.229 & No aplica & 0.027 \\
+    PySpark (modo local) & 9.237 & 1.798 & 6.492 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Por eso el notebook usa pandas y PySpark queda como comparación. En el módulo de Big Data del repositorio (\nolinkurl{reports/bigdata/}) concluimos que, con este volumen, el proyecto no necesita un enfoque de Big Data y que pandas es suficiente. La medición de tiempo, CPU y memoria de cada etapa con los datos actuales se corre en \nolinkurl{src/notebooks/bigdata/medicion_recursos.ipynb} y sus resultados quedan en \nolinkurl{reports/bigdata/resultados/}.

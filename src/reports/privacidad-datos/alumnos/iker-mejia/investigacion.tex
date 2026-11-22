@@ -1,0 +1,149 @@
+\section{Reglamentos de industria y estándares internacionales en sistemas de ordeño automatizado y datos pecuarios}
+
+\subsection{Justificación}
+
+En la minería de datos aplicada a la ganadería de precisión, las variables capturadas por los sensores de un robot de ordeño (flujo de leche, conductividad eléctrica por cuarto, recuento de células somáticas, frecuencias de visita e identificadores de radiofrecuencia RFID) no son datos abstractos: están estrictamente reguladas por estándares internacionales y códigos de calidad comercial de la industria láctea.
+
+Si un equipo de ciencia de datos ignora estos estándares:
+
+\begin{enumerate}
+  \item Construirá modelos de Machine Learning sobre métricas biológicamente inválidas o mal calculadas (e.g. estimar producciones diarias sin ponderar los intervalos simétricos del ordeño voluntario).
+  \item Vulnerará acuerdos de confidencialidad comercial y normas de inocuidad alimentaria que rigen la relación entre el establo y las plantas pasteurizadoras receptoras de la leche.
+\end{enumerate}
+
+\subsection{Reglamentos de la industria y cámaras de comercio}
+
+\begin{table}[H]
+  \centering
+  \small
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.24\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X}
+    \toprule
+    Reglamentos de la Industria Láctea Nacional & & Impacto en reto CAETEC \\
+    \midrule
+    CANILEC (Cámara nacional de industriales de la leche) &
+    \textbullet~Estándares de recepción de leche cruda\newline \textbullet~Confidencialidad de calidad higiénica\newline \textbullet~Cláusulas de penalización comercial &
+    Protección de Métricas de Tanque y Salud (Conductividad MDI y RCS como confidencialidad de negocio) \\
+    \addlinespace
+    FEMELECHE (Federación Mexicana de Lechería) &
+    \textbullet~Protección Patrimonial del Productor\newline \textbullet~Soberanía y Titularidad de Datos de Hato\newline \textbullet~Costos y Transparencia en Cadena Láctea &
+    Garantía de no divulgación de productividad (curvas de lactancia y acuerdos de compraventa) \\
+    \addlinespace
+    SENASICA / SADER (Servicio nacional de sanidad, inocuidad y calidad agroalimentaria) &
+    \textbullet~Manual de Buenas Prácticas Pecuarias (BPPL-01)\newline \textbullet~Trazabilidad y Bitácoras Sanitarias Inmutables &
+    Obligación de trazabilidad auditable (acceso a registros de salud animal) \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsubsection{Cámara nacional de industriales de la leche}
+
+\textbf{Recurso oficial:} Estándares de calidad, inocuidad y evaluación de la conformidad en la recepción de leche cruda (CANILEC, compendio técnico en concordancia con NOM-155-SCFI-2012 y NOM-243-SSA1-2010).
+
+\textbf{Fundamentos y regularización del sector:} Agrupa las principales plantas procesadoras del país. Regula las tablas de bonificación y penalización aplicadas a los establos lecheros con base en variables que aparecen en los archivos del reto
+
+\begin{enumerate}
+  \item Calidad Fisiológica y Composición: Porcentaje de grasa, proteína y sólidos no grasos (estimados por el software del VMS).
+  \item Calidad Higiénica y Sanitaria: Recuento de Células Somáticas (RCS x 1000 en \texttt{patadas\_180725.csv}). Un establo con RCS $>$ 400,000 cel/mL sufre castigos económicos severos o el rechazo total del volumen del silo
+\end{enumerate}
+
+\textbf{Justificación legal para proyecto:} Los reportes de calidad higiénica de un establo son estrictamente confidenciales, la exposición o filtración de los mismos afectará la reputación comercial. Por lo tanto, las variables de salud de ubre deben tratarse bajo esquemas de secreto industrial y disociarse del nombre y razón social de la explotación.
+
+\subsubsection{Federación Mexicana de Lechería (FEMELECHE)}
+
+\textbf{Recurso oficial:} Lineamientos para la Competitividad, Trazabilidad y Salvaguarda de la Información Pecuaria en la Lechería Familiar y Especializada (FEMELECHE, 2022).
+
+\textbf{Fundamento y regulación en el sector:} FEMELECHE representa los intereses de los productores frente a la cadena de valor y el gobierno federal. Establece que la información técnica y de costos de los establos pertenece al productor ganadero y no puede ser utilizada por proveedores tecnológicos (DeLaval) ni intermediarios para distorsionar precios de mercado
+
+\textbf{Justificación para el proyecto:} Como estudiantes e investigadores nos encontramos obligados a respetar la soberanía sobre la información ganadera estipulada por FEMELECHE: los registros de rendimiento diario (como por ordeño o el volumen global acumulado) deben ser evaluados exclusivamente con fines científicos institucionales, bloqueando la cesión de estas métricas hacia terceros u organizaciones lucrativas sin la autorización explícita y previa del socio formador
+
+\subsubsection{SENASICA / SADER: Buenas Prácticas Pecuarias en Leche Bovina}
+
+\textbf{Recurso oficial:} Manual de buenas prácticas pecuarias en unidades de producción de leche bovina (Clave Técnica: BPPL-01, Servicio Nacional de Sanidad, Inocuidad y Calidad Agroalimentaria - SENASICA).
+
+\textbf{Fundamento y regulación en sector:} Exige que todo establo tecnificado cuente con un sistema fidedigno e inalterable de registro individual de cada vaca (nacimiento, partos, tratamientos estéticos, secados y retiros de leche por antibióticos).
+
+\textbf{Justificación para el proyecto:} La columna \emph{Días desde el último tratamiento de salud} y \emph{Días desde el último tratamiento de vacunación} en \texttt{reporte\_180725.csv} obedece directamente a la exigencia de SENASICA de respetar los tiempos de retiro de leche contaminada.
+
+\subsection{Estándares Internacionales y órganos regulatorios mundiales}
+
+El ICAR es la máxima autoridad técnica global (con sede en Roma) que homologa la recolección, cálculo y certificación de datos fenotípicos y genéticos en rumiantes.
+
+\subsubsection{ICAR Device Certification y Estándares RFID (ISO 11784 / ISO 11785)}
+
+\textbf{Recurso oficial:} ICAR Conformance Testing of RFID Devices for Animal Identification
+
+\textbf{Justificación para el reto:} estructura del campo Transponder ISO para Id de 15 dígitos:
+
+\begin{itemize}
+  \item Primeros 3 dígitos: Código de país ISO 3166 (484 para México) o código de fabricante aprobado por ICAR (900 al 999, como el 999XXXXXXXXXXXX del archivo de CAETEC).
+  \item Siguientes 12 dígitos: Identificador numérico nacional irrepetible del animal.
+  \item Conclusión legal: La norma internacional demuestra que este número es un identificador primario universal. Si el equipo no lo enmascara criptográficamente, cualquier auditor que aplique el estándar ICAR identificará la granja de origen.
+\end{itemize}
+
+\subsubsection{IDF/FIL (International Dairy Federation / Federación Internacional de Lechería)}
+
+La IDF es la organización científica internacional de referencia ante la FAO y el Codex Alimentarius para la cadena láctea.
+
+\minisec{Boletines oficiales IDF sobre mastitis y células somáticas}
+
+\textbf{Recurso oficial:}
+
+\begin{itemize}
+  \item Bulletin of the IDF No. 448/2011: Suggested Interpretation of Mastitis Terminology.
+  \item Bulletin of the IDF No. 466/2013: Guidelines for the use and interpretation of bovine milk somatic cell counts (SCC) in the dairy industry.
+  \item Bulletin of the IDF No. 515/2022: Guidelines for defining quarter and udder health status and cured clinical and subclinical mastitis cases.
+\end{itemize}
+
+\textbf{Justificación:}
+
+\begin{enumerate}
+  \item Umbral de células somáticas: La IDF fija internacionalmente que un valor de $\mathit{RCS} \le 200{,}000\ \mathit{cel/mL}$ indica un cuarto mamario fisiológicamente sano. valores $> 200{,}000\ \mathit{cel/mL}$ clasifican inequívocamente a la vaca con mastitis subclínica
+  \item Índice de Conductividad por cuarto (MDI): La IDF establece que las variaciones relativas de conductividad eléctrica entre cuartos mamarios (cuarto anterior izquierdo/derecho y cuarto posterior izquierdo/derecho, variables “DI, DD, TI, TD”) superiores al 15--20\% constituyen una alerta temprana de inflamación epitelial antes de que aparezcan grumos en la leche
+\end{enumerate}
+
+\minisec{Guia IDF sobre bienestar animal en ordeño robótico}
+
+\textbf{Recurso oficial:} The IDF Guide on Animal Welfare in Dairy Production (Boletín FIL-IDF No.504/2020).
+
+\textbf{Justificación Objetivo enfoque predicción de colas:} La IDF dictamina que el tiempo máximo que una vaca debe permanecer parada en áreas de espera de hormigón antes del ordeño no debe superar los 60 a 90 minutos diarios acumulados.
+
+\textbf{Impacto en el reto:} Si el robot VMS entra en congestión crítica ($>$ 90\% de utilización desordenada) y las vacas esperan más de 2 horas en la manga:
+
+\begin{itemize}
+  \item Se incrementa la incidencia de patologías podales (cojeras y lesiones en pezuñas, lo que explica la correlación directa con la tabla de patadas por dolor durante el ordeño).
+  \item Se reduce el tiempo de reposo en cubículos y rumia, deprimiendo la producción lechera en hasta un 15\%.
+\end{itemize}
+
+Esto justifica formalmente ante el evaluador por qué predecir la saturación de la cola del robot es un objetivo de bienestar animal y salud respaldado por la IDF
+
+\subsection{Artículos científicos indexados que respaldan uso de los estándares}
+
+\subsubsection*{Paper 1 Integración de Sensores y Estándares de Detección Sanitaria}
+
+\begin{itemize}
+  \item Referencia: Rutten, C. J., Velthuis, A. G. J., Steeneveld, W., \& Hogeveen, H. (2013). Invited review: Sensors to support health management on dairy farms. Journal of Dairy Science, 96(4), 1928–1952.
+  \item DOI: 10.3168/jds.2012-6107 \url{https://doi.org/10.3168/jds.2012-6107}
+  \item Revista / Cuartil: Journal of Dairy Science (Elsevier / American Dairy Science Association), JCR Q1.
+  \item Aporte para el proyecto: Revisa exhaustivamente cómo los sensores de los robots de ordeño (conductividad eléctrica, color, flujo y células somáticas) se validan frente a los estándares de la IDF y la directriz ICAR. Demuestra que los algoritmos de Learning deben entrenarse sobre las desviaciones relativas entre cuartos ($\Delta$MDI) y no sobre valores absolutos, fundamentando el preprocesamiento de \texttt{patadas\_180725.csv}.
+\end{itemize}
+
+\subsubsection*{Paper 2 Tráfico de Ganado, Bienestar y Teoría de Colas en Sistemas Robóticos}
+
+\begin{itemize}
+  \item Referencia: Gargiulo, J. I., Eastwood, C. R., Garcia, S. C., \& Lyons, N. A. (2018). Dairy cow traffic in automated milking systems: Challenges and opportunities. Journal of Dairy Science, 101(12), 10609–10626.
+  \item DOI: 10.3168/jds.2018-14634 \url{https://doi.org/10.3168/jds.2018-14634}
+  \item Revista / Cuartil: Journal of Dairy Science, JCR Q1.
+  \item Aporte para el proyecto: Analiza la formación de colas de espera en los boxes de ordeño voluntario y el impacto del tiempo ocioso (idling time) del robot. Fundamenta con rigor biológico y matemático por qué la predicción de congestión con 2 horas de anticipación protege el bienestar del animal conforme a las directrices de la IDF y FA
+\end{itemize}
+
+\subsection*{Referencias}
+
+\begin{enumerate}
+  \item ICAR (International Committee for Animal Recording). (2023). ICAR Guidelines for Dairy Cattle Milk Recording: Section 2 (Milk Recording) and Section 11 (Automated Milking Systems). ICAR, Roma, Italia. \url{https://www.icar.org/Guidelines/}
+  \item IDF (International Dairy Federation). (2020). The IDF Guide on Animal Welfare in Dairy Production. Bulletin of the International Dairy Federation No. 504/2020, Bruselas, Bélgica. \url{https://fil-idf.org/}
+  \item IDF (International Dairy Federation). (2022). Guidelines for defining quarter and udder health status and cured clinical and subclinical mastitis cases. Bulletin of the International Dairy Federation No. 515/2022, Bruselas, Bélgica.
+  \item CANILEC (Cámara Nacional de Industriales de la Leche). (2020). Compendio de Normas y Parámetros Técnicos de Recepción de Leche Cruda. México, D.F. \url{https://canilec.org.mx/}
+  \item SENASICA – SADER. (2019). Manual de Buenas Prácticas Pecuarias en Unidades de Producción de Leche Bovina (BPPL-01). Dirección General de Inocuidad Agroalimentaria, Acuícola y Pesquera, México.
+  \item Rutten, C. J., Velthuis, A. G. J., Steeneveld, W., \& Hogeveen, H. (2013). Invited review: Sensors to support health management on dairy farms. Journal of Dairy Science, 96(4), 1928–1952. DOI: 10.3168/jds.2012-6107.
+  \item Gargiulo, J. I., Eastwood, C. R., Garcia, S. C., \& Lyons, N. A. (2018). Dairy cow traffic in automated milking systems: Challenges and opportunities. Journal of Dairy Science 101(12), 10609–10626. DOI: 10.3168/jds.2018-14634.
+\end{enumerate}

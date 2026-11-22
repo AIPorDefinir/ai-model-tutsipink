@@ -1,0 +1,11 @@
+nombre: clasificacion_bcs
+tipo: embeddings_clasificacion
+extractor: resnet50_vacas
+entrada: segmentada
+protocolo: laboratorio
+semilla: 2026
+agregacion_vaca: media
+salidas: [valor_esperado, clase_mas_probable]
+lectura_oficial:
+  salida: valor_esperado
+  redondeada_025: true

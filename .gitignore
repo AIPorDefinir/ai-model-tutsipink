@@ -14,3 +14,36 @@ src/reports/**/*.toc
 src/reports/**/*.fls
 src/reports/**/*.fdb_latexmk
 src/reports/**/*.synctex.gz
+src/reports/**/*.bbl
+src/reports/**/*.bcf
+src/reports/**/*.blg
+src/reports/**/*.run.xml
+
+# PDF de los reportes: solo se versiona el de cada etapa
+src/reports/**/*.pdf
+!src/reports/01-business-understanding/main.pdf
+!src/reports/02-data-understanding/data-understanding-1/main.pdf
+!src/reports/03-data-preparation/data-preparation-1/main.pdf
+!src/reports/04-modeling/modeling-1/main.pdf
+!src/reports/05-evaluation/evaluation-1/main.pdf
+
+# macOS
+.DS_Store
+
+# Modelado: entorno virtual, cachés y pesos de las redes
+.venv/
+__pycache__/
+artifacts/
+results/
+
+# Credenciales: nunca se suben
+.env
+.env.*
+
+# Spark local
+spark-warehouse/
+metastore_db/
+derby.log
+
+# Big Data: las figuras del reporte son PDF y sí se versionan
+!src/reports/bigdata/figuras/**/*.pdf
