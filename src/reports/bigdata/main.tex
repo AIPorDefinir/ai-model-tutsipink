@@ -8,29 +8,236 @@
 
 \section{Problema y datos del proyecto}
 
-El proyecto que estamos realizando con el CAETEC tiene como objetivo predecir la condición corporal (BCS) de las vacas productoras de leche de forma automatizada a partir de imágenes. Para ello desarrollamos un modelo supervisado de regresión que estime el BCS en una escala de 1.0 a 5.0 a partir de imágenes RGB tomadas con iPhone y, cuando aporte valor medible, de la profundidad del sensor LiDAR. El desempeño se mide contra la evaluación de los expertos con dos métricas, el MAE, donde buscamos un error de 0.25 a 0.50, y el Accuracy, es decir, el porcentaje de vacas cuya predicción queda a máximo 0.25 o 0.50 puntos del experto, con metas de 70\% y 90\% respectivamente.
+El proyecto que estamos realizando con el CAETEC tiene como objetivo estimar la condición corporal (BCS) de las vacas productoras de leche de forma automatizada a partir de imágenes. Para ello desarrollamos un modelo supervisado que estima el BCS en una escala de 1.0 a 5.0 a partir de fotografías RGB tomadas con teléfonos celulares. El desempeño se mide contra la evaluación de los expertos con dos métricas. La primera es el MAE, donde buscamos un error de 0.25 a 0.50 puntos, y la segunda es el porcentaje de predicciones que quedan a máximo 0.25 o 0.50 puntos del experto, con metas de 70\% y 90\% de las vacas respectivamente.
 
-Los datos principales son las imágenes en formato .HEIC que se tomaron en la visita al CAETEC, con una vista posterior y laterales de lado izquierdo y derecho de cada vaca, junto con el BCS asignado por los expertos, que funciona como etiqueta. Cabe mencionar que el socioformador también nos compartió datos tabulares en .csv de los robots de ordeño DeLaval, como la producción de leche y el concentrado consumido, pero estos no entran en el modelo y solo los tomamos como contexto del establo. En total las imágenes suman 351 imágenes de 69 vacas, con un peso de 0.79 GB, cifras que tomamos directamente del bucket.
+Los datos principales son las fotografías de las dos visitas al CAETEC (29 de septiembre y 14 de octubre de 2026), con una vista posterior y laterales de lado izquierdo y derecho de cada vaca, junto con el BCS que asignaron los expertos, que funciona como etiqueta. Las fotos crudas son 761 archivos en formato HEIC y JPG que pesan 2.18 GB. Sin contar copias quedan 621 fotos distintas de 81 vacas (1.80 GB), y las etiquetas son 110 evaluaciones de BCS de 79 vacas, que vienen de una bitácora en Excel y de una hoja manuscrita que transcribimos a CSV. Después de la preparación, el dataset final tiene 580 fotos de 77 vacas convertidas a JPG (2.80 GB), de las cuales 551 fotos de 76 vacas se usan para entrenar, y 108 evaluaciones de BCS. El socio formador también nos compartió datos tabulares de los robots de ordeño DeLaval y un archivo de condición corporal del grupo VMS 3, pero estos no entran en el modelo y solo los tomamos como contexto del establo.
 
 \section{¿Es necesario un enfoque de Big Data?}
 
-Siendo honestos, con este volumen no es necesario. Las imágenes son pocas para lo que normalmente se usa en visión por computadora, tanto así que en nuestro análisis de riesgos el dataset chico o desbalanceado es el riesgo con mayor probabilidad de ocurrencia (85\%). La tabla de etiquetas, con una fila por imagen y su BCS, cabe sin problema en memoria, y el entrenamiento de las CNNs depende más de la GPU de la computadora con la que entrenamos que de una herramienta distribuida. Esto coincide con uno de los artículos que revisamos en el entendimiento del negocio, en el que se aplican las 4 V´s del Big Data a la ganadería bovina y se llega a la conclusión de que es más complicado obtener datos veraces que un volumen alto.
+Siendo honestos, con este volumen no es necesario, y para fundamentarlo revisamos las cinco V del Big Data con los datos del proyecto. Uno de los artículos que revisamos en el entendimiento del negocio aplica las V del Big Data a la ganadería bovina y llega a la conclusión de que es más complicado obtener datos veraces que un volumen alto, y eso es justo lo que encontramos.
 
-\section{Almacenamiento y monitoreo en AWS}
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Las cinco V del Big Data en los datos del reto.}
+  \label{tab:cinco-v}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.13\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.2\textwidth}}
+    \toprule
+    V & Qué encontramos en el reto & ¿Exige Big Data? \\
+    \midrule
+    Volumen & 2.18 GB de fotos crudas y 2.80 GB del dataset en JPG. Las tablas tienen cientos de filas, y aun con 100 veces los datos (58{,}000 fotos) la integración con pandas tarda menos de 3 segundos en Colab (sección~\ref{sec:mediciones}). & No. Todo cabe en la memoria de una sola máquina. \\
+    \addlinespace
+    Velocidad & Los datos llegan por lotes, en dos visitas al establo, y el BCS se califica a mano. No hay un flujo continuo de fotos. Los robots de ordeño sí generan registros todo el tiempo, pero son 7{,}249 eventos en 140 días para 34 vacas. & No. No hace falta procesar en tiempo real. \\
+    \addlinespace
+    Variedad & Fotos HEIC y JPG de seis teléfonos distintos con 12 resoluciones, una bitácora en Excel, una hoja manuscrita transcrita a CSV, el CSV de VMS 3 y un CSV de ordeño por vaca. & No por el volumen, pero sí pide limpiar y unificar formatos. \\
+    \addlinespace
+    Veracidad & Es el reto principal. Encontramos 136 copias exactas, 4 fotos asignadas a dos vacas, una vaca con carpetas que se enciman, 3 fotos que muestran dos vacas, 70 fotos JPG giradas y evaluaciones que difieren hasta 0.50 puntos entre fechas. La columna ``Evento BCS'' del archivo de VMS 3 no coincide con el BCS de los expertos. & No. Se resuelve con limpieza y reglas claras, no con más capacidad de cómputo. \\
+    \addlinespace
+    Valor & El valor está en la calidad de la etiqueta y en la estimación por vaca. En el entendimiento del negocio estimamos un beneficio de unos \$63{,}400 al año para un establo de 160 vacas, y el modelo final deja 57 de 76 vacas dentro de $\pm0.25$ puntos. & No. El valor no depende de procesar más datos. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
 
-Donde sí encontramos una necesidad real es en el almacenamiento, pero no por el tamaño de los datos sino por su seguridad. Las fotos nos llegaron por carpetas compartidas de Google Drive con enlaces abiertos, por ello decidimos moverlas a un bucket privado de Amazon S3 en la región de México (mx-central-1), cifrado con SSE-S3, al que solo se puede acceder por HTTPS y con el acceso público bloqueado. Cada integrante entra con su propio usuario IAM con MFA y solo puede listar, subir y descargar archivos, sin permiso para borrarlos. Para saber quién tuvo acceso a los datos y cuándo, registramos las lecturas y escrituras del bucket con CloudTrail y usamos CloudWatch para monitorear la actividad y el gasto, con una alerta si el costo pasa de \$1 USD al mes. Además, S3 cobra solo por lo que se guarda y maneja bien archivos como las fotos, lo que nos da margen si se hacen más visitas.
+En resumen, solo la variedad y la veracidad representan un reto real, y los dos se atienden con limpieza de datos y no con procesamiento distribuido. La tabla de etiquetas, con una fila por imagen y su BCS, cabe sin problema en memoria, y el entrenamiento de las CNN depende más de la GPU de la computadora con la que entrenamos que de una herramienta distribuida.
+
+\section{Mediciones de tiempo, CPU y memoria}\label{sec:mediciones}
+
+Para no quedarnos solo con el argumento, medimos cada etapa del procesamiento con los datos reales del bucket. La medición se corrió en el notebook \nolinkurl{src/notebooks/bigdata/medicion_recursos.ipynb}, en una máquina de Google Colab con 2 núcleos lógicos y 13.6 GB de RAM, Python 3.13, pandas 2.2.3, PySpark 3.5.3 y Java 17. De cada etapa registramos el tiempo, el tiempo de CPU (100\% equivale a un núcleo ocupado todo el tiempo) y la memoria máxima, que en PySpark incluye la de la JVM. La integración se corrió 5 veces con cada implementación y 3 veces con el volumen simulado, y reportamos la mediana.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Tiempo, CPU y memoria de cada etapa en Colab (mediana de las corridas).}
+  \label{tab:mediciones}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.2\textwidth}rrr}
+    \toprule
+    Etapa & Implementación & Tiempo (s) & CPU (\%) & Memoria (MB) \\
+    \midrule
+    Descarga de S3 (761 archivos, 2.18 GB) & boto3 & 341.2 & 5.8 & 144 \\
+    Inventario y huellas SHA-256 (761 archivos) & Python & 15.7 & 78.5 & 144 \\
+    Conversión a JPG (580 fotos) & Pillow, 4 hilos & 468.7 & 163.7 & 1{,}735 \\
+    \addlinespace
+    Integración con los datos reales (580 fotos) & pandas & 0.99 & 101.3 & 107 \\
+     & PySpark local & 36.89 & 158.8 & 849 \\
+    \addlinespace
+    Integración con 10 veces los datos (5{,}800 fotos) & pandas & 0.92 & 112.8 & 115 \\
+     & PySpark local & 38.23 & 161.2 & 948 \\
+    \addlinespace
+    Integración con 100 veces los datos (58{,}000 fotos) & pandas & 2.69 & 104.1 & 195 \\
+     & PySpark local & 48.74 & 162.8 & 972 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+La integración es la parte que se programó en pandas y en PySpark. Une las fotos, las vistas y las evaluaciones, calcula la etiqueta de BCS de cada vaca, asigna los pliegues y escribe las tres tablas del dataset. En todas las corridas las dos versiones generaron exactamente las mismas tablas, y con los datos reales esas tablas son iguales al dataset del bucket. El volumen simulado repite todas las vacas con IDs distintos, así que no son vacas nuevas, pero sirve para ver cómo crece el tiempo.
+
+También corrimos la integración en un clúster standalone de Spark 3.5.3 con tres computadoras del equipo conectadas por Tailscale. El master y el driver corrieron en una MacBook Pro (8 núcleos y 16 GB), y los workers fueron una PC con WSL (8 núcleos y 16 GB asignados a Spark) y una MacBook Air (4 núcleos y 4 GB asignados), es decir, 12 núcleos y 20 GB para los trabajos.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Integración con los datos reales en el clúster (mediana de 5 corridas).}
+  \label{tab:cluster}
+  \begin{tabular}{lrrrr}
+    \toprule
+    Implementación & Total (s) & Arranque de sesión (s) & Procesamiento (s) & Memoria (MB) \\
+    \midrule
+    pandas (en el driver) & 0.28 & --- & 0.03 & 74 \\
+    PySpark en el clúster & 20.99 & 2.87 & 16.50 & 799 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+De estas mediciones sacamos tres conclusiones.
+
+\begin{itemize}
+  \item El tiempo del procesamiento se va en bajar las fotos de S3 y en convertirlas a JPG, que juntas tardan casi 14 minutos, y no en la parte tabular. Esas dos etapas dependen de la red y de decodificar imágenes, y ya se aceleran con varios hilos en una sola máquina.
+  \item En la integración, PySpark tarda 37 veces más que pandas en Colab y 76 veces más en el clúster, por el costo de arrancar la sesión de Spark y de coordinar las tareas entre máquinas. Además, en Colab usa unas 8 veces más memoria. Los tiempos de Colab y del clúster no se comparan directamente entre sí, porque son máquinas distintas.
+  \item Al crecer el volumen, la diferencia se reduce de 37 a 18 veces, ya que el costo fijo de Spark pesa menos. Aun así, con 100 veces los datos pandas sigue tardando menos de 3 segundos, así que el volumen tendría que crecer mucho más para que Spark convenga.
+\end{itemize}
+
+\section{Tecnologías y fases de CRISP-DM}
+
+La tabla~\ref{tab:crisp} relaciona cada tecnología con la fase de CRISP-DM donde la usamos y con lo que aporta en ella.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Tecnologías del proyecto y fase de CRISP-DM donde se usan.}
+  \label{tab:crisp}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.27\textwidth}>{\raggedright\arraybackslash}p{0.22\textwidth}>{\raggedright\arraybackslash}X}
+    \toprule
+    Tecnología & Fase de CRISP-DM & Para qué la usamos \\
+    \midrule
+    Amazon S3 (bucket privado en mx-central-1) & 2. Comprensión de los datos y 3. Preparación de los datos & Guarda los datos crudos, las vistas marcadas y el dataset final. Es la única fuente de datos del equipo. \\
+    \addlinespace
+    IAM con MFA, CloudTrail y CloudWatch & Todas las fases que tocan datos & Controlan quién entra al bucket, registran cada lectura y escritura y vigilan la actividad y el gasto. \\
+    \addlinespace
+    Google Colab, boto3 y pandas & 2. Comprensión, 3. Preparación y 4.2 Diseño de pruebas & Los notebooks bajan los datos del bucket, los describen, los limpian, arman el dataset y documentan la validación cruzada. \\
+    \addlinespace
+    Pillow y pillow-heif & 3.5 Formatear los datos & Convierten las fotos HEIC a JPG y enderezan las fotos giradas. \\
+    \addlinespace
+    \nolinkurl{marcar_vistas.html} & 3.3 Construir los datos & Página para marcar a mano la vista de cada foto, que no viene en los metadatos. \\
+    \addlinespace
+    PySpark (modo local y clúster standalone) & 3.3 Construir, 3.4 Integrar y 4.2 Diseño de pruebas & Arma el índice de imágenes, la etiqueta de BCS y los pliegues, con la misma lógica que pandas, para comparar tiempos y practicar un enfoque escalable. \\
+    \addlinespace
+    TensorFlow y Keras con GPU & 4. Modelado & Entrenan las CNN con el dataset y los pliegues que deja la preparación. \\
+    \addlinespace
+    GitHub & Todas las fases & Guarda el código, los notebooks ejecutados, los reportes y los resultados de las mediciones. Las fotos y las tablas del dataset nunca se suben. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Proceso ETL y evidencia en GitHub}
+
+El proceso de extracción, transformación y carga está en el repositorio \url{https://github.com/AIPorDefinir/ai-model-tutsipink}. Los notebooks se subieron ya ejecutados, con sus salidas, para que se pueda revisar cada paso sin volver a correrlos. Las fotos y las tablas del dataset no están en el repositorio, ya que, por la política de datos del equipo, solo viven en el bucket.
+
+\begin{itemize}
+  \item En la extracción, \nolinkurl{src/notebooks/bigdata/comprension_datos.ipynb} baja de S3 las fotos crudas, la bitácora, la hoja manuscrita, el archivo de VMS 3 y los CSV de ordeño, y los describe sin modificarlos.
+  \item En la transformación, \nolinkurl{src/notebooks/bigdata/preparacion_datos.ipynb} quita 136 copias exactas por su huella SHA-256 y excluye 45 fotos (14 de la vaca 2123, 8 repetidas entre dos vacas, 20 de vacas sin BCS y 3 que muestran dos vacas). También convierte 475 fotos a JPG y copia sin cambios 105, une las vistas marcadas a mano, calcula la etiqueta de BCS de cada vaca y asigna los 5 pliegues.
+  \item La integración también está programada como scripts en \nolinkurl{src/bigdata/pyspark/}, con una versión en pandas y otra en PySpark que corre en modo local o en un clúster. El script \nolinkurl{comparar_tiempos.py} verifica que las dos versiones generen las mismas tablas y que sean iguales al dataset del bucket.
+  \item En la carga, la sección final del notebook de preparación compara cada archivo del dataset generado con el del bucket, por tamaño y por su huella MD5. La primera carga se hizo a mano desde la consola de S3, y el notebook la reproduce y la verifica.
+\end{itemize}
+
+El resultado de esa verificación está en \nolinkurl{reports/bigdata/resultados/carga_resumen.json}. Los 583 archivos que genera el notebook (580 fotos y 3 tablas) son iguales a los del bucket en el prefijo \nolinkurl{bcs/}, y en el bucket solo hay 4 archivos más, que son las tablas intermedias y \nolinkurl{tiempos.csv}. Los demás resultados de los notebooks y del clúster están en la misma carpeta, y ninguno trae fotos ni IDs de vacas.
+
+\section{Validación cruzada k-fold}
+
+La separación en entrenamiento y validación se hace con validación cruzada de 5 pliegues por vaca. Todas las fotos de una vaca quedan en el mismo pliegue, porque si una vaca tuviera fotos en entrenamiento y en validación, el modelo podría aprender a reconocerla en lugar de aprender su BCS y las métricas saldrían infladas (\textit{data leakage}). Los pliegues no son aleatorios, ya que ordenamos las vacas por su BCS y las repartimos en rotación, de modo que cada pliegue tiene BCS bajos, medios y altos y el reparto sale igual en cada corrida.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Vacas, fotos y BCS de cada pliegue.}
+  \label{tab:pliegues}
+  \begin{tabular}{lrrrrrrr}
+    \toprule
+    Pliegue & Vacas & Fotos & Posterior & Lateral izq. & Lateral der. & BCS medio & Evaluaciones \\
+    \midrule
+    0 & 16 & 146 & 67 & 43 & 36 & 2.99 & 25 \\
+    1 & 15 & 69 & 42 & 16 & 11 & 2.96 & 21 \\
+    2 & 15 & 113 & 49 & 25 & 39 & 2.98 & 19 \\
+    3 & 15 & 138 & 61 & 39 & 38 & 3.02 & 22 \\
+    4 & 15 & 85 & 38 & 23 & 24 & 3.02 & 19 \\
+    \midrule
+    Total & 76 & 551 & 257 & 146 & 148 & & 106 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+La ejecución está documentada en \nolinkurl{src/notebooks/bigdata/validacion_cruzada.ipynb}, con el mismo esquema de la fase de Modelado. En la rotación $k$, el pliegue $k$ no se usa, el pliegue $(k + 1) \bmod 5$ es la validación y los otros tres son el entrenamiento. Al juntar las 5 rotaciones, cada vaca queda exactamente una vez en validación. El notebook comprueba que cada vaca tenga un solo pliegue, que ninguna foto idéntica quede en dos pliegues, que en ninguna rotación se compartan vacas entre conjuntos y que cada vaca se valide una sola vez, y en nuestra corrida no encontró ninguna fuga.
+
+Para probar el esquema de principio a fin corrimos un modelo base que no mira las fotos. A todas las vacas de validación les asigna la mediana del BCS de las vacas de entrenamiento, que salió 3.0 en las 5 rotaciones.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Modelo base en las 5 rotaciones.}
+  \label{tab:modelo-base}
+  \begin{tabular}{lrrrrr}
+    \toprule
+    Rotación & Pliegue de validación & Vacas & MAE & Dentro de $\pm0.25$ & Dentro de $\pm0.50$ \\
+    \midrule
+    0 & 1 & 15 & 0.342 & 8 (53.3\%) & 13 (86.7\%) \\
+    1 & 2 & 15 & 0.333 & 8 (53.3\%) & 13 (86.7\%) \\
+    2 & 3 & 15 & 0.317 & 8 (53.3\%) & 14 (93.3\%) \\
+    3 & 4 & 15 & 0.317 & 8 (53.3\%) & 14 (93.3\%) \\
+    4 & 0 & 16 & 0.383 & 8 (50.0\%) & 13 (81.2\%) \\
+    \midrule
+    Total & & 76 & 0.339 & 40 (52.6\%) & 67 (88.2\%) \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Contra cada evaluación real de los expertos (106 evaluaciones), el modelo base tiene un MAE de 0.321, con 58.5\% dentro de $\pm0.25$ y 89.6\% dentro de $\pm0.50$. Este es el piso con el que comparamos los modelos de la fase de Modelado, y el modelo final lo supera con 57 de 76 vacas dentro de $\pm0.25$. Los resultados por pliegue y por rotación están en \nolinkurl{resumen_pliegues.csv} y \nolinkurl{rotaciones_modelo_base.csv}, en la carpeta de resultados.
+
+\section{Almacenamiento y flujo de los datos}
+
+Donde sí encontramos una necesidad real es en el almacenamiento, pero no por el tamaño de los datos sino por su seguridad. Las fotos nos llegaron por carpetas compartidas de Google Drive con enlaces abiertos, por ello decidimos moverlas a un bucket privado de Amazon S3 en la región de México (mx-central-1), cifrado con SSE-S3, al que solo se puede acceder por HTTPS y con el acceso público bloqueado. Cada integrante entra con su propio usuario IAM con MFA y solo puede listar, subir y descargar archivos, sin permiso para borrarlos. Para saber quién tuvo acceso a los datos y cuándo, registramos las lecturas y escrituras del bucket con CloudTrail, y usamos CloudWatch para monitorear la actividad y el gasto, con una alerta si el costo pasa de \$1 USD al mes. Además, S3 cobra solo por lo que se guarda y maneja bien archivos como las fotos, lo que nos da margen si se hacen más visitas.
+
+Los datos pasan por las siguientes etapas, y la tabla~\ref{tab:flujo} indica qué transformación recibe cada uno, qué salida genera y dónde se guarda.
+
+\begin{table}[H]
+  \centering
+  \small
+  \caption{Transformaciones, salidas y almacenamiento de los datos.}
+  \label{tab:flujo}
+  \begin{tabularx}{\textwidth}{>{\raggedright\arraybackslash}p{0.2\textwidth}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{0.21\textwidth}>{\raggedright\arraybackslash}p{0.2\textwidth}}
+    \toprule
+    Entrada & Transformación & Salida & Dónde se guarda \\
+    \midrule
+    Fotos de las dos visitas en Google Drive & Migración al bucket, sin cambios & 761 archivos HEIC y JPG (2.18 GB) & S3, \nolinkurl{data/fotosextraidas/} \\
+    \addlinespace
+    Bitácora, hoja manuscrita y archivo de VMS 3 & Transcripción de la hoja a CSV y migración al bucket & Tablas de etiquetas y de contexto & S3, \nolinkurl{data/csv/} \\
+    \addlinespace
+    CSV de ordeño & Migración al bucket, sin cambios & 34 CSV, uno por vaca & S3, \nolinkurl{ordenos/} \\
+    \addlinespace
+    Fotos crudas & Quitar copias y exclusiones, convertir a JPG y enderezar & 580 fotos JPG (2.80 GB) & Colab, de forma temporal \\
+    \addlinespace
+    Fotos JPG & Marcar a mano la vista de cada foto & \nolinkurl{vistas.csv} & S3, \nolinkurl{bcs/intermedios/} \\
+    \addlinespace
+    Fotos JPG, vistas y etiquetas & Integrar, calcular la etiqueta de BCS y asignar los pliegues, con pandas o PySpark & Dataset con las fotos por vista y tres tablas (\nolinkurl{indice_imagenes.csv}, \nolinkurl{vacas.csv} y \nolinkurl{evaluaciones.csv}) & S3, \nolinkurl{bcs/}, y las tablas de trabajo en \nolinkurl{bcs/intermedios/} \\
+    \addlinespace
+    Dataset & Verificación de la carga, validación cruzada y mediciones & Resultados agregados, sin fotos ni IDs de vacas & GitHub, \nolinkurl{reports/bigdata/resultados/} \\
+    \addlinespace
+    Dataset & Entrenamiento de las CNN & Modelos y métricas & Computadora del equipo y reporte de Modelado \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+La figura~\ref{fig:arquitectura} muestra el mismo flujo con los componentes de AWS. Lo que se procesa en Colab vive en \nolinkurl{/content} y se borra al cerrar la sesión, así que la copia permanente de los datos siempre es la del bucket. En el clúster solo se usaron las tres tablas del dataset y las vistas, y lo que se guardó fueron los tiempos y la verificación.
 
 \input{figuras/arquitectura}
 
 \section{Uso de PySpark con fines educativos}
 
-Aun así, decidimos usar PySpark, y queremos dejar claro el porqué. No lo hacemos porque los datos lo necesiten, sino porque nos permite practicar un enfoque que sí sería necesario si el proyecto se implementara de manera formal en el CAETEC, con cámaras fijas y el BCS de todo el establo evaluado de forma frecuente. Con Spark armamos el índice de imágenes, es decir, la tabla que relaciona cada foto en S3 con su vaca, su vista y su BCS, y lo limpiamos ahí mismo, de forma que ese código podría correr en un clúster sin reescribirse.
+Aun así, decidimos usar PySpark, y queremos dejar claro el porqué. No lo hacemos porque los datos lo necesiten, sino porque nos permite practicar un enfoque que sí sería necesario si el proyecto se implementara de manera formal en el CAETEC, con cámaras fijas y el BCS de todo el establo evaluado de forma frecuente. Con Spark armamos el índice de imágenes, es decir, la tabla que relaciona cada foto con su vaca, su vista y su BCS, junto con la etiqueta y los pliegues, y el mismo código corre en modo local o en un clúster sin reescribirse, como lo probamos con el clúster de tres máquinas.
 
-Por otro lado, también nos ayuda con la reproducibilidad. Al definir estas transformaciones como un pipeline y no como celdas sueltas en un notebook, cualquier integrante puede volver a correrlo y obtener los mismos resultados, incluida la separación en pliegues para la validación cruzada k-fold. Esta separación la hacemos por vaca y no por foto, ya que tener fotos de la misma vaca en Train y Test provocaría Data Leakage. Finalmente, corremos PySpark en modo local y lo comparamos contra pandas; esperamos que con este volumen Spark sea incluso más lento por el costo de iniciar la sesión, y eso también lo vamos a reportar.
+Por otro lado, también nos ayuda con la reproducibilidad. Al definir estas transformaciones como scripts y no como celdas sueltas en un notebook, cualquier integrante puede volver a correrlos y obtener los mismos resultados, incluida la separación en pliegues para la validación cruzada. Como esperábamos, con este volumen Spark es más lento que pandas por el costo de iniciar la sesión, y las mediciones de la sección~\ref{sec:mediciones} lo confirman.
 
 \section{Conclusión}
 
-Con base en la cantidad de datos que tenemos, concluimos que el proyecto no necesita un enfoque de Big Data y que pandas es suficiente. Lo que sí justificamos es un almacenamiento en la nube seguro, auditable y de bajo costo con S3, CloudTrail y CloudWatch, así como el uso de PySpark como ejercicio de aprendizaje y como preparación en caso de que el proyecto llegue a implementarse formalmente en el establo.
+Con base en las cinco V y en las mediciones, concluimos que el proyecto no necesita un enfoque de Big Data y que pandas es suficiente. El volumen cabe en una sola máquina, los datos llegan por lotes, y el tiempo se va en bajar y convertir las fotos y no en el procesamiento tabular, donde PySpark tarda de 37 a 76 veces más que pandas. Los retos reales del proyecto son la variedad y, sobre todo, la veracidad de los datos, y los atendemos con limpieza y reglas claras. Lo que sí justificamos es un almacenamiento en la nube seguro, auditable y de bajo costo con S3, IAM, CloudTrail y CloudWatch, así como el uso de PySpark como ejercicio de aprendizaje y como preparación en caso de que el proyecto llegue a implementarse formalmente en el establo, con un flujo continuo de fotos.
 
 \section*{Referencias}
 \addcontentsline{toc}{section}{Referencias}
@@ -41,6 +248,7 @@ Con base en la cantidad de datos que tenemos, concluimos que el proyecto no nece
 \item Amazon Web Services. (s.~f.). \emph{What is Amazon CloudWatch?} \url{https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/WhatIsCloudWatch.html}
 \item Amazon Web Services. (s.~f.). \emph{What is AWS CloudTrail?} \url{https://docs.aws.amazon.com/awscloudtrail/latest/userguide/cloudtrail-user-guide.html}
 \item Apache Software Foundation. (s.~f.). \emph{PySpark Overview}. \url{https://spark.apache.org/docs/latest/api/python/index.html}
+\item Apache Software Foundation. (s.~f.). \emph{Spark Standalone Mode}. \url{https://spark.apache.org/docs/latest/spark-standalone.html}
 \item \emph{Using big data in cattle practice}. Web of Science, WOS:000454457600004. \url{https://www.webofscience.com/wos/woscc/full-record/WOS:000454457600004}
 \end{list}
 
