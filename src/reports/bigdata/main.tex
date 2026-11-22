@@ -14,7 +14,7 @@ Los datos principales son las fotografías de las dos visitas al CAETEC (29 de s
 
 \section{¿Es necesario un enfoque de Big Data?}
 
-Siendo honestos, con este volumen no es necesario, y para fundamentarlo revisamos las cinco V del Big Data con los datos del proyecto. Uno de los artículos que revisamos en el entendimiento del negocio aplica las V del Big Data a la ganadería bovina y llega a la conclusión de que es más complicado obtener datos veraces que un volumen alto, y eso es justo lo que encontramos.
+Con este volumen no es necesario. Para fundamentarlo revisamos las cinco V del Big Data con los datos del proyecto. Uno de los artículos que revisamos en el entendimiento del negocio aplica las V del Big Data a la ganadería bovina y llega a la conclusión de que es más complicado obtener datos veraces que un volumen alto, y eso es justo lo que encontramos.
 
 \begin{table}[H]
   \centering
@@ -29,20 +29,20 @@ Siendo honestos, con este volumen no es necesario, y para fundamentarlo revisamo
     \addlinespace
     Velocidad & Los datos llegan por lotes, en dos visitas al establo, y el BCS se califica a mano. No hay un flujo continuo de fotos. Los robots de ordeño sí generan registros todo el tiempo, pero son 7{,}249 eventos en 140 días para 34 vacas. & No. No hace falta procesar en tiempo real. \\
     \addlinespace
-    Variedad & Fotos HEIC y JPG de seis teléfonos distintos con 12 resoluciones, una bitácora en Excel, una hoja manuscrita transcrita a CSV, el CSV de VMS 3 y un CSV de ordeño por vaca. & No por el volumen, pero sí pide limpiar y unificar formatos. \\
+    Variedad & Fotos HEIC y JPG de seis teléfonos distintos con 12 resoluciones, una bitácora en Excel, una hoja manuscrita transcrita a CSV, el CSV de VMS 3 y un CSV de ordeño por vaca. & No. Lo que exige es limpiar y unificar formatos. \\
     \addlinespace
-    Veracidad & Es el reto principal. Encontramos 136 copias exactas, 4 fotos asignadas a dos vacas, una vaca con carpetas que se enciman, 3 fotos que muestran dos vacas, 70 fotos JPG giradas y evaluaciones que difieren hasta 0.50 puntos entre fechas. La columna ``Evento BCS'' del archivo de VMS 3 no coincide con el BCS de los expertos. & No. Se resuelve con limpieza y reglas claras, no con más capacidad de cómputo. \\
+    Veracidad & Es el reto principal. Encontramos 136 copias exactas, 4 fotos asignadas a dos vacas, una vaca con carpetas que se enciman, 3 fotos que muestran dos vacas, 70 fotos JPG giradas y evaluaciones que difieren hasta 0.50 puntos entre fechas. La columna ``Evento BCS'' del archivo de VMS 3 no coincide con el BCS de los expertos. & No. Se resuelve con limpieza y reglas claras. \\
     \addlinespace
     Valor & El valor está en la calidad de la etiqueta y en la estimación por vaca. En el entendimiento del negocio estimamos un beneficio de unos \$63{,}400 al año para un establo de 160 vacas, y el modelo final deja 57 de 76 vacas dentro de $\pm0.25$ puntos. & No. El valor no depende de procesar más datos. \\
     \bottomrule
   \end{tabularx}
 \end{table}
 
-En resumen, solo la variedad y la veracidad representan un reto real, y los dos se atienden con limpieza de datos y no con procesamiento distribuido. La tabla de etiquetas, con una fila por imagen y su BCS, cabe sin problema en memoria, y el entrenamiento de las CNN depende más de la GPU de la computadora con la que entrenamos que de una herramienta distribuida.
+En resumen, solo la variedad y la veracidad representan un reto real, y los dos se atienden con limpieza de datos. La tabla de etiquetas, con una fila por imagen y su BCS, cabe sin problema en memoria, y el entrenamiento de las CNN lo limita la GPU de la computadora con la que entrenamos.
 
 \section{Mediciones de tiempo, CPU y memoria}\label{sec:mediciones}
 
-Para no quedarnos solo con el argumento, medimos cada etapa del procesamiento con los datos reales del bucket. La medición se corrió en el notebook \archivo{src/notebooks/bigdata/medicion_recursos.ipynb}, en una máquina de Google Colab con 2 núcleos lógicos y 13.6 GB de RAM, Python 3.13, pandas 2.2.3, PySpark 3.5.3 y Java 17. De cada etapa registramos el tiempo, el tiempo de CPU (100\% equivale a un núcleo ocupado todo el tiempo) y la memoria máxima, que en PySpark incluye la de la JVM. La integración se corrió 5 veces con cada implementación y 3 veces con el volumen simulado, y reportamos la mediana.
+Para respaldar este análisis medimos cada etapa del procesamiento con los datos reales del bucket. La medición se corrió en el notebook \archivo{src/notebooks/bigdata/medicion_recursos.ipynb}, en una máquina de Google Colab con 2 núcleos lógicos y 13.6 GB de RAM, Python 3.13, pandas 2.2.3, PySpark 3.5.3 y Java 17. De cada etapa registramos el tiempo, el tiempo de CPU (100\% equivale a un núcleo ocupado todo el tiempo) y la memoria máxima, que en PySpark incluye la de la JVM. La integración se corrió 5 veces con cada implementación y 3 veces con el volumen simulado, y reportamos la mediana.
 
 \begin{table}[H]
   \centering
@@ -91,7 +91,7 @@ También corrimos la integración en un clúster standalone de Spark 3.5.3 con t
 De estas mediciones sacamos tres conclusiones.
 
 \begin{itemize}
-  \item El tiempo del procesamiento se va en bajar las fotos de S3 y en convertirlas a JPG, que juntas tardan casi 14 minutos, y no en la parte tabular. Esas dos etapas dependen de la red y de decodificar imágenes, y ya se aceleran con varios hilos en una sola máquina.
+  \item La mayor parte del tiempo se va en bajar las fotos de S3 y en convertirlas a JPG, que juntas tardan casi 14 minutos, mientras que la parte tabular tarda menos de un segundo con pandas. Esas dos etapas dependen de la red y de decodificar imágenes, y ya se aceleran con varios hilos en una sola máquina.
   \item En la integración, PySpark tarda 37 veces más que pandas en Colab y 76 veces más en el clúster, por el costo de arrancar la sesión de Spark y de coordinar las tareas entre máquinas. Además, en Colab usa unas 8 veces más memoria. Los tiempos de Colab y del clúster no se comparan directamente entre sí, porque son máquinas distintas.
   \item Al crecer el volumen, la diferencia se reduce de 37 a 18 veces, ya que el costo fijo de Spark pesa menos. Aun así, con 100 veces los datos pandas sigue tardando menos de 3 segundos, así que el volumen tendría que crecer mucho más para que Spark convenga.
 \end{itemize}
@@ -212,7 +212,7 @@ La tabla~\ref{tab:tecnologias} explica para qué usamos cada tecnología princip
   \addlinespace
   PySpark (modo local y clúster standalone) & Arma el índice de imágenes, la etiqueta de BCS y los pliegues, y en Modelado reparte las fotos y las tareas por pliegue. & El mismo código corre en modo local o en un clúster sin reescribirse, así que el proyecto queda listo si el volumen crece. Con este volumen es más lento que pandas, y lo medimos. \\
   \addlinespace
-  TensorFlow, Keras y PyTorch con GPU & Entrenan la CNN propia y extraen las características con las redes preentrenadas. & ConvNeXt-Tiny viene en Keras, y la ResNet-50 de vacas (Nagy et al., 2023) y EVA02 están publicadas para PyTorch, así que cada red se usa con su librería. El entrenamiento depende de la GPU y no de una herramienta distribuida. \\
+  TensorFlow, Keras y PyTorch con GPU & Entrenan la CNN propia y extraen las características con las redes preentrenadas. & ConvNeXt-Tiny viene en Keras, y la ResNet-50 de vacas (Nagy et al., 2023) y EVA02 están publicadas para PyTorch, así que cada red se usa con su librería. El entrenamiento corre en la GPU de una sola computadora. \\
   \addlinespace
   GitHub & Guarda el código, los notebooks ejecutados, los reportes y los resultados de las mediciones. & Deja evidencia que cualquiera puede revisar sin subir datos, ya que las fotos y las tablas del dataset nunca se suben. \\
 \end{xltabular}
@@ -319,7 +319,7 @@ Contra cada evaluación real de los expertos (106 evaluaciones), el modelo base 
 
 \section{Almacenamiento y flujo de los datos}
 
-Donde sí encontramos una necesidad real es en el almacenamiento, pero no por el tamaño de los datos sino por su seguridad. Las fotos nos llegaron por carpetas compartidas de Google Drive con enlaces abiertos, por ello decidimos moverlas a un bucket privado de Amazon S3 en la región de México (mx-central-1), cifrado con SSE-S3, al que solo se puede acceder por HTTPS y con el acceso público bloqueado. Cada integrante entra con su propio usuario IAM con MFA y solo puede listar, subir y descargar archivos, sin permiso para borrarlos. Para saber quién tuvo acceso a los datos y cuándo, registramos las lecturas y escrituras del bucket con CloudTrail, y usamos CloudWatch para monitorear la actividad y el gasto, con una alerta si el costo pasa de \$1 USD al mes. Además, S3 cobra solo por lo que se guarda y maneja bien archivos como las fotos, lo que nos da margen si se hacen más visitas.
+La necesidad real que encontramos está en el almacenamiento, por la seguridad de los datos. Las fotos nos llegaron por carpetas compartidas de Google Drive con enlaces abiertos, por ello decidimos moverlas a un bucket privado de Amazon S3 en la región de México (mx-central-1), cifrado con SSE-S3, al que solo se puede acceder por HTTPS y con el acceso público bloqueado. Cada integrante entra con su propio usuario IAM con MFA y solo puede listar, subir y descargar archivos, sin permiso para borrarlos. Para saber quién tuvo acceso a los datos y cuándo, registramos las lecturas y escrituras del bucket con CloudTrail, y usamos CloudWatch para monitorear la actividad y el gasto, con una alerta si el costo pasa de \$1 USD al mes. Además, S3 cobra solo por lo que se guarda y maneja bien archivos como las fotos, lo que nos da margen si se hacen más visitas.
 
 Los datos pasan por las siguientes etapas, y la tabla~\ref{tab:flujo} indica qué transformación recibe cada uno, qué salida genera y dónde se guarda.
 
@@ -359,15 +359,15 @@ Lo que se procesa en Colab vive en \nolinkurl{/content} y se borra al cerrar la 
 
 \section{Uso de PySpark con fines educativos}
 
-Aun así, decidimos usar PySpark, y queremos dejar claro el porqué. No lo hacemos porque los datos lo necesiten, sino porque nos permite practicar un enfoque que sí sería necesario si el proyecto se implementara de manera formal en el CAETEC, con cámaras fijas y el BCS de todo el establo evaluado de forma frecuente. Con Spark armamos el índice de imágenes, es decir, la tabla que relaciona cada foto con su vaca, su vista y su BCS, junto con la etiqueta y los pliegues, y el mismo código corre en modo local o en un clúster sin reescribirse, como lo probamos con el clúster de tres máquinas.
+Aun así, decidimos usar PySpark para practicar un enfoque que haría falta si el proyecto se implementara de manera formal en el CAETEC, con cámaras fijas y el BCS de todo el establo evaluado de forma frecuente. Con Spark armamos el índice de imágenes, es decir, la tabla que relaciona cada foto con su vaca, su vista y su BCS, junto con la etiqueta y los pliegues, y el mismo código corre en modo local o en un clúster sin reescribirse, como lo probamos con el clúster de tres máquinas.
 
 En Modelado también usamos Spark, en modo local y con cada uno de los modelos que probamos. Al quitar el fondo de las fotos y al extraer sus características con las redes preentrenadas, Spark reparte las fotos por pliegue y aplica la red a cada grupo, y después corre en paralelo las tareas de cada pliegue externo, que devuelven las predicciones por vaca. Ese código está en \carpeta{src/modeling/}.
 
-Por otro lado, también nos ayuda con la reproducibilidad. Al definir estas transformaciones como scripts y no como celdas sueltas en un notebook, cualquier integrante puede volver a correrlos y obtener los mismos resultados, incluida la separación en pliegues para la validación cruzada. Como esperábamos, con este volumen Spark es más lento que pandas por el costo de iniciar la sesión, y las mediciones de la sección~\ref{sec:mediciones} lo confirman.
+Por otro lado, también nos ayuda con la reproducibilidad. Como estas transformaciones están escritas como scripts, cualquier integrante puede volver a correrlos y obtener los mismos resultados, incluida la separación en pliegues para la validación cruzada. Como esperábamos, con este volumen Spark es más lento que pandas por el costo de iniciar la sesión, y las mediciones de la sección~\ref{sec:mediciones} lo confirman.
 
 \section{Conclusión}
 
-Con base en las cinco V y en las mediciones, concluimos que el proyecto no necesita un enfoque de Big Data y que pandas es suficiente. El volumen cabe en una sola máquina, los datos llegan por lotes, y el tiempo se va en bajar y convertir las fotos y no en el procesamiento tabular, donde PySpark tarda de 37 a 76 veces más que pandas. Los retos reales del proyecto son la variedad y, sobre todo, la veracidad de los datos, y los atendemos con limpieza y reglas claras. Lo que sí justificamos es un almacenamiento en la nube seguro, auditable y de bajo costo con S3, IAM, CloudTrail y CloudWatch, así como el uso de PySpark como ejercicio de aprendizaje y como preparación en caso de que el proyecto llegue a implementarse formalmente en el establo, con un flujo continuo de fotos.
+Con base en las cinco V y en las mediciones, concluimos que el proyecto no necesita un enfoque de Big Data y que pandas es suficiente. El volumen cabe en una sola máquina, los datos llegan por lotes, y la mayor parte del tiempo se va en bajar y convertir las fotos. En el procesamiento tabular, pandas tarda menos de un segundo y PySpark, de 37 a 76 veces más. Los retos reales del proyecto son la variedad y, sobre todo, la veracidad de los datos, y los atendemos con limpieza y reglas claras. Lo que sí justificamos es un almacenamiento en la nube seguro, auditable y de bajo costo con S3, IAM, CloudTrail y CloudWatch, así como el uso de PySpark como ejercicio de aprendizaje y como preparación en caso de que el proyecto llegue a implementarse formalmente en el establo, con un flujo continuo de fotos.
 
 \section*{Referencias}
 \addcontentsline{toc}{section}{Referencias}
