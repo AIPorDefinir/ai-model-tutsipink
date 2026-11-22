@@ -162,6 +162,30 @@ Para exportar la configuración de AWS (solo lectura y sin datos de la cuenta), 
 python3 config/bigdata/aws/exportar_config_aws.py --bucket <nombre-del-bucket> --perfil <perfil> --salida config/bigdata/aws/exportado
 ```
 
+### Resultados
+
+Los archivos de [reports/bigdata/resultados/](reports/bigdata/resultados/) salen de los notebooks y de los scripts de PySpark, y se suben con el contenido tal como salió. Ninguno tiene IDs de vacas ni datos de las fotos.
+
+| Archivo | Lo genera | Contenido |
+|---|---|---|
+| `carga_resumen.json` | `src/notebooks/bigdata/preparacion_datos.ipynb` (sección de carga) | Comparación del dataset generado con el del bucket: archivos iguales, distintos, faltantes y sobrantes |
+| `resumen_pliegues.csv` | `src/notebooks/bigdata/validacion_cruzada.ipynb` | Vacas, fotos por vista, BCS y evaluaciones de cada pliegue |
+| `rotaciones_modelo_base.csv` | `src/notebooks/bigdata/validacion_cruzada.ipynb` | Conjuntos de cada rotación y métricas del modelo base |
+| `tiempos_recursos.csv` | `src/notebooks/bigdata/medicion_recursos.ipynb` | Tiempo, CPU y memoria de cada etapa y de cada corrida |
+| `entorno.json` | `src/notebooks/bigdata/medicion_recursos.ipynb` | Núcleos, memoria y versiones de la máquina donde se midió |
+| `tiempos_cluster.csv` | `src/bigdata/pyspark/comparar_tiempos.py` con `--master spark://<ip>:7077` | Tiempo, CPU y memoria de cada corrida de pandas y de Spark en el clúster (`tiempos.csv` de esa corrida) |
+| `verificacion_cluster.json` | `src/bigdata/pyspark/comparar_tiempos.py` con `--master spark://<ip>:7077` | Si pandas y Spark coinciden y si coinciden con el bucket (`verificacion.json` de esa corrida) |
+
+El clúster es un Spark standalone 3.5.3 (PySpark 3.5.3, Python 3.10.22 y Java 17) con tres máquinas conectadas por Tailscale. El master y el driver corren en la MacBook Pro, y los workers son la PC (dentro de WSL) y la MacBook Air.
+
+| Máquina | Rol | Núcleos de la máquina | RAM de la máquina | Asignado en Spark |
+|---|---|---|---|---|
+| MacBook Pro | master y driver | 8 | 16 GB | driver: 3 GB |
+| PC con WSL | worker | 12 | 24 GB (los que ve WSL) | 8 núcleos y 16 GB |
+| MacBook Air | worker | 8 | 8 GB | 4 núcleos y 4 GB |
+
+Los workers suman 12 núcleos y 20 GB para los jobs, y la MacBook Pro no ejecuta tareas, solo coordina y recibe las tablas finales. En `verificacion_cluster.json`, el campo `maquina` describe solo la MacBook Pro, donde corrió el driver.
+
 ## Módulo de Privacidad y seguridad de datos
 
 Antes estaba en el repositorio [Reto-Privacidad-y-Seguridad-de-Datos](https://github.com/AIPorDefinir/Reto-Privacidad-y-Seguridad-de-Datos), que se fusionó aquí con todo su historial de commits. Ese repositorio se archiva, así que el módulo solo se actualiza aquí.
