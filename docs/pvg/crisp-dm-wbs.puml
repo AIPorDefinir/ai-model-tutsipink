@@ -82,7 +82,7 @@
 *** 4.6 Ajustar el modelado al clasificador
 **** 4.6.1 Clasificación contra regresión y lectura de la salida
 **** 4.6.2 Ajustes de arquitectura del Modelo 5
-**** 4.6.3 Quitar el Modelo 3 y reorganizar Modelado alrededor del clasificador
+**** 4.6.3 Reestructurar Modelado: modelo base, mejoras y modelo elegido
 **** 4.6.4 Figuras autoexplicativas de Modelado
 *** 4.7 Alinear Modelado con el documento en Drive
 **** 4.7.1 Cifras de la corrida final del Modelo 5 en Modelado
