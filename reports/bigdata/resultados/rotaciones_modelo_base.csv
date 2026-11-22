@@ -1,0 +1,7 @@
+rotacion,pliegue sin usar,pliegue de validación,pliegues de entrenamiento,vacas de entrenamiento,fotos de entrenamiento,vacas de validación,fotos de validación,prediccion_modelo_base,vaca_n,vaca_mae,vaca_dentro_0.25,vaca_pct_0.25,vaca_dentro_0.50,vaca_pct_0.50,eval_n,eval_mae,eval_dentro_0.25,eval_pct_0.25,eval_dentro_0.50,eval_pct_0.50
+0,0,1,"2, 3, 4",45,336,15,69,3.0,15,0.3417,8,53.3,13,86.7,21,0.3571,12,57.1,19,90.5
+1,1,2,"0, 3, 4",46,369,15,113,3.0,15,0.3333,8,53.3,13,86.7,19,0.2895,12,63.2,17,89.5
+2,2,3,"0, 1, 4",46,300,15,138,3.0,15,0.3167,8,53.3,14,93.3,22,0.2955,13,59.1,20,90.9
+3,3,4,"0, 1, 2",46,328,15,85,3.0,15,0.3167,8,53.3,14,93.3,19,0.2763,12,63.2,18,94.7
+4,4,0,"1, 2, 3",45,320,16,146,3.0,16,0.3828,8,50.0,13,81.2,25,0.37,13,52.0,21,84.0
+total,,,,,,,,,76,0.3388,40,52.6,67,88.2,106,0.3208,62,58.5,95,89.6
