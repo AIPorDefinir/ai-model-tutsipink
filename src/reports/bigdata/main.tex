@@ -225,7 +225,9 @@ Los datos pasan por las siguientes etapas, y la tabla~\ref{tab:flujo} indica qu�
   \end{tabularx}
 \end{table}
 
-La figura~\ref{fig:arquitectura} muestra el mismo flujo con los componentes de AWS. Lo que se procesa en Colab vive en \nolinkurl{/content} y se borra al cerrar la sesión, así que la copia permanente de los datos siempre es la del bucket. En el clúster solo se usaron las tres tablas del dataset y las vistas, y lo que se guardó fueron los tiempos y la verificación.
+La figura~\ref{fig:arquitectura} muestra el mismo flujo con los componentes de AWS. A la izquierda están los integrantes, que entran a AWS con su usuario de IAM y MFA, y las carpetas de Google Drive de donde salieron los datos, que se migraron al bucket de S3. En el centro está la región mx-central-1, con IAM, el bucket con sus prefijos, CloudTrail, que registra cada lectura y escritura del bucket, y CloudWatch, que vigila la actividad y el gasto. A la derecha está el procesamiento, y las flechas numeradas siguen el orden en que se mueven los datos. En la flecha 1, los notebooks de Colab extraen los datos crudos del bucket para describirlos y prepararlos. En la flecha 2, el dataset final y las vistas marcadas se cargan de regreso al bucket, en los prefijos \nolinkurl{bcs/} y \nolinkurl{bcs/intermedios/}. En la flecha 3, PySpark lee las tablas del dataset para construir el índice, la etiqueta y los pliegues, en modo local o en el clúster. En la flecha 4, el dataset se usa para entrenar las CNN en la GPU del equipo, y en la flecha 5 los resultados agregados de los notebooks y de las mediciones se suben a GitHub, sin fotos ni tablas del dataset.
+
+Lo que se procesa en Colab vive en \nolinkurl{/content} y se borra al cerrar la sesión, así que la copia permanente de los datos siempre es la del bucket. En el clúster solo se usaron las tres tablas del dataset y las vistas, y lo que se guardó fueron los tiempos y la verificación.
 
 \input{figuras/arquitectura}
 
