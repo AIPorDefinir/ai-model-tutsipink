@@ -83,6 +83,9 @@ Cada corrección que salió de la retroalimentación se trabaja en un issue, y l
 | 6. Deployment | Despliegue en el celular contra la nube | [#94](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/94) | Pendiente |
 | Big Data | Cinco V y mediciones de tiempo, CPU y memoria, relación con CRISP-DM, evidencia del ETL y de la validación k-fold, y flujo de datos del almacenamiento | [#123](https://github.com/AIPorDefinir/ai-model-tutsipink/issues/123) | Atendida |
 
+## Resultados y entrega del proyecto
+Pendiente...
+
 ## Módulo de Big Data
 
 Antes estaba en el repositorio [Reto-Datos](https://github.com/AIPorDefinir/Reto-Datos), que se fusionó aquí con todo su historial de commits. Ese repositorio se archiva, así que el módulo solo se actualiza aquí.
