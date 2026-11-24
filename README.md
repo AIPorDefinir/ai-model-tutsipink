@@ -63,7 +63,7 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 | 5. Data Preparation 1 | [Iteración 1](reports/05-data-preparation/data-preparation.pdf) | 15 de noviembre |
 | 6. Modeling 1 | [Iteración 1](reports/06-modeling/modeling.pdf) | 15 de noviembre |
 | 7. Evaluation 1 | [Iteración 1](reports/07-evaluation/evaluation.pdf) | 20 de noviembre |
-| 8. Deployment 1 | [Pendiente](reports/08-deployment/) | Pendiente |
+| 8. Deployment 1 | [Pendiente](reports/08-deployment/deployment.pdf) | Pendiente |
 
 
 Fuentes: LaTeX en [src/reports/](src/reports/), notebooks en [src/notebooks/](src/notebooks/) y código del modelado en [src/modeling/](src/modeling/).
