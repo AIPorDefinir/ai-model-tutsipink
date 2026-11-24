@@ -54,17 +54,17 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 
 ## CRISP-DM
 
-| Fase | Documento | Fecha |
-|---|---|---|
-| 1. Business Understanding | [Versión 1](reports/01-business-understanding/business-understanding-1/) | 7 de octubre |
-|  | [Versión 2](reports/01-business-understanding/business-understanding-2/Business%20Understanding.pdf) | 2 de noviembre |
-|  | [Versión 3](reports/01-business-understanding/business-understanding-3/Business%20Understanding.pdf) | 12 de noviembre |
-| 2. Data Understanding | [Versión 1](reports/02-data-understanding/data-understanding-1/Data%20Understanding.pdf) | 2 de noviembre |
-|  | [Versión 2](reports/02-data-understanding/data-understanding-2/Data%20Understanding.pdf) | 15 de noviembre |
-| 3. Data Preparation | [Versión 1](reports/03-data-preparation/data-preparation-1/Data%20Preparation.pdf) | 2 de noviembre |
-| 4. Modeling | [Versión 1](reports/04-modeling/modeling-1/Modeling.pdf) | 15 de noviembre |
-| 5. Evaluation | [Versión 1](reports/05-evaluation/evaluation-1/Evaluation.pdf) | 20 de noviembre |
-| 6. Deployment | Pendiente |  |
+| Fase | Document | Fecha |
+| --- | --- | --- |
+| 1. Business Understanding | [Versión 1](reports/01-business-understanding/) | 7 de octubre |
+| 2. Data Understanding | [Versión 1](reports/02-data-understanding/data-understanding.pdf) | 2 de noviembre |
+| 3. Business Understanding | [Versión 2](reports/03-business-understanding/business-understanding.pdf) | 12 de noviembre |
+| 4. Data Understanding | [Versión 2](reports/04-data-understanding/data-understanding.pdf) | 15 de noviembre |
+| 5. Data Preparation | [Versión 1](reports/05-data-preparation/data-preparation.pdf) | 15 de noviembre |
+| 6. Modeling | [Versión 1](reports/06-modeling/modeling.pdf) | 15 de noviembre |
+| 7. Evaluation | [Versión 1](reports/07-evaluation/evaluation.pdf) | 20 de noviembre |
+| 8. Deployment | [Pendiente](reports/08-deployment/) | Pendiente |
+
 
 Fuentes: LaTeX en [src/reports/](src/reports/), notebooks en [src/notebooks/](src/notebooks/) y código del modelado en [src/modeling/](src/modeling/).
 
