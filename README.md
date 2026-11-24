@@ -56,14 +56,14 @@ Las fuentes (código, notebooks y LaTeX) están en `src/` y los documentos que s
 
 | Fase | Document | Fecha |
 | --- | --- | --- |
-| 1. Business Understanding | [Versión 1](reports/01-business-understanding/) | 7 de octubre |
-| 2. Data Understanding | [Versión 1](reports/02-data-understanding/data-understanding.pdf) | 2 de noviembre |
-| 3. Business Understanding | [Versión 2](reports/03-business-understanding/business-understanding.pdf) | 12 de noviembre |
-| 4. Data Understanding | [Versión 2](reports/04-data-understanding/data-understanding.pdf) | 15 de noviembre |
-| 5. Data Preparation | [Versión 1](reports/05-data-preparation/data-preparation.pdf) | 15 de noviembre |
-| 6. Modeling | [Versión 1](reports/06-modeling/modeling.pdf) | 15 de noviembre |
-| 7. Evaluation | [Versión 1](reports/07-evaluation/evaluation.pdf) | 20 de noviembre |
-| 8. Deployment | [Pendiente](reports/08-deployment/) | Pendiente |
+| 1. Business Understanding 1 | [Iteración 1](reports/01-business-understanding/) | 7 de octubre |
+| 2. Data Understanding 1 | [Iteración 1](reports/02-data-understanding/data-understanding.pdf) | 2 de noviembre |
+| 3. Business Understanding 2 | [Iteración 2](reports/03-business-understanding/business-understanding.pdf) | 12 de noviembre |
+| 4. Data Understanding 2 | [Iteración 2](reports/04-data-understanding/data-understanding.pdf) | 15 de noviembre |
+| 5. Data Preparation 1 | [Iteración 1](reports/05-data-preparation/data-preparation.pdf) | 15 de noviembre |
+| 6. Modeling 1 | [Iteración 1](reports/06-modeling/modeling.pdf) | 15 de noviembre |
+| 7. Evaluation 1 | [Iteración 1](reports/07-evaluation/evaluation.pdf) | 20 de noviembre |
+| 8. Deployment 1 | [Pendiente](reports/08-deployment/) | Pendiente |
 
 
 Fuentes: LaTeX en [src/reports/](src/reports/), notebooks en [src/notebooks/](src/notebooks/) y código del modelado en [src/modeling/](src/modeling/).
