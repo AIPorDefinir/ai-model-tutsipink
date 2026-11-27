@@ -8,17 +8,17 @@ import pandas as pd
 from . import protocol
 
 ESQUEMA_VACAS = ("modelo string, salida string, k int, id_vaca string, fold int, bcs double, pred double, "
-                 "bcs_min_train double, bcs_max_train double, info string")
+                 "bcs_min_train double, bcs_max_train double, info string, conjunto string")
 COLUMNAS_VACAS = [c.split()[0] for c in ESQUEMA_VACAS.split(", ")]
 
 
-def filas_vacas(vacas, modelo, salida, k, fold_ev, y_tr, info):
+def filas_vacas(vacas, modelo, salida, k, fold_ev, y_tr, info, conjunto="validacion"):
     """vacas: DataFrame id_vaca, bcs, pred (una fila por vaca evaluada)."""
     return pd.DataFrame({
         "modelo": modelo, "salida": salida, "k": k, "id_vaca": vacas["id_vaca"].astype(str).to_numpy(),
         "fold": fold_ev, "bcs": vacas["bcs"].to_numpy(float), "pred": vacas["pred"].to_numpy(float),
         "bcs_min_train": float(np.min(y_tr)), "bcs_max_train": float(np.max(y_tr)),
-        "info": json.dumps(info, default=float, ensure_ascii=False),
+        "info": json.dumps(info, default=float, ensure_ascii=False), "conjunto": conjunto,
     })[COLUMNAS_VACAS]
 
 
@@ -55,11 +55,15 @@ def tarea_clasificacion(cfg, k):
 
     t0 = time.time()
     E, y, vacas, fold, ev, tr = _datos_embeddings(cfg, k)
-    salidas, info = classification.seleccion_anidada(E, y, vacas, fold, tr, ev)
+    # Mismo modelo ya elegido con el TRAIN: predice VAL ((k+1) mod 5) y PRUEBA (pliegue k)
+    pr = protocol.prueba(fold, k, cfg["protocolo"])
+    protocol.revisar(vacas, pr, tr | ev)
+    salidas, info, prueba = classification.seleccion_anidada(E, y, vacas, fold, tr, ev, pr)
     info["segundos"] = round(time.time() - t0, 1)
     fold_ev = protocol.pliegue_evaluado(k, cfg["protocolo"])
-    return pd.concat([filas_vacas(v, cfg["nombre"], dec, k, fold_ev, y[tr], info) for dec, v in salidas.items()],
-                     ignore_index=True)
+    filas = [filas_vacas(v, cfg["nombre"], dec, k, fold_ev, y[tr], info) for dec, v in salidas.items()]
+    filas += [filas_vacas(v, cfg["nombre"], dec, k, k, y[tr], info, "prueba") for dec, v in prueba.items()]
+    return pd.concat(filas, ignore_index=True)
 
 
 def correr(t):

@@ -80,8 +80,14 @@ def puntaje(p, y):
     return dentro(e), float(np.abs(e).mean())
 
 
-def seleccion_anidada(E, y, vacas, fold, tr, ev, cs=CS, pesos_clase=PESOS_CLASE):
-    """Devuelve {decodificación: DataFrame(id_vaca, bcs, pred)} para las vacas de `ev`, y la elección interna."""
+def vacas_de(P, vacas, y, clases, dec):
+    c, yc, am, vesp = decodificar_vacas(P, vacas, y, clases)
+    return pd.DataFrame({"id_vaca": c, "bcs": yc, "pred": am if dec == "clase_mas_probable" else vesp})
+
+
+def seleccion_anidada(E, y, vacas, fold, tr, ev, pr=None, cs=CS, pesos_clase=PESOS_CLASE):
+    """Devuelve {decodificación: DataFrame(id_vaca, bcs, pred)} para las vacas de `ev`, la elección interna, y lo mismo
+    para las vacas de `pr`."""
     clases = clases_de(y[tr])
     internos = sorted(set(fold[tr]))
     tabla = {d: {} for d in DECODIFICACIONES}
@@ -96,13 +102,16 @@ def seleccion_anidada(E, y, vacas, fold, tr, ev, cs=CS, pesos_clase=PESOS_CLASE)
             yy = np.concatenate(yy)
             tabla["clase_mas_probable"][(C, pc)] = puntaje(np.concatenate(pa), yy)
             tabla["valor_esperado"][(C, pc)] = puntaje(np.concatenate(pe), yy)
-    salida, eleccion = {}, {}
+    pr = np.zeros(len(y), bool) if pr is None else pr
+    salida, eleccion, prueba = {}, {}, {}
     for dec in DECODIFICACIONES:
         t = tabla[dec]
         mejor = min(t, key=lambda k: (-t[k][0], round(t[k][1], 9), k[0], pesos_clase.index(k[1])))
-        P = ajustar_predecir(E[tr], y[tr], vacas[tr], E[ev], *mejor, clases)
-        c, yc, am, vesp = decodificar_vacas(P, vacas[ev], y[ev], clases)
-        salida[dec] = pd.DataFrame({"id_vaca": c, "bcs": yc, "pred": am if dec == "clase_mas_probable" else vesp})
+        P = ajustar_predecir(E[tr], y[tr], vacas[tr], np.vstack([E[ev], E[pr]]), *mejor, clases)
+        n = int(ev.sum())
+        salida[dec] = vacas_de(P[:n], vacas[ev], y[ev], clases, dec)
+        if pr.any():
+            prueba[dec] = vacas_de(P[n:], vacas[pr], y[pr], clases, dec)
         eleccion[dec] = {"C": mejor[0], "peso_clase": mejor[1], "vacas_025_interno": t[mejor][0],
                          "mae_interno": t[mejor][1]}
-    return salida, {"clases": clases.tolist(), "eleccion": eleccion}
+    return salida, {"clases": clases.tolist(), "eleccion": eleccion}, prueba
