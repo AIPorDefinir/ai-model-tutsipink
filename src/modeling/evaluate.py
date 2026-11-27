@@ -44,11 +44,19 @@ def revisar_cobertura(vacas: DataFrame):
         raise ValueError(f"{dup} vacas evaluadas más de una vez en alguna salida")
 
 
+def por_salida(total):
+    return {r["salida"]: {k: (None if v != v else v) for k, v in r.drop(["modelo", "salida"]).to_dict().items()}
+            for _, r in total.iterrows()}
+
+
 def evaluar(spark, modelo, salidas=None, oficial=None):
     vacas = spark.read.parquet(str(config.PREDICCIONES / modelo))
     if salidas:
         vacas = vacas.filter(F.col("salida").isin(*salidas))
     vacas = vacas.cache()
+    # Las métricas principales son del VAL; la PRUEBA (pliegue k, Modelo 5) va aparte en resumen["prueba"]
+    prueba = vacas.filter(F.col("conjunto") == "prueba")
+    vacas = vacas.filter(F.col("conjunto") == "validacion")
     revisar_cobertura(vacas)
     total = metricas(vacas).toPandas()
     pliegues = metricas(vacas, ("modelo", "salida", "fold")).toPandas().sort_values(["salida", "fold"])
@@ -59,14 +67,18 @@ def evaluar(spark, modelo, salidas=None, oficial=None):
         "modelo": modelo,
         "titulo": config.MODELOS.get(modelo, modelo),
         "metrica_principal": "vacas con |error| <= 0.25 (n/N), por vaca",
-        "salidas": {r["salida"]: {k: (None if v != v else v) for k, v in r.drop(["modelo", "salida"]).to_dict().items()}
-                    for _, r in total.iterrows()},
+        "salidas": por_salida(total),
         "por_pliegue": pliegues.drop(columns="modelo").to_dict("records"),
         "elecciones_por_pliegue": [{"salida": r["salida"], "k": int(r["k"]), **json.loads(r["info"])}
                                    for _, r in elecciones.iterrows()],
     }
     if oficial:
         resumen["lectura_oficial"] = lectura_oficial(resumen["salidas"], oficial)
+    if prueba.take(1):
+        revisar_cobertura(prueba)
+        resumen["prueba"] = {"salidas": por_salida(metricas(prueba).toPandas())}
+        if oficial:
+            resumen["prueba"]["lectura_oficial"] = lectura_oficial(resumen["prueba"]["salidas"], oficial)
     (carpeta / "resumen.json").write_text(json.dumps(resumen, indent=2, ensure_ascii=False, default=float))
     for _, r in total.sort_values("salida").iterrows():
         print(f"{config.MODELOS.get(modelo, modelo)} [{r['salida']}]", flush=True)
@@ -76,6 +88,8 @@ def evaluar(spark, modelo, salidas=None, oficial=None):
         o = resumen["lectura_oficial"]
         lectura = o["salida"] + (", salida redondeada a 0.25" if o["redondeada_025"] else ", continua")
         print(f"Lectura oficial ({lectura}): {texto(o)}", flush=True)
+        if "prueba" in resumen:
+            print(f"Lectura oficial en PRUEBA (pliegue k): {texto(resumen['prueba']['lectura_oficial'])}", flush=True)
     print(f"Resumen agregado en {carpeta / 'resumen.json'}", flush=True)
     return resumen
 

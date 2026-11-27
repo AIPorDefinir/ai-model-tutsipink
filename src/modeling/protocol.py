@@ -26,6 +26,12 @@ def particion(fold, k, protocolo="laboratorio", n=config.K):
     return ev, tr
 
 
+def prueba(fold, k, protocolo="laboratorio"):
+    # En «laboratorio» el pliegue k no entra al TRAIN ni a ninguna elección; solo se predice al final
+    fold = np.asarray(fold).astype(int)
+    return fold == k if protocolo == "laboratorio" else np.zeros(len(fold), bool)
+
+
 def pliegue_paro(k, protocolo="laboratorio", n=config.K):
     """Pliegue interno del TRAIN que decide la época de paro: el siguiente al evaluado."""
     return (pliegue_evaluado(k, protocolo, n) + 1) % n
